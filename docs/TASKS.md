@@ -24,8 +24,11 @@ Status: TODO · DOING · BLOCKED (reason) · DONE (date).
 ### T-03 Phase 1 handbook, Module 1 "What is a trade?" — DONE (2026-10-19)
 - `docs/handbook/01-what-is-a-trade.md` (EN + Roman Urdu).
 
-### T-07 Phase 1 handbook, Module 2 "Instruments and trading costs" — TODO
-- Output: `docs/handbook/02-instruments-and-costs.md`. Spec: `docs/specs/phase-01/module-02.md`.
+### T-07 Phase 1 handbook, Module 2 "Instruments and trading costs" — DONE (2026-10-19)
+- `docs/handbook/02-instruments-and-costs.md`; its worked examples are covered by tests in `tools.test.ts`.
+
+### T-08 Phase 1 handbook, Module 3 "Risk management" — TODO
+- Output: `docs/handbook/03-risk-management.md`. Spec: `docs/specs/phase-01/module-03.md`.
 
 ### T-04 Online database + login (before the wider beta) — TODO (Q4, costs to be approved)
 - Replace the persistence in `src/store/appStore.ts`/`actions.ts` with server actions (Prisma + PostgreSQL + Better Auth or Supabase Auth). Keep the same action names.

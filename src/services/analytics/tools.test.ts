@@ -46,6 +46,23 @@ describe("position size (Risk Model R1)", () => {
   });
 });
 
+describe("handbook module 2 examples", () => {
+  const lots = (inst: string, entry: string, stop: string) =>
+    positionSize({ balance: "10000", riskMode: "MONEY", riskValue: "50", entry, stopLoss: stop, spec: getSpec(inst)! });
+  it("USDJPY $50 risk, 50 pips at 150.00 → 0.15 lots", () => {
+    const r = lots("USDJPY", "150.00", "149.50");
+    expect(r.pipValuePerLot.toFixed(2)).toBe("6.67");
+    expect(r.lots.toFixed(2)).toBe("0.15");
+  });
+  it("US30 $50 risk, 50 points → 1.00 lot", () => {
+    expect(lots("US30", "42000", "41950").lots.toFixed(2)).toBe("1.00");
+  });
+  it("self-check 3: USDJPY at 140, 1 lot, 20 pips = $142.86", () => {
+    const pipValue = positionSize({ balance: "10000", riskMode: "MONEY", riskValue: "100", entry: "140.00", stopLoss: "139.80", spec: getSpec("USDJPY")! }).pipValuePerLot;
+    expect(pipValue.times(20).toFixed(2)).toBe("142.86");
+  });
+});
+
 describe("symbol mapping", () => {
   it.each([
     ["FX:EURUSD", "EURUSD"],
