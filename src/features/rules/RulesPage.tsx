@@ -19,6 +19,7 @@ import { saveRiskModel, savePersonalRules } from "@/store/actions";
 import { useApp } from "@/store/appStore";
 import { useSelectedAccount } from "@/store/hooks";
 import { Welcome } from "@/features/onboarding/Welcome";
+import { ObservedPatterns } from "./ObservedPatterns";
 
 const EMPTY_RULES: PersonalRules = { maxRiskPerTradePct: null, maxDailyLossPct: null, maxTradesPerDay: null, maxConsecutiveLosses: null, allowedSessions: [], allowedInstruments: [], minRiskReward: null };
 
@@ -30,6 +31,7 @@ export function RulesPage() {
   const models = useApp((s) => s.riskModels);
   const allTrades = useApp((s) => s.trades);
   const tz = useApp((s) => s.settings.displayTimezone);
+  const breakevenTolerance = useApp((s) => s.settings.breakevenTolerance);
   const current = useMemo(() => (account ? [...sets].filter((r) => r.accountId === account.id).sort((a, b) => b.version - a.version)[0] : undefined), [sets, account]);
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState<PersonalRules | null>(null);
@@ -152,6 +154,10 @@ export function RulesPage() {
             </>
           )}
         </Section>
+      )}
+
+      {trades.length > 0 && (
+        <ObservedPatterns trades={trades} startingBalance={account.startingBalance} currency={currency} timeZone={tz} breakevenTolerance={breakevenTolerance} />
       )}
 
       <RiskModels accountId={account.id} trades={trades} startingBalance={account.startingBalance} models={models.filter((m) => m.accountId === account.id)} tz={tz} currency={currency} />
