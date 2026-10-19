@@ -9,16 +9,17 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "npx serve out",
+    "start": "python3 -m http.server 4173 --directory out",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "e2e": "playwright test",
+    "e2e": "playwright test e2e/smoke.spec.ts e2e/flows.spec.ts",
     "check": "npm run typecheck && npm run lint && npm run test && npm run build",
-    "specs:split": "python3 scripts/split_master_prompt.py"
+    "specs:split": "python3 scripts/split_master_prompt.py",
+    "screens": "playwright test e2e/screens.spec.ts"
   },
   "dependencies": {
     "decimal.js": "10.6.0",

@@ -10,11 +10,12 @@ import { Button, Dialog, Field, Input, Select, Textarea } from "@/components/ui/
 import { type DictKey, useT } from "@/i18n";
 import { computeMetrics } from "@/services/analytics/metrics";
 import { addImportedStrategies, addManualStrategy, deleteStrategy, setStrategyActive, updateAccount } from "@/store/actions";
+import { useShallow } from "zustand/react/shallow";
 import { useApp } from "@/store/appStore";
 import { useSelectedAccount } from "@/store/hooks";
 import { parseStrategySpecs, type StrategySpec, type StrategyRule } from "./schema";
 import { StrategyReadBack } from "./StrategyReadBack";
-import { autoCheckable, checklistRules, objectivityShare, type StrategyRecord, undecidedRules } from "./types";
+import { autoCheckable, checklistRules, objectivityShare, openAmbiguities, type StrategyRecord, undecidedRules } from "./types";
 
 type StyleFilter = "" | StrategySpec["strategy"]["style"];
 
@@ -131,7 +132,7 @@ export function StrategiesPage() {
               <div className="flex flex-wrap gap-1.5 text-xs">
                 <Badge tone="muted">{t("str_objective_pct", { p: formatPct(objectivityShare(s), 0) })}</Badge>
                 <Badge tone="muted">{t("str_auto_n", { n: autoCheckable(s), total: s.spec.rules.length })}</Badge>
-                {s.spec.ambiguities.length > 0 && <Badge tone="warn">{t("str_questions_n", { n: s.spec.ambiguities.length })}</Badge>}
+                {openAmbiguities(s).length > 0 && <Badge tone="warn">{t("str_questions_n", { n: openAmbiguities(s).length })}</Badge>}
               </div>
               <div className="text-sm">
                 {m ? (
@@ -397,7 +398,7 @@ function ManualStrategyDialog({ open, onClose, onCreated }: { open: boolean; onC
 
 function CompareDialog({ open, onClose, ids, stats }: { open: boolean; onClose: () => void; ids: string[]; stats: Map<string, ReturnType<typeof computeMetrics>> }) {
   const { t } = useT();
-  const strategies = useApp((s) => s.strategies.filter((x) => ids.includes(x.id)));
+  const strategies = useApp(useShallow((s) => s.strategies.filter((x) => ids.includes(x.id))));
   return (
     <Dialog open={open} onClose={onClose} wide title={t("str_compare_title")}>
       <div className="overflow-x-auto">

@@ -12,6 +12,7 @@ import { type DictKey, useT } from "@/i18n";
 import { adherenceSplit } from "@/services/analytics/adherence";
 import { computeMetrics } from "@/services/analytics/metrics";
 import { confirmStrategy, editStrategy } from "@/store/actions";
+import { useShallow } from "zustand/react/shallow";
 import { useApp } from "@/store/appStore";
 import type { StrategyRule } from "./schema";
 import { convertSessionTime } from "./sessionTime";
@@ -26,7 +27,7 @@ const CATEGORY_ORDER: StrategyRule["category"][] = ["CONTEXT", "SETUP", "ENTRY",
 export function StrategyReadBack({ s }: { s: StrategyRecord }) {
   const { t, lang } = useT();
   const tz = useApp((st) => st.settings.displayTimezone);
-  const trades = useApp((st) => st.trades.filter((x) => x.strategyId === s.id));
+  const trades = useApp(useShallow((st) => st.trades.filter((x) => x.strategyId === s.id)));
   const be = useApp((st) => st.settings.breakevenTolerance);
   const [answers, setAnswers] = useState<Record<string, string>>(s.ambiguityAnswers);
   const spec = s.spec;

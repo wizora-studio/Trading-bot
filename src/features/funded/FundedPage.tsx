@@ -15,6 +15,7 @@ import { evaluateFunded, type RuleCheck } from "@/services/analytics/funded";
 import { getSpec, INSTRUMENTS } from "@/services/analytics/instruments";
 import { positionSize } from "@/services/analytics/positionSize";
 import { confirmFundedRules, saveFundedRules } from "@/store/actions";
+import { useShallow } from "zustand/react/shallow";
 import { useApp } from "@/store/appStore";
 import { useSelectedAccount } from "@/store/hooks";
 import { Welcome } from "@/features/onboarding/Welcome";
@@ -324,7 +325,7 @@ function RuleBoard({ set, trades, currency }: { set: FundedRuleSet; trades: Para
   const { t } = useT();
   const ev = useMemo(() => evaluateFunded(set, trades), [set, trades]);
   const money = (x: Parameters<typeof formatMoney>[0]) => formatMoney(x, currency, { sign: false });
-  const history = useApp((s) => s.fundedRuleSets.filter((r) => r.accountId === set.accountId));
+  const history = useApp(useShallow((s) => s.fundedRuleSets.filter((r) => r.accountId === set.accountId)));
 
   return (
     <div>

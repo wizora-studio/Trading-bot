@@ -18,9 +18,9 @@ export function FilterBar() {
   const tags = useMemo(() => [...new Set(all.flatMap((x) => x.mistakeTags))].sort(), [all]);
   const usedStrategies = useMemo(() => strategies.filter((s) => all.some((x) => x.strategyId === s.id)), [strategies, all]);
   const changed = JSON.stringify(filters) !== JSON.stringify(DEFAULT_FILTERS);
-  const sel = "min-w-[130px] flex-1 sm:flex-none";
+  const sel = "";
   return (
-    <div className="mb-5 flex flex-wrap items-center gap-2" role="group" aria-label={t("filters")}>
+    <div className="mb-5 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center [&>select]:sm:w-44" role="group" aria-label={t("filters")}>
       <Select aria-label={t("f_range")} value={filters.range} onChange={(e) => set({ range: e.target.value as Filters["range"] })} className={sel}>
         <option value="ALL">{t("f_range_all")}</option>
         <option value="7">{t("f_range_n", { n: 7 })}</option>

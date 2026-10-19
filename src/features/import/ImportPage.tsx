@@ -12,6 +12,7 @@ import { Button, Card, Field, Select, Section, Textarea } from "@/components/ui/
 import { type DictKey, isKey, useT } from "@/i18n";
 import { COMMON_TIMEZONES } from "@/services/analytics/time";
 import { commitImport, rollbackImport } from "@/store/actions";
+import { useShallow } from "zustand/react/shallow";
 import { useApp } from "@/store/appStore";
 import { useSelectedAccount } from "@/store/hooks";
 import { Welcome } from "@/features/onboarding/Welcome";
@@ -38,7 +39,7 @@ export function ImportPage() {
   const { t, lang } = useT();
   const router = useRouter();
   const { account, accounts } = useSelectedAccount();
-  const batches = useApp((s) => s.importBatches.filter((b) => b.accountId === account?.id));
+  const batches = useApp(useShallow((s) => s.importBatches.filter((b) => b.accountId === account?.id)));
   const displayTz = useApp((s) => s.settings.displayTimezone);
   const [rows, setRows] = useState<string[][] | null>(null);
   const [fileName, setFileName] = useState("");

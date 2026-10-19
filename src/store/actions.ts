@@ -355,7 +355,18 @@ export function loadSampleData() {
     accounts: [...d.accounts, paper, funded],
     trades: [...d.trades, ...t1, ...t2],
     fundedRuleSets: [...d.fundedRuleSets, ruleSet],
-    strategies: d.strategies.map((s) => (strategies.some((x) => x.id === s.id) ? { ...s, status: "CONFIRMED", confirmedAt: now() } : s)),
+    // Sample strategies are confirmed with their suggested defaults, so nothing is left silently open.
+    strategies: d.strategies.map((s) =>
+      strategies.some((x) => x.id === s.id)
+        ? {
+            ...s,
+            status: "CONFIRMED",
+            confirmedAt: now(),
+            ambiguityAnswers: Object.fromEntries(s.spec.ambiguities.map((a) => [a.id, a.suggestedDefault ?? "Checklist only (sample data)"])),
+            ruleDecisions: Object.fromEntries(s.spec.rules.filter((r) => r.source === "INFERRED" || r.source === "NOT_STATED").map((r) => [r.id, "CHECKLIST_ONLY" as const])),
+          }
+        : s,
+    ),
     personalRuleSets: [
       ...d.personalRuleSets,
       {

@@ -1,5 +1,5 @@
-GEMINI STRATEGY EXTRACTION PROMPT v1.0
-(Schema: strategy-spec/1.0, linked to MASTER PROMPT v2.1)
+GEMINI STRATEGY EXTRACTION PROMPT v1.1
+(Schema: strategy-spec/1.1, linked to MASTER PROMPT v4.0. The app still accepts strategy-spec/1.0 outputs.)
 
 =====================================================================
 ISTEMAL KA TAREEQA (sirf aap ke liye, yeh hissa Gemini ko copy na karein)
@@ -129,7 +129,7 @@ Output ONE valid JSON code block that follows this exact schema.
 
 ```json
 {
-  "schemaVersion": "strategy-spec/1.0",
+  "schemaVersion": "strategy-spec/1.1",
   "generatedBy": "gemini",
   "source": {
     "videos": [
@@ -142,7 +142,8 @@ Output ONE valid JSON code block that follows this exact schema.
         "accessMode": "FULL | AUDIO_OR_TRANSCRIPT_ONLY",
         "coverageNotes": ""
       }
-    ]
+    ],
+    "documents": []
   },
   "strategy": {
     "name": "",
@@ -293,7 +294,7 @@ Then output the corrected Section 15 (Ambiguities) and the complete corrected Se
 MERGE PROMPT (ek strategy ki kai videos ho jayein to)
 =====================================================================
 Below are several strategy specs, each extracted from a different video of the SAME strategy.
-Merge them into ONE spec using exactly the same output format (Sections 0 to 21) and the same JSON schema (strategy-spec/1.0).
+Merge them into ONE spec using exactly the same output format (Sections 0 to 21) and the same JSON schema (strategy-spec/1.1).
 Rules for merging:
 - Keep every rule's original video URL and timestamp. The "source.videos" list must contain all videos.
 - When videos disagree, do NOT choose one. Add the conflict to Section 15 (Ambiguities) with both versions and a question for the trader.

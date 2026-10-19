@@ -1,25 +1,38 @@
 # Progress
 
 ## Current position (2026-10-19)
-- Milestone 0 — setup: **documentation part done**, tooling part waiting for founder answers.
-- Phase 1 — teaching: not started.
-- No application code has been written (on purpose).
+**The MVP web app is built, tested, and runs.** It works fully in the browser with no server and no cost (DECISIONS D-010).
 
-## Done
-- 2026-10-19 — Read-Back of Master Prompt v4.0 given to the founder (`docs/readback/2026-10-19-master-prompt-v4.0.md`).
-- 2026-10-19 — M0-01 tracking files, AGENTS.md, CLAUDE.md, GEMINI.md.
-- 2026-10-19 — M0-02 master prompt split into 86 files under `docs/specs/` (generator: `scripts/split_master_prompt.py`).
-- 2026-10-19 — M0-03 Gemini prompt and dashboard preview stored in `docs/prompts/` and `docs/design/`.
-- 2026-10-19 — M0-04 Appendix A summary table (`docs/strategies/APPENDIX_A_SUMMARY.md`).
+## What is done
+| Area | Status | Where |
+|---|---|---|
+| Milestone 0: AGENTS.md, tracking docs, spec split, CI, lint, tests | Done | `AGENTS.md`, `docs/`, `.github/workflows/ci.yml` |
+| Design tokens (black/white/blue, light/dark) with WCAG AA contrast test | Done | `src/app/tokens.css`, `src/config/contrast.test.ts` |
+| Deterministic math engine (decimal.js): net P&L, costs, win/loss/breakeven, expectancy $ and R, profit factor, payoff, drawdown (closed), streaks, outlier share, holding time, sessions (DST), weekdays, long/short, instruments, best-day consistency, confidence framework | Done + tested | `src/services/analytics/` |
+| Funded rule engine: profit target, daily loss (initial/day-start base, reset time/zone), max loss (static / EOD trailing / intraday trailing, lock), min days, consistency (+ extra profit needed), honesty states, lifecycle, room calculator | Done + tested | `src/services/analytics/funded.ts` |
+| Personal rule compliance + cost of breaking rules; Risk models R1, R4 (ladder + circuit breaker), R5 (R:R gate, correlation cap) | Done + tested | `personalRules.ts`, `riskModels.ts`, `positionSize.ts` |
+| Imports: TradingView Account History, TradingView order history (fills → logical trades), MT5 Positions (CSV or HTML report), standard template, any CSV with column mapper, manual entry; timezone declaration, validation preview, Data Quality Score, duplicate detection, rollback | Done + tested | `src/features/import/` |
+| Demo dataset + `docs/samples/demo-trades-mt5.csv` | Done | `src/features/demo/` |
+| Pages: Dashboard, Trades (explorer + drawer), Strategies (cards, Read-Back, Gemini import, compare, activation), Funded (preset / free-text intake → Read-Back → confirm → rule board), My rules, Trading room, Trade planner (Trade Ticket), Daily journal, Charts (TradingView widget), Tools (position size + free prop firm calculator), Import, Accounts, Learn, Settings (profile, backup, delete) | Done | `src/features/*`, `src/app/*` |
+| Bilingual UI: English + Roman Urdu (TypeScript checks every key exists in both) | Done | `src/i18n/` |
+| 20 Appendix A strategies as Draft seed specs (strategy-spec/1.1) | Done | `src/features/strategies/seeds.ts` |
+| Tests: 96 unit tests, 5 E2E flows, screenshot gate at 375/768/1280 light+dark | Passing | `npm test`, `npm run e2e`, `npm run screens` |
 
-## Waiting for the founder
-- Answers to Q1–Q6 and the proposed rules C1–C10 in `docs/OPEN_QUESTIONS.md`.
+## Not built (Backlog, by design)
+AI reports and AI chat, Monte Carlo / challenge simulator, broker sync, cTrader/Match-Trader/TradeLocker/DXtrade parsers, billing, mentor sharing, PDF reports, OHLC backtesting, Chrome extension, online database + login. See `docs/BACKLOG.md`.
+
+## Known limitations (honest list)
+- TradingView export formats come from third-party guides (D-020). Please test with a real file.
+- Data lives in one browser; use Settings → Export backup to move or keep it.
+- Drawdown and funded checks use closed trades only; floating equity is not in trade files.
+- Live prices are not used anywhere; ATR and news are typed by the user.
+- Phase 1 handbook is a short version (8 lessons on the Learn page), not the full curriculum.
 
 ## Next
-1. P1-01 Phase 1, Module 1 "What is a trade?" (can start now).
-2. After Q1 and Q2: M0-05 (verify and pin the stack), then M0-06 (setup guide for your OS).
+1. Founder: follow `docs/SETUP.md`, open the app, load sample data, then import a real TradingView paper file.
+2. Answer the optional questions in `docs/OPEN_QUESTIONS.md` when ready.
+3. Before the wider beta: online database + login (D-010), MT5 tested with real prop-firm reports, more verified firm presets.
 
 ## Handover note (2026-10-19)
-- What changed: repository now holds the spec, the Gemini prompt, the design reference, and all tracking files. No code.
-- How to verify: run `python3 scripts/split_master_prompt.py` — it should print "Wrote 86 spec files and README.md" and `git status` should show no changes.
-- Next ticket: P1-01.
+- How to verify: `npm install && npm run check && npm run e2e` (e2e needs a build first; `check` builds).
+- Entry points: `src/app/*/page.tsx` → `src/features/*/…Page.tsx`; all math in `src/services/analytics/`; all state changes in `src/store/actions.ts`.

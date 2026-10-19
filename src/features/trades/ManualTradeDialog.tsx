@@ -11,6 +11,7 @@ import { isDecimalText } from "@/services/analytics/decimal";
 import { INSTRUMENTS, mapSymbol } from "@/services/analytics/instruments";
 import { parseExportTime } from "@/services/analytics/time";
 import { addManualTrade } from "@/store/actions";
+import { useShallow } from "zustand/react/shallow";
 import { useApp } from "@/store/appStore";
 
 const dec = z.string().trim().refine((v) => v === "" || isDecimalText(v));
@@ -31,8 +32,8 @@ const Schema = z.object({
 export function ManualTradeDialog({ open, onClose, accountId }: { open: boolean; onClose: () => void; accountId: string }) {
   const { t } = useT();
   const tz = useApp((s) => s.settings.displayTimezone);
-  const activeIds = useApp((s) => s.accounts.find((a) => a.id === accountId)?.activeStrategyIds ?? []);
-  const strategies = useApp((s) => s.strategies.filter((x) => activeIds.includes(x.id)));
+  const activeIds = useApp(useShallow((s) => s.accounts.find((a) => a.id === accountId)?.activeStrategyIds ?? []));
+  const strategies = useApp(useShallow((s) => s.strategies.filter((x) => activeIds.includes(x.id))));
   const [f, setF] = useState({ symbol: "EURUSD", side: "LONG" as Side, quantity: "0.10", unit: "LOTS" as QuantityUnit, open: "", close: "", entry: "", exit: "", sl: "", tp: "", gross: "", commission: "", swap: "", notes: "", strategyId: "" });
   const [err, setErr] = useState<Record<string, string>>({});
   const set = (k: keyof typeof f, v: string) => setF((p) => ({ ...p, [k]: v }));
