@@ -160,6 +160,28 @@ export function DashboardPage() {
             )}
           </Section>
 
+          <Section title={t("adv_title")} hint={t("adv_hint")}>
+            <details>
+              <summary className="min-h-11 cursor-pointer text-sm font-medium">{t("adv_show")}</summary>
+              {a.advanced.dailyCount < 30 && (
+                <div className="my-3">
+                  <Notice tone="warn">{t("adv_small", { n: a.advanced.dailyCount })}</Notice>
+                </div>
+              )}
+              <div className="grid grid-cols-2 md:grid-cols-4">
+                <KpiStat label={t("adv_sharpe")} info={<Def k="def_sharpe" />} value={formatNumber(a.advanced.sharpe)} meta={t("adv_daily_n", { n: a.advanced.dailyCount })} />
+                <KpiStat label={t("adv_sortino")} info={<Def k="def_sortino" />} value={formatNumber(a.advanced.sortino)} meta={a.advanced.sortino ? t("adv_daily_n", { n: a.advanced.dailyCount }) : t("adv_no_losing_days")} />
+                <KpiStat label={t("adv_calmar")} info={<Def k="def_calmar" />} value={formatNumber(a.advanced.calmar)} meta={a.advanced.calmar ? t("adv_annualized") : t("adv_need_90")} />
+                <KpiStat label={t("adv_sqn")} info={<Def k="def_sqn" />} value={formatNumber(a.advanced.sqn)} meta={t("adv_r_n", { n: a.advanced.rCount })} />
+                <KpiStat label={t("adv_ulcer")} info={<Def k="def_ulcer" />} value={formatNumber(a.advanced.ulcer)} meta={t("adv_closed")} />
+                <KpiStat label={t("adv_skew")} info={<Def k="def_skew" />} value={formatNumber(a.advanced.skew)} meta={t("adv_r_n", { n: a.advanced.rCount })} />
+                <KpiStat label={t("adv_kurt")} info={<Def k="def_kurt" />} value={formatNumber(a.advanced.kurtosis)} meta={t("adv_r_n", { n: a.advanced.rCount })} />
+                <KpiStat label={t("adv_tim")} info={<Def k="def_tim" />} value={formatPct(a.advanced.timeInMarket, 0)} meta={a.advanced.timeInMarket ? t("adv_tim_meta") : t("adv_need_open")} />
+                <KpiStat label={t("adv_recovery")} info={<Def k="def_recovery" />} value={formatNumber(a.dd.recoveryFactor)} meta={t("adv_dd_duration", { n: a.dd.longestDrawdownTrades })} />
+              </div>
+            </details>
+          </Section>
+
           {fundedEval && (
             <Section title={t("funded_summary")} actions={<Link href="/funded/" className="text-sm text-blue underline">{t("open_funded")}</Link>}>
               <div className="flex flex-wrap gap-2">

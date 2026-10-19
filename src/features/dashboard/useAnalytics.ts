@@ -6,6 +6,8 @@ import { bySession, byWeekday, byDirection, byInstrument } from "@/services/anal
 import { d, sum } from "@/services/analytics/decimal";
 import { balanceCurve, bestDayShare, dailyPnl, drawdownStats } from "@/services/analytics/equity";
 import { computeMetrics } from "@/services/analytics/metrics";
+import { calmar, dailyReturns, excessKurtosis, sharpe, skewness, sortino, sqn, timeInMarket, ulcerIndex } from "@/services/analytics/advanced";
+import { tradeR } from "@/services/analytics/trade";
 import { useApp } from "@/store/appStore";
 import { useAccountTrades, useSelectedAccount } from "@/store/hooks";
 
@@ -26,6 +28,20 @@ export function useAnalytics(tradesOverride?: Trade[]) {
     const dd = drawdownStats(curve, startingBalance);
     const days = dailyPnl(trades, tz);
     const best = bestDayShare(days);
+    const rs = trades.map((x) => tradeR(x, currency)).filter((x) => x !== null);
+    const daily = dailyReturns(trades, startingBalance, tz);
+    const advanced = {
+      sqn: sqn(rs),
+      skew: skewness(rs),
+      kurtosis: excessKurtosis(rs),
+      ulcer: ulcerIndex(curve),
+      sharpe: sharpe(daily),
+      sortino: sortino(daily),
+      calmar: calmar(curve, dd.maxDrawdownPctOfPeak),
+      timeInMarket: timeInMarket(trades),
+      dailyCount: daily.length,
+      rCount: rs.length,
+    };
     return {
       trades,
       allTrades: all,
@@ -42,6 +58,7 @@ export function useAnalytics(tradesOverride?: Trade[]) {
       directions: byDirection(trades, opts),
       instruments: byInstrument(trades, opts),
       opts,
+      advanced,
     };
   }, [trades, all, settings.breakevenTolerance, settings.displayTimezone, currency, startingBalance]);
 }

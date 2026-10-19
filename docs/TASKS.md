@@ -30,8 +30,12 @@ Status: TODO · DOING · BLOCKED (reason) · DONE (date).
 ### T-08 Phase 1 handbook, Module 3 "Risk management" — DONE (2026-10-19)
 - `docs/handbook/03-risk-management.md`; numbers tested in `riskMath.test.ts` (streak probability, gambler's ruin, Kelly).
 
-### T-09 Phase 1 handbook, Module 4 "Essential performance metrics" — TODO
-- Output: `docs/handbook/04-performance-metrics.md` (formula, worked example, mistakes, data needed, test cases per metric). Spec: `docs/specs/phase-01/module-04.md`.
+### T-09 Phase 1 handbook, Module 4 "Essential performance metrics" — DONE (2026-10-19)
+- `docs/handbook/04-performance-metrics.md` (27 metrics on one golden dataset, each linked to its test).
+- New engine module `advanced.ts` (SQN, skewness, kurtosis, Ulcer, daily returns, Sharpe, Sortino, Calmar, time in market) + "Advanced numbers" on the dashboard.
+
+### T-10 Phase 1 handbook, Module 5 "Expectancy and probability" — TODO
+- Output: `docs/handbook/05-expectancy-and-probability.md`. Spec: `docs/specs/phase-01/module-05.md`.
 
 ### T-04 Online database + login (before the wider beta) — TODO (Q4, costs to be approved)
 - Replace the persistence in `src/store/appStore.ts`/`actions.ts` with server actions (Prisma + PostgreSQL + Better Auth or Supabase Auth). Keep the same action names.

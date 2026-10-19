@@ -8,7 +8,7 @@
 |---|---|---|
 | Milestone 0: AGENTS.md, tracking docs, spec split, CI, lint, tests | Done | `AGENTS.md`, `docs/`, `.github/workflows/ci.yml` |
 | Design tokens (black/white/blue, light/dark) with WCAG AA contrast test | Done | `src/app/tokens.css`, `src/config/contrast.test.ts` |
-| Deterministic math engine (decimal.js): net P&L, costs, win/loss/breakeven, expectancy $ and R, profit factor, payoff, drawdown (closed), streaks, outlier share, holding time, sessions (DST), weekdays, long/short, instruments, best-day consistency, confidence framework | Done + tested | `src/services/analytics/` |
+| Deterministic math engine (decimal.js): net P&L, costs, win/loss/breakeven, expectancy $ and R, profit factor, payoff, drawdown (closed), streaks, outlier share, holding time, sessions (DST), weekdays, long/short, instruments, best-day consistency, confidence framework, advanced (SQN, Sharpe/Sortino on daily returns, Calmar, Ulcer, skew/kurtosis, time in market) | Done + tested | `src/services/analytics/` |
 | Funded rule engine: profit target, daily loss (initial/day-start base, reset time/zone), max loss (static / EOD trailing / intraday trailing, lock), min days, consistency (+ extra profit needed), honesty states, lifecycle, room calculator | Done + tested | `src/services/analytics/funded.ts` |
 | Personal rule compliance + cost of breaking rules; Risk models R1, R4 (ladder + circuit breaker), R5 (R:R gate, correlation cap) | Done + tested | `personalRules.ts`, `riskModels.ts`, `positionSize.ts` |
 | Imports: TradingView Account History, TradingView order history (fills → logical trades), MT5 Positions (CSV or HTML report), standard template, any CSV with column mapper, manual entry; timezone declaration, validation preview, Data Quality Score, duplicate detection, rollback | Done + tested | `src/features/import/` |
@@ -16,8 +16,8 @@
 | Pages: Dashboard, Trades (explorer + drawer), Strategies (cards, Read-Back, Gemini import, compare, activation), Funded (preset / free-text intake → Read-Back → confirm → rule board), My rules, Trading room, Trade planner (Trade Ticket), Daily journal, Charts (TradingView widget), Tools (position size + free prop firm calculator), Import, Accounts, Learn, Settings (profile, backup, delete) | Done | `src/features/*`, `src/app/*` |
 | Bilingual UI: English + Roman Urdu (TypeScript checks every key exists in both) | Done | `src/i18n/` |
 | 20 Appendix A strategies as Draft seed specs (strategy-spec/1.1) | Done | `src/features/strategies/seeds.ts` |
-| Seed specs as JSON (`seed/strategies/`), component gallery (`/dev/components`, dev only), Handbook Modules 1–3 (`docs/handbook/`) | Done | |
-| Tests: 125 unit tests, 5 E2E flows, screenshot gate at 375/768/1280 light+dark | Passing | `npm test`, `npm run e2e`, `npm run screens` |
+| Seed specs as JSON (`seed/strategies/`), component gallery (`/dev/components`, dev only), Handbook Modules 1–4 (`docs/handbook/`) | Done | |
+| Tests: 134 unit tests, 5 E2E flows, screenshot gate at 375/768/1280 light+dark | Passing | `npm test`, `npm run e2e`, `npm run screens` |
 
 ## Not built (Backlog, by design)
 AI reports and AI chat, Monte Carlo / challenge simulator, broker sync, cTrader/Match-Trader/TradeLocker/DXtrade parsers, billing, mentor sharing, PDF reports, OHLC backtesting, Chrome extension, online database + login. See `docs/BACKLOG.md`.
@@ -27,7 +27,7 @@ AI reports and AI chat, Monte Carlo / challenge simulator, broker sync, cTrader/
 - Data lives in one browser; use Settings → Export backup to move or keep it.
 - Drawdown and funded checks use closed trades only; floating equity is not in trade files.
 - Live prices are not used anywhere; ATR and news are typed by the user.
-- Phase 1 handbook: Modules 1–3 written; Modules 4–10 still to do (Learn page has 8 short lessons).
+- Phase 1 handbook: Modules 1–4 written; Modules 5–10 still to do (Learn page has 8 short lessons).
 
 ## Next
 1. Founder: follow `docs/SETUP.md`, open the app, load sample data, then import a real TradingView paper file.
