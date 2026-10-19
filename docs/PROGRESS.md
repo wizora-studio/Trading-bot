@@ -17,7 +17,7 @@
 | Bilingual UI: English + Roman Urdu (TypeScript checks every key exists in both) | Done | `src/i18n/` |
 | 20 Appendix A strategies as Draft seed specs (strategy-spec/1.1) | Done | `src/features/strategies/seeds.ts` |
 | Seed specs as JSON (`seed/strategies/`), component gallery (`/dev/components`, dev only), Handbook Modules 1–5 (`docs/handbook/`) | Done | |
-| Tests: 142 unit tests, 5 E2E flows, screenshot gate at 375/768/1280 light+dark | Passing | `npm test`, `npm run e2e`, `npm run screens` |
+| Tests: 143 unit tests, 5 E2E flows, screenshot gate at 375/768/1280 light+dark | Passing | `npm test`, `npm run e2e`, `npm run screens` |
 
 ## Not built (Backlog, by design)
 AI reports and AI chat, Monte Carlo / challenge simulator, broker sync, cTrader/Match-Trader/TradeLocker/DXtrade parsers, billing, mentor sharing, PDF reports, OHLC backtesting, Chrome extension, online database + login. See `docs/BACKLOG.md`.
