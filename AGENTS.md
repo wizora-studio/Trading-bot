@@ -36,6 +36,7 @@ No server, no database, no login, no secrets in Version 1 (local-first). Planned
 | UI screenshot gate (375/768/1280, light+dark) | `npm run screens` → `test-results/screens/` |
 | All gates | `npm run check` |
 | Regenerate split specs | `npm run specs:split` |
+| Rebuild in-app handbook from `docs/handbook/*.md` | `npm run handbook:build` (also runs in `npm run build`) |
 | Regenerate demo sample file | `UPDATE_SAMPLES=1 npx vitest run src/features/demo/samples.test.ts` |
 In this cloud container set `PW_CHROMIUM=/opt/pw-browsers/chromium-1194/chrome-linux/chrome` for Playwright.
 

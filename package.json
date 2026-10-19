@@ -8,7 +8,8 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/build_handbook.mjs && next build",
+    "handbook:build": "node scripts/build_handbook.mjs",
     "start": "python3 -m http.server 4173 --directory out",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
@@ -40,6 +41,7 @@
     "@types/react-dom": "19.3.0",
     "eslint": "9.39.5",
     "eslint-config-next": "16.3.8",
+    "marked": "18.0.14",
     "prettier": "3.9.10",
     "tailwindcss": "4.3.3",
     "typescript": "6.0.3",

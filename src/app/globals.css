@@ -64,6 +64,19 @@ textarea {
 }
 
 @layer components {
+/* Handbook text generated from markdown. Tokens only (black/white/blue). */
+.handbook { font-size: var(--text-md); line-height: 1.6; overflow-wrap: anywhere; }
+.handbook h2 { font-size: var(--text-lg); margin: 28px 0 8px; }
+.handbook h3 { font-size: var(--text-md); margin: 20px 0 6px; }
+.handbook p, .handbook ul, .handbook ol { margin: 8px 0; }
+.handbook ul, .handbook ol { padding-left: 22px; }
+.handbook hr { border: 0; border-top: 1px solid var(--line); margin: 16px 0; }
+.handbook code { background: var(--soft); padding: 1px 5px; border-radius: var(--radius-s); font-size: 0.9em; }
+.handbook table { display: block; overflow-x: auto; border-collapse: collapse; margin: 12px 0; max-width: 100%; }
+.handbook th, .handbook td { border: 1px solid var(--line); padding: 6px 10px; text-align: left; vertical-align: top; font-size: var(--text-sm); }
+.handbook th { background: var(--soft); }
+.handbook a { color: var(--blue); text-decoration: underline; }
+
 /* Loss patterns: hatched gray, so loss never depends on color alone. */
 .hatch {
   background: repeating-linear-gradient(135deg, var(--loss) 0 3px, transparent 3px 6px);

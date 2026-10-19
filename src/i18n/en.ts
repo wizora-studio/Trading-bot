@@ -864,7 +864,11 @@ export const en = {
   room_no_plan: "No plan for today yet.",
 
   // ---------- learn
-  learn_desc: "Short lessons and a bilingual glossary.",
+  learn_desc: "Short lessons, a glossary and the full handbook.",
+  hb_title: "Trading Analytics Handbook",
+  hb_desc: "Ten modules from \"what is a trade\" to data quality. Educational only, not financial advice.",
+  hb_back: "Back to Learn",
+  hb_open: "Open the full handbook (10 modules)",
   lessons: "Lessons",
   glossary: "Glossary",
   tiers_title: "Reference: capital tiers (from your research document)",

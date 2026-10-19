@@ -1,6 +1,6 @@
 import { expect, type Page, test } from "@playwright/test";
 
-const PAGES = ["/", "/trades/", "/strategies/", "/funded/", "/rules/", "/room/", "/planner/", "/journal/", "/charts/", "/tools/", "/import/", "/accounts/", "/learn/", "/settings/"];
+const PAGES = ["/", "/trades/", "/strategies/", "/funded/", "/rules/", "/room/", "/planner/", "/journal/", "/charts/", "/tools/", "/import/", "/accounts/", "/learn/", "/learn/handbook/", "/settings/"];
 
 /** Collects page errors and console errors from our own code (external widgets are ignored). */
 function watchErrors(page: Page) {
@@ -57,5 +57,14 @@ test("import MT5 demo file end to end and roll back", async ({ page }) => {
   await page.getByRole("button", { name: "Undo import" }).click();
   await page.getByRole("dialog").getByRole("button", { name: "Undo import" }).click();
   await expect(page.getByText("Import undone").first()).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test("handbook is readable in the app", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("/learn/handbook/");
+  await expect(page.getByRole("heading", { name: "Trading Analytics Handbook" })).toBeVisible();
+  await page.getByRole("button", { name: /Equity curves and drawdowns/ }).click();
+  await expect(page.getByText("Closed-trade balance curve").first()).toBeVisible();
   expect(errors).toEqual([]);
 });

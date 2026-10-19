@@ -1,7 +1,7 @@
 import { test } from "@playwright/test";
 
 /** UI quality gate (Section 3D): screenshots at 375 / 768 / 1280 px in light and dark. Not an assertion test. */
-const PAGES = ["/", "/trades/", "/strategies/", "/funded/", "/rules/", "/planner/", "/import/", "/tools/", "/settings/"];
+const PAGES = ["/", "/trades/", "/strategies/", "/funded/", "/rules/", "/planner/", "/import/", "/tools/", "/learn/handbook/", "/settings/"];
 
 for (const scheme of ["light", "dark"] as const) {
   for (const width of [375, 768, 1280]) {

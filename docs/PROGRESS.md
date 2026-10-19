@@ -16,8 +16,8 @@
 | Pages: Dashboard, Trades (explorer + drawer), Strategies (cards, Read-Back, Gemini import, compare, activation), Funded (preset / free-text intake → Read-Back → confirm → rule board), My rules, Trading room, Trade planner (Trade Ticket), Daily journal, Charts (TradingView widget), Tools (position size + free prop firm calculator), Import, Accounts, Learn, Settings (profile, backup, delete) | Done | `src/features/*`, `src/app/*` |
 | English UI (all copy in one dictionary; Roman Urdu removed at the founder's request, D-024) | Done | `src/i18n/` |
 | 20 Appendix A strategies as Draft seed specs (strategy-spec/1.1) | Done | `src/features/strategies/seeds.ts` |
-| Seed specs as JSON (`seed/strategies/`), component gallery (`/dev/components`, dev only), Handbook Modules 1–10 + data dependency matrix + concept checklist (`docs/handbook/`) | Done | |
-| Tests: 187 unit tests, 4 E2E flows, screenshot gate at 375/768/1280 light+dark | Passing | `npm test`, `npm run e2e`, `npm run screens` |
+| Seed specs as JSON (`seed/strategies/`), component gallery (`/dev/components`, dev only), Handbook Modules 1–10 + data dependency matrix + concept checklist (`docs/handbook/`), readable in the app at Learn → handbook (`/learn/handbook/`, built from the markdown by `scripts/build_handbook.mjs`) | Done | |
+| Tests: 187 unit tests, 5 E2E flows, screenshot gate at 375/768/1280 light+dark | Passing | `npm test`, `npm run e2e`, `npm run screens` |
 
 ## Not built (Backlog, by design)
 AI reports and AI chat, Monte Carlo / challenge simulator, broker sync, cTrader/Match-Trader/TradeLocker/DXtrade parsers, billing, mentor sharing, PDF reports, OHLC backtesting, Chrome extension, online database + login. See `docs/BACKLOG.md`.
