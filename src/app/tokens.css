@@ -1,0 +1,88 @@
+/*
+ * DESIGN TOKENS — the only file that defines colors, spacing, radii, type sizes and shadows.
+ * Palette rule (founder decision): black, white, and blue + their shades only.
+ * Profit/loss meaning comes from signs, arrows, labels and patterns, never from color alone.
+ * Contrast pairs are checked by src/config/contrast.test.ts (WCAG 2.2 AA).
+ */
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --fg: #000000;
+  --muted: #595959;
+  --line: #e2e2e2;
+  --line-strong: #c4c4c4;
+  --soft: #f3f3f3;
+  --blue: #1640d6;
+  --blue-strong: #0f2f9e;
+  --blue-soft: #e7edfd;
+  --on-blue: #ffffff;
+  --loss: #8c8c8c;
+  --focus: #1640d6;
+  --overlay: rgb(0 0 0 / 0.45);
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.06), 0 2px 8px rgb(0 0 0 / 0.06);
+  --shadow-2: 0 8px 32px rgb(0 0 0 / 0.18);
+
+  --radius-s: 6px;
+  --radius-m: 12px;
+  --radius-full: 999px;
+
+  /* 4px spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-md: 15px;
+  --text-lg: 17px;
+  --text-xl: 24px;
+  --text-2xl: 30px;
+  --text-hero: clamp(34px, 8vw, 52px);
+  --leading: 1.45;
+  --touch: 44px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #000000;
+    --fg: #ffffff;
+    --muted: #a6a6a6;
+    --line: #262626;
+    --line-strong: #3d3d3d;
+    --soft: #121212;
+    --blue: #5b8cff;
+    --blue-strong: #8eb0ff;
+    --blue-soft: #0d1a3a;
+    --on-blue: #000000;
+    --loss: #8a8a8a;
+    --focus: #5b8cff;
+    --overlay: rgb(0 0 0 / 0.7);
+    --shadow-1: 0 0 0 1px #262626;
+    --shadow-2: 0 8px 32px rgb(0 0 0 / 0.6);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #000000;
+  --fg: #ffffff;
+  --muted: #a6a6a6;
+  --line: #262626;
+  --line-strong: #3d3d3d;
+  --soft: #121212;
+  --blue: #5b8cff;
+  --blue-strong: #8eb0ff;
+  --blue-soft: #0d1a3a;
+  --on-blue: #000000;
+  --loss: #8a8a8a;
+  --focus: #5b8cff;
+  --overlay: rgb(0 0 0 / 0.7);
+  --shadow-1: 0 0 0 1px #262626;
+  --shadow-2: 0 8px 32px rgb(0 0 0 / 0.6);
+}

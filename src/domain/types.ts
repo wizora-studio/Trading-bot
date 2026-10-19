@@ -59,6 +59,8 @@ export interface Trade {
   /** Fields the trader edited by hand after import (audit trail). */
   userEdited: string[];
   tradePlanId: string | null;
+  /** Before/after chart screenshot links (e.g., TradingView snapshot URLs). */
+  screenshotUrls?: string[];
 }
 
 export interface DataQualityIssue {
