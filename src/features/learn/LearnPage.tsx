@@ -8,10 +8,9 @@ import { CAPITAL_TIERS, LESSONS } from "./content";
 import { GLOSSARY } from "./glossary";
 
 export function LearnPage() {
-  const { t, lang } = useT();
+  const { t } = useT();
   const [q, setQ] = useState("");
-  const other = lang === "en" ? "ru" : "en";
-  const terms = GLOSSARY.filter((g) => !q || `${g.term} ${g.en} ${g.ru}`.toLowerCase().includes(q.toLowerCase()));
+  const terms = GLOSSARY.filter((g) => !q || `${g.term} ${g.en}`.toLowerCase().includes(q.toLowerCase()));
   return (
     <div>
       <PageHeader title={t("nav_learn")} description={t("learn_desc")} />
@@ -19,9 +18,8 @@ export function LearnPage() {
         <div className="flex flex-col gap-2">
           {LESSONS.map((l) => (
             <details key={l.id} className="rounded-m border border-line p-3">
-              <summary className="min-h-8 cursor-pointer font-semibold">{l.title[lang]}</summary>
-              <p className="mt-3 mb-0 whitespace-pre-line">{l.body[lang]}</p>
-              <p className="mt-3 mb-0 text-sm whitespace-pre-line text-muted">{l.body[other]}</p>
+              <summary className="min-h-8 cursor-pointer font-semibold">{l.title}</summary>
+              <p className="mt-3 mb-0 whitespace-pre-line">{l.body}</p>
             </details>
           ))}
         </div>
@@ -32,8 +30,7 @@ export function LearnPage() {
           {terms.map((g) => (
             <div key={g.term} className="border-b border-line pb-2">
               <dt className="font-semibold">{g.term}</dt>
-              <dd className="m-0 text-sm">{lang === "en" ? g.en : g.ru}</dd>
-              <dd className="m-0 text-sm text-muted">{lang === "en" ? g.ru : g.en}</dd>
+              <dd className="m-0 text-sm">{g.en}</dd>
             </div>
           ))}
         </dl>

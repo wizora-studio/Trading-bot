@@ -34,13 +34,6 @@ test("first run → sample data → every page renders without errors", async ({
   expect(errors).toEqual([]);
 });
 
-test("language switch to Roman Urdu", async ({ page }) => {
-  await page.goto("/");
-  await page.getByRole("button", { name: "Load sample data" }).click();
-  await page.getByRole("button", { name: "Roman Urdu" }).click();
-  await expect(page.getByText("Kharche kaat kar asal P&L")).toBeVisible();
-});
-
 test("import MT5 demo file end to end and roll back", async ({ page }) => {
   const errors = watchErrors(page);
   await page.goto("/");

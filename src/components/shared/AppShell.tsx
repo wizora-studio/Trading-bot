@@ -40,7 +40,6 @@ const NAV: NavItem[] = [
 /** Applies the chosen theme to <html data-theme>. "system" follows the device. */
 function useThemeEffect() {
   const theme = useApp((s) => s.settings.theme);
-  const lang = useApp((s) => s.settings.language);
   useEffect(() => {
     const el = document.documentElement;
     if (theme === "system") el.removeAttribute("data-theme");
@@ -51,9 +50,6 @@ function useThemeEffect() {
       /* storage blocked: theme still applies after load */
     }
   }, [theme]);
-  useEffect(() => {
-    document.documentElement.lang = lang === "en" ? "en" : "ur-Latn";
-  }, [lang]);
 }
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -166,22 +162,13 @@ function AccountSwitcher() {
 }
 
 function LangThemeButtons() {
-  const { t, lang } = useT();
+  const { t } = useT();
   const theme = useApp((s) => s.settings.theme);
   const update = useApp((s) => s.update);
   const systemDark = useSystemDark();
   const isDark = theme === "dark" || (theme === "system" && systemDark);
   return (
     <div className="flex gap-2">
-      <button
-        type="button"
-        aria-pressed={lang === "ru"}
-        onClick={() => update((d) => ({ settings: { ...d.settings, language: d.settings.language === "en" ? "ru" : "en" } }))}
-        className="inline-flex min-h-10 items-center gap-1.5 rounded-full border border-line px-3 text-sm max-md:min-h-11"
-      >
-        <Icon name="globe" size={16} />
-        {lang === "en" ? "Roman Urdu" : "English"}
-      </button>
       <button
         type="button"
         onClick={() => update((d) => ({ settings: { ...d.settings, theme: isDark ? "light" : "dark" } }))}

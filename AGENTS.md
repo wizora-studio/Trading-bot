@@ -5,7 +5,7 @@ This is the single source of instructions for any AI agent (Claude Code, Codex, 
 
 ## 1. Project summary (10 lines)
 1. Product: **AI Trading Performance Analyst**, a web app (mobile friendly) for trade analytics, funded-account rule tracking, strategy discipline, and trade planning.
-2. Founder: a solo beginner developer and beginner trader in Karachi, Pakistan. Explain things simply, in English plus Roman Urdu.
+2. Founder: a solo beginner developer and beginner trader in Karachi, Pakistan. Explain things simply, in plain English (the founder may write to the agent in Roman Urdu; the product itself is English only, D-024).
 3. Version 1 users: the founder and one friend, using TradingView Paper Trading data first. Data stays in the browser (no server).
 4. The app imports trade history files (V1: TradingView Paper Trading CSV), then calculates metrics deterministically.
 5. All money and trading math lives in pure, unit-tested TypeScript using `decimal.js`. AI never calculates.
@@ -52,7 +52,7 @@ src/services/analytics/   pure deterministic math engine (no React), with tests
 src/domain/types.ts       data models (money = decimal strings, time = UTC ISO strings)
 src/store/                Zustand store (appStore.ts) + ALL state changes (actions.ts) + hooks
 src/config/               thresholds (confidence framework), contrast test
-src/i18n/                 en.ts + ru.ts (Roman Urdu); TypeScript enforces the same keys
+src/i18n/                 en.ts (English UI text)
 e2e/                      Playwright flows + screenshot gate
 docs/                     specs, prompts, design reference, tracking files, SETUP.md, samples, handbook
 seed/strategies/          Appendix A seeds as strategy-spec/1.1 JSON (generated, synced by a test)
@@ -62,7 +62,7 @@ seed/strategies/          Appendix A seeds as strategy-spec/1.1 JSON (generated,
 - TypeScript `strict`, no `any` (use `unknown` + Zod), no `@ts-ignore` / `eslint-disable` without a reason and ticket.
 - Zod at every boundary: forms, server actions, route handlers, file imports, AI outputs, env vars, DB JSON.
 - Business logic never in UI components. Money math only in `src/services/analytics/`, with tests.
-- Numbers only through shared formatters (MoneyText, PercentText, RMultipleText). Colors and sizes only from design tokens. All copy in i18n dictionaries (English + Roman Urdu).
+- Numbers only through shared formatters (MoneyText, PercentText, RMultipleText). Colors and sizes only from design tokens. All copy in i18n dictionaries (English).
 - Every server action / route handler starts with `requireUser()` and an ownership check.
 - Prisma migrations only; transactions for multi-step writes.
 - Small functions, files under ~300 lines, a short doc comment on every export.

@@ -211,7 +211,7 @@ export interface TradePlan {
 }
 
 export interface Settings {
-  language: "en" | "ru";
+  language: "en";
   theme: "system" | "light" | "dark";
   displayTimezone: string;
   /** |net P&L| below this amount counts as breakeven. */

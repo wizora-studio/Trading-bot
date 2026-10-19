@@ -2,7 +2,7 @@
 
 Phase 1 of the Trading Analytics Handbook. Educational only — not financial advice.
 
-**How to read this module.** Every metric has: a plain definition (English + Roman Urdu), the exact formula, a worked example, how to read it, common mistakes, the data it needs, and the unit test that checks it. All worked examples use **one golden dataset**, so you can recompute everything by hand.
+**How to read this module.** Every metric has: a plain definition (English), the exact formula, a worked example, how to read it, common mistakes, the data it needs, and the unit test that checks it. All worked examples use **one golden dataset**, so you can recompute everything by hand.
 
 ---
 
@@ -19,14 +19,12 @@ Phase 1 of the Trading Analytics Handbook. Educational only — not financial ad
 Closed balance after each trade: 1,000 → 1,095 → 1,040 → 1,040.50 → 1,230.50 → 1,130.50.
 Tests: `src/services/analytics/metrics.test.ts` and `advanced.test.ts` use exactly these trades.
 
-*Roman Urdu:* Neeche ke saare hisaab inhi 5 trades se hain, taake aap khud haath se check kar sakein.
-
 ---
 
 ## A. Results
 
 ### 1. Total net P&L
-- **Definition:** what you really made after all costs. *Roman Urdu:* kharche kaat kar asal munafa ya nuqsan.
+- **Definition:** what you really made after all costs.
 - **Formula:** Σ(gross P&L − commission − swap − fees).
 - **Example:** 95 − 55 + 0.5 + 190 − 100 = **+$130.50**.
 - **Read it:** the bottom line, but says nothing about risk or luck.
@@ -34,7 +32,7 @@ Tests: `src/services/analytics/metrics.test.ts` and `advanced.test.ts` use exact
 - **Data:** gross P&L and costs per trade. **Test:** "net = gross − costs".
 
 ### 2. Gross profit and gross loss
-- **Definition:** sum of all winning trades / all losing trades (net of costs). *Roman Urdu:* jeetne wali trades ka jor / haarne wali ka jor.
+- **Definition:** sum of all winning trades / all losing trades (net of costs).
 - **Formula:** Σ net of wins; |Σ net of losses|.
 - **Example:** 95 + 190 = **$285**; 55 + 100 = **$155**. (The breakeven trade is in neither.)
 - **Mistakes:** mixing breakevens into wins. **Test:** "gross profit / loss, profit factor…".
@@ -45,7 +43,6 @@ Tests: `src/services/analytics/metrics.test.ts` and `advanced.test.ts` use exact
 - **Read it:** above ~20–30% means costs eat a large part of your edge (scalpers, small accounts).
 - **Mistakes:** forgetting swap; double-counting spread (it is already inside the prices).
 - **Test:** "streaks and outlier share" (costs % assertion).
-- *Roman Urdu:* Kharche gross munafe ka kitna hissa kha gaye.
 
 ### 4. Win rate, loss rate, breakeven rate
 - **Formula:** wins ÷ n; losses ÷ n; breakevens ÷ n. A trade is breakeven when |net| < tolerance ($1).
@@ -53,7 +50,6 @@ Tests: `src/services/analytics/metrics.test.ts` and `advanced.test.ts` use exact
 - **Read it:** never alone — a 40% win rate can be excellent with large wins.
 - **Mistakes:** counting +$0.50 as a win; counting each partial close as a trade.
 - **Test:** "counts wins, losses and breakevens with tolerance", "breakeven tolerance boundary".
-- *Roman Urdu:* Jeet ki sharah akeli kuch nahi batati; jeet aur haar ka size bhi dekhein.
 
 ### 5. Average win and average loss (money and % of account)
 - **Formula:** gross profit ÷ wins; gross loss ÷ losses. % of account = average ÷ starting balance.
@@ -64,14 +60,12 @@ Tests: `src/services/analytics/metrics.test.ts` and `advanced.test.ts` use exact
 - **Formula:** average win ÷ average loss.
 - **Example:** 142.50 ÷ 77.50 = **1.84**.
 - **Read it:** with payoff 1.84 you break even at a win rate of 1 ÷ (1 + 1.84) ≈ 35%.
-- *Roman Urdu:* Ausat jeet ausat haar ka kitna guna hai.
 
 ### 7. Expectancy per trade (money)
 - **Formula:** net P&L ÷ n (equivalently: win rate × average win − loss rate × average loss, with breakevens counted as 0).
 - **Example:** 130.50 ÷ 5 = **+$26.10**. Check: 0.4 × 142.5 − 0.4 × 77.5 + 0.2 × 0.5 = 57 − 31 + 0.1 = 26.10.
 - **Read it:** the average result you can expect per trade *if* the future looks like this sample — shown with a confidence badge and its 95% range.
 - **Test:** "gross profit / loss, profit factor, payoff, expectancy".
-- *Roman Urdu:* Fi trade ausat nateeja; is ke saath bharose ka badge zaroor dekhein.
 
 ### 8. Expectancy in R (average R), average R of winners and losers
 - **Formula:** R = net ÷ planned risk; average over trades that **have** planned risk.
@@ -90,7 +84,6 @@ Tests: `src/services/analytics/metrics.test.ts` and `advanced.test.ts` use exact
 - **Formula:** return = net ÷ starting balance = 130.50 ÷ 1,000 = **13.05%**.
 - **Deposits and withdrawals:** a simple return becomes wrong when money is added or taken out. Time-weighted return (TWR) chains the returns between cash flows; money-weighted return (MWR, like IRR) weights by how much money was in the account.
 - **In the app today:** imports skip deposit/withdrawal rows, so returns are trading-only. TWR/MWR are **not calculated yet** (Backlog).
-- *Roman Urdu:* Paise daalne ya nikalne se saada return ghalat ho jata hai; app abhi sirf trading ka return dikhati hai.
 
 ---
 
@@ -100,7 +93,6 @@ Tests: `src/services/analytics/metrics.test.ts` and `advanced.test.ts` use exact
 - **Definition:** the biggest fall from a balance peak. **Closed-balance** drawdown uses closed trades only; **intratrade** (equity) drawdown also includes floating losses and is usually larger — trade files don't contain it, so the app never claims it.
 - **Example:** peak 1,230.50 → 1,130.50 = **$100**; 100 ÷ 1,230.50 = **8.13%** of peak; 100 ÷ 1,000 = **10%** of start (the prop-firm style).
 - **Test:** "peak-to-trough".
-- *Roman Urdu:* Sab se oonchi satah se sab se badi girawat. Prop firms aksar shuru ke balance ka % istemal karti hain.
 
 ### 12. Drawdown duration and recovery time
 - **Formula:** number of trades (and calendar days) from a peak until a new peak.
@@ -122,7 +114,6 @@ Tests: `src/services/analytics/metrics.test.ts` and `advanced.test.ts` use exact
 - **Formula:** mean(daily) ÷ std(daily) × √252, risk-free rate 0.
 - **Example:** daily returns 4.000%, 0.048%, 8.650% → **15.61** — a meaningless number from 3 days; the app warns below 30 days.
 - **Test:** "daily returns and Sharpe (annualized, rf = 0)".
-- *Roman Urdu:* Sharpe sirf rozana returns par; kam din par yeh number dhoka deta hai.
 
 ### 16. Sortino ratio
 - **Formula:** mean(daily) ÷ downside deviation × √252, where downside deviation = √(mean of squared negative daily returns).
@@ -143,7 +134,6 @@ Tests: `src/services/analytics/metrics.test.ts` and `advanced.test.ts` use exact
 ### 19. MAE / MFE and edge ratio
 - **Definition:** Maximum Adverse / Favourable Excursion — how far price went against / for you during the trade.
 - **In the app:** **not available**: trade files don't contain the price path. Needs OHLC data (Module M2, later).
-- *Roman Urdu:* Trade ke dauran qeemat kitna khilaaf / haq mein gayi — iske liye chart data chahiye, abhi nahi.
 
 ### 20. Skewness and kurtosis of R ("fat tails")
 - **Skewness > 0:** a few big winners pull the average up. **< 0:** a few big losers pull it down.
@@ -197,8 +187,6 @@ Tests: `src/services/analytics/metrics.test.ts` and `advanced.test.ts` use exact
 | Calmar | ≥ 90 days | not shown |
 | Intratrade drawdown, MAE/MFE | floating equity / price path | not available |
 | Net P&L | commission and swap | Data Quality warning (net may be too high) |
-
-*Roman Urdu:* Har number ke liye kuch data chahiye. Jo data file mein nahi, app us number ko chhupa deti hai ya saaf warning deti hai — andaze se bhar kar nahi dikhati.
 
 ### Quick self-check / Khud ko check karein
 1. Trades net: +40, −20, −20, +60. Win rate, profit factor, expectancy? → **50%**, 100 ÷ 40 = **2.5**, 60 ÷ 4 = **+$15**.

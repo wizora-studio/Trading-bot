@@ -82,17 +82,17 @@ export function signOf(x: Num): 1 | -1 | 0 {
 }
 
 /** Date/time in the user's timezone: "Oct 14, 13:05". */
-export function formatDateTime(iso: string | null, timeZone: string, lang: "en" | "ru" = "en"): string {
+export function formatDateTime(iso: string | null, timeZone: string, lang: "en" = "en"): string {
   if (!iso) return "–";
   return new Intl.DateTimeFormat(lang === "en" ? "en-US" : "en-GB", { timeZone, month: "short", day: "numeric", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date(iso));
 }
 
-export function formatDate(iso: string, timeZone: string, lang: "en" | "ru" = "en"): string {
+export function formatDate(iso: string, timeZone: string, lang: "en" = "en"): string {
   return new Intl.DateTimeFormat(lang === "en" ? "en-US" : "en-GB", { timeZone, month: "short", day: "numeric", year: "numeric" }).format(new Date(iso));
 }
 
 /** "YYYY-MM-DD" day key → "Oct 14". */
-export function formatDayKey(key: string, lang: "en" | "ru" = "en"): string {
+export function formatDayKey(key: string, lang: "en" = "en"): string {
   const [y, m, d] = key.split("-").map(Number);
   return new Intl.DateTimeFormat(lang === "en" ? "en-US" : "en-GB", { timeZone: "UTC", month: "short", day: "numeric" }).format(new Date(Date.UTC(y ?? 2000, (m ?? 1) - 1, d ?? 1)));
 }

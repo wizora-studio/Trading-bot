@@ -1,4 +1,4 @@
-# Setup guide (English + Roman Urdu)
+# Setup guide (English)
 
 The app is a website that runs completely in your browser. Your trades stay on your device. **No account, no API key, no monthly cost** is needed for Version 1.
 
@@ -9,7 +9,6 @@ Yeh app aik website hai jo poori tarah aap ke browser mein chalti hai. Aap ki tr
 ## Option A — Run it on your computer (once)
 
 1. **Install Node.js 22 (LTS)** from <https://nodejs.org> → "Download Node.js (LTS)" → install with default options.
-   *Roman Urdu:* nodejs.org se Node.js 22 (LTS) download karein aur "Next, Next, Install" se install karein.
 2. **Install Git** from <https://git-scm.com/downloads> (default options).
 3. Open **Terminal** (Mac) or **PowerShell** (Windows) and run these commands one by one:
 
@@ -21,7 +20,6 @@ Yeh app aik website hai jo poori tarah aap ke browser mein chalti hai. Aap ki tr
    npm run dev
    ```
 4. Open <http://localhost:3000> in Chrome. Click **"Load sample data"** to explore, or create your own account.
-   *Roman Urdu:* Chrome mein localhost:3000 kholein. Dekhne ke liye "Load sample data" dabayein, ya apna account banayein.
 
 If a command fails, copy the full red error text and send it to your AI agent (never send passwords or keys).
 *Agar koi command fail ho, poora laal error text copy kar ke apne AI agent ko bhejein (password ya keys kabhi nahi).*
@@ -34,8 +32,6 @@ Because the app is a static website, any free static host works. Easiest: **Verc
 2. **Add New → Project** → choose the `trading-bot` repository → **Import**.
 3. Framework is detected as **Next.js**. Leave everything as is and press **Deploy**.
 4. After about 1 minute you get a link like `https://trading-bot-xxxx.vercel.app`. Open it on your phone and laptop.
-
-*Roman Urdu:* vercel.com par GitHub se sign up karein (free), "Add New → Project" mein `trading-bot` chunein aur "Deploy" dabayein. Ek minute mein aap ko link mil jaye ga jo phone aur laptop dono par chalega.
 
 **Important:** data is saved per browser. Data on your laptop is NOT automatically on your phone. Use **Settings → Export backup** and **Restore backup** to move it.
 *Ahem: data har browser mein alag save hota hai. Laptop ka data phone par khud nahi aata. Settings → Export backup / Restore backup se le jayein.*

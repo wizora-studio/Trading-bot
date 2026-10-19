@@ -3,15 +3,13 @@
 import { useCallback } from "react";
 import { useApp } from "@/store/appStore";
 import { en } from "./en";
-import { ru } from "./ru";
 
 export type DictKey = keyof typeof en;
-export type Lang = "en" | "ru";
-const DICTS: Record<Lang, Record<DictKey, string>> = { en, ru };
+export type Lang = "en";
 
 /** Fills "{name}" placeholders. */
-export function translate(lang: Lang, key: DictKey, vars?: Record<string, string | number>): string {
-  let s = DICTS[lang][key] ?? en[key] ?? key;
+export function translate(_lang: Lang, key: DictKey, vars?: Record<string, string | number>): string {
+  let s: string = en[key] ?? key;
   if (vars) for (const [k, v] of Object.entries(vars)) s = s.replaceAll(`{${k}}`, String(v));
   return s;
 }

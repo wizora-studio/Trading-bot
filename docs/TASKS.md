@@ -22,7 +22,7 @@ Status: TODO · DOING · BLOCKED (reason) · DONE (date).
 - Files: `src/features/funded/presets.ts`. Acceptance: source URL + verified date; Read-Back reviewed by the founder.
 
 ### T-03 Phase 1 handbook, Module 1 "What is a trade?" — DONE (2026-10-19)
-- `docs/handbook/01-what-is-a-trade.md` (EN + Roman Urdu).
+- `docs/handbook/01-what-is-a-trade.md` (English).
 
 ### T-07 Phase 1 handbook, Module 2 "Instruments and trading costs" — DONE (2026-10-19)
 - `docs/handbook/02-instruments-and-costs.md`; its worked examples are covered by tests in `tools.test.ts`.

@@ -28,3 +28,4 @@ On 2026-10-19 the founder said: "build the whole app A to Z and do not ask me qu
 | D-021 | 2026-10-19 | Fonts: IBM Plex Sans via next/font (SIL Open Font License 1.1). | Matches the preview; free for commercial use. | Accepted |
 | D-022 | 2026-10-19 | Default display timezone Asia/Karachi, currency USD, breakeven tolerance $1. | Founder is in Karachi; USD accounts are standard. | Accepted (agent) |
 | D-023 | 2026-10-19 | Repository name `trading-bot` kept (C8). The product is not a bot; README says so. | Renaming is the founder's choice. | Open for founder |
+| D-024 | 2026-10-19 | English only: Roman Urdu removed from UI, Learn, glossary, handbook, setup guide (language switch and `ru.ts` deleted). Original briefs in `docs/specs/` are kept unchanged. The free-text rule parser still accepts a few Roman Urdu words as input. | Founder request. | Accepted (founder) |

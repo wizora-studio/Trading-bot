@@ -32,7 +32,7 @@ export function KpiStat({ label, value, meta, info }: { label: ReactNode; value:
   );
 }
 
-/** Small "i" button that shows a definition (English + Roman Urdu content passed in). */
+/** Small "i" button that shows a definition. */
 export function InfoTip({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const id = useId();

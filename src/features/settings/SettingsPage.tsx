@@ -66,10 +66,6 @@ export function SettingsPage() {
       <Section title={t("set_general")}>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <div className="mb-1 text-sm font-medium">{t("set_language")}</div>
-            <Segmented label={t("set_language")} value={settings.language} onChange={(v) => set({ language: v })} options={[{ value: "en", label: "English" }, { value: "ru", label: "Roman Urdu" }]} />
-          </div>
-          <div>
             <div className="mb-1 text-sm font-medium">{t("set_theme")}</div>
             <Segmented
               label={t("set_theme")}

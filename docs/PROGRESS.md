@@ -14,10 +14,10 @@
 | Imports: TradingView Account History, TradingView order history (fills → logical trades), MT5 Positions (CSV or HTML report), standard template, any CSV with column mapper, manual entry; timezone declaration, validation preview, Data Quality Score, duplicate detection, rollback | Done + tested | `src/features/import/` |
 | Demo dataset + `docs/samples/demo-trades-mt5.csv` | Done | `src/features/demo/` |
 | Pages: Dashboard, Trades (explorer + drawer), Strategies (cards, Read-Back, Gemini import, compare, activation), Funded (preset / free-text intake → Read-Back → confirm → rule board), My rules, Trading room, Trade planner (Trade Ticket), Daily journal, Charts (TradingView widget), Tools (position size + free prop firm calculator), Import, Accounts, Learn, Settings (profile, backup, delete) | Done | `src/features/*`, `src/app/*` |
-| Bilingual UI: English + Roman Urdu (TypeScript checks every key exists in both) | Done | `src/i18n/` |
+| English UI (all copy in one dictionary; Roman Urdu removed at the founder's request, D-024) | Done | `src/i18n/` |
 | 20 Appendix A strategies as Draft seed specs (strategy-spec/1.1) | Done | `src/features/strategies/seeds.ts` |
 | Seed specs as JSON (`seed/strategies/`), component gallery (`/dev/components`, dev only), Handbook Modules 1–5 (`docs/handbook/`) | Done | |
-| Tests: 143 unit tests, 5 E2E flows, screenshot gate at 375/768/1280 light+dark | Passing | `npm test`, `npm run e2e`, `npm run screens` |
+| Tests: 143 unit tests, 4 E2E flows, screenshot gate at 375/768/1280 light+dark | Passing | `npm test`, `npm run e2e`, `npm run screens` |
 
 ## Not built (Backlog, by design)
 AI reports and AI chat, Monte Carlo / challenge simulator, broker sync, cTrader/Match-Trader/TradeLocker/DXtrade parsers, billing, mentor sharing, PDF reports, OHLC backtesting, Chrome extension, online database + login. See `docs/BACKLOG.md`.

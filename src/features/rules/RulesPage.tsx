@@ -9,7 +9,7 @@ import { MoneyText } from "@/components/shared/numbers";
 import { toast } from "@/components/shared/toast";
 import { Button, Card, Checkbox, Field, Input, Section } from "@/components/ui/primitives";
 import type { PersonalRules, SessionName } from "@/domain/types";
-import { type DictKey, translate, useT } from "@/i18n";
+import { type DictKey, type Lang, translate, useT } from "@/i18n";
 import { SESSION_ORDER } from "@/services/analytics/breakdowns";
 import { d, isDecimalText } from "@/services/analytics/decimal";
 import { balanceCurve } from "@/services/analytics/equity";
@@ -48,7 +48,7 @@ export function RulesPage() {
   const r = draft ?? current?.rules ?? EMPTY_RULES;
   const showForm = editing || !current;
 
-  const readBackLines = (lng: "en" | "ru", rules: PersonalRules) => {
+  const readBackLines = (lng: Lang, rules: PersonalRules) => {
     const tt = (k: DictKey, v?: Record<string, string | number>) => translate(lng, k, v);
     const lines: string[] = [];
     if (rules.maxRiskPerTradePct) lines.push(tt("prb_risk", { p: formatPercentValue(rules.maxRiskPerTradePct), x: formatMoney(balanceNow.times(d(rules.maxRiskPerTradePct)).div(100), currency, { sign: false }), b: formatMoney(balanceNow, currency, { sign: false }) }));
@@ -87,11 +87,6 @@ export function RulesPage() {
               <h2 className="mt-0 mb-2 text-lg font-semibold">{t("rb_understood")}</h2>
               <ul className="mt-0 pl-5">
                 {readBackLines(lang, r).map((l) => (
-                  <li key={l}>{l}</li>
-                ))}
-              </ul>
-              <ul className="mt-0 pl-5 text-sm text-muted">
-                {readBackLines(lang === "en" ? "ru" : "en", r).map((l) => (
                   <li key={l}>{l}</li>
                 ))}
               </ul>
