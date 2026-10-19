@@ -1,0 +1,6 @@
+docs/specs/
+docs/design/
+docs/prompts/
+.next/
+out/
+package-lock.json
