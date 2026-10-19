@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Trading Analyst · Dashboard preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #FFFFFF;
+    --fg: #000000;
+    --muted: #5E5E5E;
+    --line: #E2E2E2;
+    --soft: #F3F3F3;
+    --blue: #1640D6;
+    --blue-soft: #E7EDFD;
+    --loss: #8C8C8C;
+    --focus: #1640D6;
+    --radius-s: 6px;
+    --radius-m: 12px;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #000000;
+      --fg: #FFFFFF;
+      --muted: #A6A6A6;
+      --line: #262626;
+      --soft: #121212;
+      --blue: #5B8CFF;
+      --blue-soft: #0D1A3A;
+      --loss: #6E6E6E;
+      --focus: #5B8CFF;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #000000;
+    --fg: #FFFFFF;
+    --muted: #A6A6A6;
+    --line: #262626;
+    --soft: #121212;
+    --blue: #5B8CFF;
+    --blue-soft: #0D1A3A;
+    --loss: #6E6E6E;
+    --focus: #5B8CFF;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+    font-variant-numeric: tabular-nums;
+  }
+  button, select { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  /* Shell */
+  .shell { display: grid; grid-template-columns: 1fr; min-height: 100vh; }
+  .side { display: none; }
+  @media (min-width: 960px) {
+    .shell { grid-template-columns: 220px 1fr; }
+    .side {
+      display: flex; flex-direction: column; gap: 2px;
+      border-right: 1px solid var(--line);
+      padding: 20px 12px; position: sticky; top: 0; height: 100vh;
+    }
+  }
+  .brand { font-weight: 700; font-size: 17px; padding: 4px 10px 18px; letter-spacing: -0.01em; }
+  .brand span { color: var(--blue); }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 10px; border-radius: var(--radius-s);
+    color: var(--muted); text-decoration: none; cursor: pointer;
+    background: none; border: 0; text-align: left; width: 100%;
+  }
+  .nav-item svg { width: 18px; height: 18px; flex: none; }
+  .nav-item[aria-current="page"] { color: var(--fg); background: var(--soft); font-weight: 600; }
+  .nav-item[aria-current="page"] svg { color: var(--blue); }
+  .nav-item:hover { color: var(--fg); }
+
+  .topbar {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+    padding: 12px 16px;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+    z-index: 10; background: var(--bg);
+  }
+  .topbar .brand-m { font-weight: 700; margin-right: auto; }
+  .topbar .brand-m span { color: var(--blue); }
+  @media (min-width: 960px) { .topbar .brand-m { display: none; } .topbar .acct { margin-right: auto; } }
+  .acct select {
+    border: 1px solid var(--line); background: var(--bg);
+    border-radius: var(--radius-s); padding: 7px 30px 7px 10px; max-width: 230px;
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+    background-position: calc(100% - 15px) 52%, calc(100% - 10px) 52%;
+    background-size: 5px 5px; background-repeat: no-repeat;
+  }
+  .pill-btn {
+    border: 1px solid var(--line); background: var(--bg);
+    border-radius: 999px; padding: 6px 12px; cursor: pointer; font-size: 13px;
+  }
+  .pill-btn[aria-pressed="true"] { border-color: var(--blue); color: var(--blue); }
+
+  main { padding: 16px 16px 96px; max-width: 1180px; width: 100%; }
+  @media (min-width: 960px) { main { padding: 24px 32px 48px; } }
+
+  .notice {
+    font-size: 13px; color: var(--muted);
+    border-left: 3px solid var(--blue); padding: 6px 10px; margin-bottom: 18px;
+    background: var(--blue-soft);
+    border-radius: 0 var(--radius-s) var(--radius-s) 0;
+  }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .chip {
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 5px 11px; font-size: 13px; color: var(--muted);
+  }
+
+  /* Hero: equity curve */
+  .hero { margin-bottom: 28px; }
+  .hero h1 { font-size: 15px; font-weight: 500; color: var(--muted); margin: 0 0 4px; }
+  .hero .big {
+    font-size: clamp(34px, 8vw, 52px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.05;
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  }
+  .hero .big .sub { font-size: 15px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+  .chart-wrap { margin-top: 14px; }
+  .chart-wrap svg { width: 100%; height: auto; display: block; }
+  .axis-label { fill: var(--muted); font-size: 11px; }
+
+  /* Sections */
+  section.block { border-top: 1px solid var(--line); padding: 22px 0 26px; }
+  section.block > h2 { font-size: 17px; font-weight: 600; margin: 0 0 4px; letter-spacing: -0.005em; }
+  section.block > .hint { color: var(--muted); font-size: 13px; margin: 0 0 16px; max-width: 70ch; }
+
+  /* KPI grid: ruled, not carded */
+  .kpis { display: grid; grid-template-columns: repeat(2, 1fr); }
+  @media (min-width: 720px) { .kpis { grid-template-columns: repeat(3, 1fr); } }
+  .kpi { padding: 14px 14px 16px 0; border-bottom: 1px solid var(--line); }
+  .kpi:nth-child(odd) { padding-right: 14px; }
+  @media (min-width: 720px) { .kpi { padding-right: 18px; } }
+  .kpi .label { font-size: 13px; color: var(--muted); }
+  .kpi .value { font-size: 24px; font-weight: 600; margin-top: 2px; display: flex; align-items: center; gap: 6px; }
+  .kpi .meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  .pos { color: var(--blue); }
+  .neg { color: var(--fg); }
+  .arrow { width: 14px; height: 14px; flex: none; }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; font-weight: 500; padding: 2px 8px; border-radius: 999px;
+    border: 1px solid currentColor; white-space: nowrap;
+  }
+  .badge.solid { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  .badge.ok { color: var(--blue); }
+  .badge.warn { color: var(--fg); border-style: dashed; }
+  .badge.muted { color: var(--muted); }
+
+  /* Funded */
+  .rules { display: grid; gap: 18px; }
+  @media (min-width: 720px) { .rules { grid-template-columns: 1fr 1fr; gap: 22px 32px; } }
+  .rule-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .rule-head .name { font-weight: 600; }
+  .rule-head .how { font-size: 12px; color: var(--muted); }
+  .meter { height: 10px; background: var(--soft); border-radius: 999px; margin: 8px 0 6px; overflow: hidden; }
+  .meter > div { height: 100%; background: var(--blue); border-radius: 999px; }
+  .meter.used > div {
+    background: repeating-linear-gradient(135deg, var(--loss) 0 4px, transparent 4px 7px);
+    border: 1px solid var(--loss);
+  }
+  .rule-foot { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); gap: 8px; }
+  .rule-foot strong { color: var(--fg); font-weight: 600; }
+  .honest {
+    margin-top: 18px; font-size: 13px; color: var(--muted);
+    border: 1px dashed var(--line); border-radius: var(--radius-s); padding: 10px 12px;
+  }
+
+  /* Two-column area */
+  .split { display: grid; gap: 0; }
+  @media (min-width: 960px) { .split { grid-template-columns: 1.4fr 1fr; gap: 0 40px; } }
+
+  /* Calendar */
+  .cal { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+  .cal .dow { font-size: 11px; color: var(--muted); padding-bottom: 2px; }
+  .cell {
+    border-radius: var(--radius-s); padding: 6px; min-height: 52px;
+    border: 1px solid var(--line); font-size: 11px; display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .cell .d { color: var(--muted); }
+  .cell .amt { font-weight: 600; font-size: 12px; }
+  .cell.win { border-color: transparent; }
+  .cell.win .d { color: inherit; opacity: .8; }
+  .cell.loss {
+    background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--loss) 35%, transparent) 0 3px, transparent 3px 7px);
+  }
+
+  /* Adherence */
+  .adh { display: grid; grid-template-columns: 1fr 1fr; }
+  .adh > div { padding: 4px 16px 4px 0; }
+  .adh > div + div { border-left: 1px solid var(--line); padding-left: 16px; }
+  .adh .num { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; display: flex; align-items: center; gap: 6px; }
+  .adh .lbl { font-size: 13px; color: var(--muted); }
+  .adh-note { margin-top: 14px; font-size: 14px; max-width: 62ch; }
+
+  /* Sessions */
+  .sess-row { display: grid; grid-template-columns: 90px 1fr 92px; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .sess-row:last-child { border-bottom: 0; }
+  .sess-row .n { font-size: 12px; color: var(--muted); }
+  .bar-track { position: relative; height: 12px; }
+  .bar-track .zero { position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: var(--line); }
+  .bar-track .bar { position: absolute; top: 0; height: 12px; border-radius: 3px; }
+  .bar.p { background: var(--blue); }
+  .bar.n { background: repeating-linear-gradient(135deg, var(--loss) 0 3px, transparent 3px 6px); border: 1px solid var(--loss); }
+  .sess-row .r { text-align: right; font-weight: 600; display: flex; justify-content: flex-end; align-items: center; gap: 4px; }
+
+  /* Trades table */
+  .table-scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; }
+  th { text-align: left; font-weight: 500; color: var(--muted); font-size: 12px; padding: 8px 10px 8px 0; border-bottom: 1px solid var(--line); }
+  td { padding: 10px 10px 10px 0; border-bottom: 1px solid var(--line); }
+  td.num, th.num { text-align: right; }
+  .tag { font-size: 12px; color: var(--muted); }
+
+  footer.disc { color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); padding-top: 16px; margin-top: 8px; max-width: 75ch; }
+
+  /* Mobile bottom nav */
+  .bottom {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 6;
+    background: var(--bg); border-top: 1px solid var(--line);
+    display: grid; grid-auto-flow: column; grid-auto-columns: 1fr;
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
+  }
+  .bottom .nav-item { flex-direction: column; gap: 3px; font-size: 11px; padding: 6px 2px; align-items: center; text-align: center; }
+  .bottom .nav-item[aria-current="page"] { background: none; }
+  @media (min-width: 960px) { .bottom { display: none; } }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .draw { stroke-dasharray: var(--len); stroke-dashoffset: var(--len); animation: draw 1.1s ease-out forwards; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="side" aria-label="Main navigation">
+    <div class="brand">AI Trading <span>Analyst</span></div>
+    <nav id="sideNav"></nav>
+  </aside>
+
+  <div>
+    <header class="topbar">
+      <div class="brand-m">AI Trading <span>Analyst</span></div>
+      <label class="acct">
+        <span class="visually-hidden" style="position:absolute;left:-9999px" data-i18n="acct_label">Account</span>
+        <select id="acctSel" aria-label="Account">
+          <option value="paper">Paper account (Normal)</option>
+          <option value="funded">Prop challenge 10K (Funded)</option>
+        </select>
+      </label>
+      <button class="pill-btn" id="langBtn" type="button" aria-pressed="false">Roman Urdu</button>
+      <button class="pill-btn" id="themeBtn" type="button">Dark</button>
+    </header>
+
+    <main id="main"></main>
+  </div>
+</div>
+<nav class="bottom" id="bottomNav" aria-label="Main navigation"></nav>
+
+<script>
+/* ---------- i18n ---------- */
+const DICT = {
+  en: {
+    nav_dashboard: "Dashboard", nav_trades: "Trades", nav_strategies: "Strategies", nav_funded: "Funded",
+    nav_rules: "My rules", nav_journal: "Daily journal", nav_tools: "Tools", nav_import: "Import",
+    nav_learn: "Learn", nav_settings: "Settings", nav_more: "More",
+    acct_paper: "Paper account (Normal)", acct_funded: "Prop challenge 10K (Funded)",
+    lang_btn: "Roman Urdu", theme_dark: "Dark", theme_light: "Light",
+    sample: "Sample data: this preview uses made-up trades to show the design.",
+    f_range: "Sep 21 – Oct 16, 2026", f_strat: "All strategies", f_sess: "All sessions",
+    net_title: "Net P&L after costs",
+    since: "since Sep 21",
+    eq_label: "Balance", dd_label: "Drawdown",
+    k_title: "Key numbers",
+    k_hint: "Each number shows how many trades it is based on. Fewer trades means less certainty.",
+    k_winrate: "Win rate", k_exp: "Average result per trade", k_pf: "Profit factor",
+    k_dd: "Biggest drawdown", k_costs: "Trading costs", k_trades: "Trades taken",
+    k_wins: "{w} wins, {l} losses, {b} breakeven", k_expmeta: "{d} per trade",
+    k_pfmeta: "Profit ÷ loss", k_ddmeta: "{p} from peak (closed trades)",
+    k_costmeta: "{p} of gross profit", k_trmeta: "over {d} trading days",
+    conf_low: "Low confidence", conf_mod: "Moderate confidence", conf_high: "High confidence",
+    funded_title: "Funded account rules",
+    funded_hint: "Rules you confirmed during setup. The app checks them after every import.",
+    f_daily: "Daily loss limit", f_daily_how: "5% of start balance",
+    f_max: "Max loss limit", f_max_how: "10% static",
+    f_target: "Profit target", f_target_how: "8% of start balance",
+    f_cons: "Consistency rule", f_cons_how: "Best day ≤ 40% of total profit",
+    f_days: "Minimum trading days", f_days_how: "At least 4 days",
+    f_left_today: "{x} left today", f_left: "{x} left before breach",
+    f_of: "of {x}", f_progress: "{x} of {y}", f_days_v: "{x} of {y} days",
+    f_cons_ok: "Best day is {x} of total profit",
+    f_cons_need: "Needs {x} more total profit to pass",
+    st_ok: "Within limit", st_warn: "Warning", st_viol: "Violation", st_done: "Reached",
+    unverifiable: "Floating equity during open trades isn’t in the file, so intraday drawdown can’t be confirmed. These checks use closed trades only.",
+    daily_title: "Daily P&L", daily_hint: "Blue bars are profit days. Striped bars are loss days.",
+    cal_title: "Calendar",
+    dow: ["Mon","Tue","Wed","Thu","Fri"],
+    adh_title: "Did following your rules pay off?",
+    adh_hint: "Trades where you ticked every checklist item, compared with trades where you broke at least one rule.",
+    adh_followed: "Rules followed", adh_broke: "Rules broken", adh_avg: "average per trade, {n} trades",
+    adh_note: "Without the rule-breaking trades, your net P&L would be {x} instead of {y}.",
+    sess_title: "By session", sess_hint: "Average result per trade in each trading session (Pakistan time shown).",
+    s_asian: "Asian", s_london: "London", s_ny: "New York",
+    s_asian_t: "5 am – 12 pm", s_london_t: "12 pm – 5 pm", s_ny_t: "5 pm – 12 am",
+    low_sample: "Low sample",
+    recent_title: "Recent trades",
+    c_date: "Date", c_symbol: "Symbol", c_side: "Side", c_strategy: "Strategy", c_rules: "Rules", c_r: "Result (R)", c_net: "Net",
+    buy: "Buy", sell: "Sell", followed: "Followed", broken: "Broken", none: "No strategy",
+    disc: "Educational and analytical tool only. Not financial or investment advice. Past results do not guarantee future results."
+  },
+  ru: {
+    nav_dashboard: "Dashboard", nav_trades: "Trades", nav_strategies: "Strategies", nav_funded: "Funded",
+    nav_rules: "Mere rules", nav_journal: "Rozana diary", nav_tools: "Tools", nav_import: "Import",
+    nav_learn: "Seekhein", nav_settings: "Settings", nav_more: "Aur",
+    acct_paper: "Paper account (Normal)", acct_funded: "Prop challenge 10K (Funded)",
+    lang_btn: "English", theme_dark: "Dark", theme_light: "Light",
+    sample: "Namoona data: yeh preview design dikhane ke liye farzi trades istemal karta hai.",
+    f_range: "21 Sep – 16 Oct, 2026", f_strat: "Saari strategies", f_sess: "Saare sessions",
+    net_title: "Kharche kaat kar asal P&L",
+    since: "21 Sep se",
+    eq_label: "Balance", dd_label: "Girawat (drawdown)",
+    k_title: "Aham numbers",
+    k_hint: "Har number ke saath likha hai ke woh kitni trades par mabni hai. Kam trades ka matlab kam yaqeen.",
+    k_winrate: "Jeet ki sharah", k_exp: "Har trade ka ausat nateeja", k_pf: "Profit factor",
+    k_dd: "Sab se badi girawat", k_costs: "Trading ke kharche", k_trades: "Kul trades",
+    k_wins: "{w} jeet, {l} haar, {b} barabar", k_expmeta: "{d} fi trade",
+    k_pfmeta: "Profit ÷ loss", k_ddmeta: "Upar se {p} (band trades)",
+    k_costmeta: "Gross profit ka {p}", k_trmeta: "{d} trading dinon mein",
+    conf_low: "Kam bharosa", conf_mod: "Darmiyana bharosa", conf_high: "Zyada bharosa",
+    funded_title: "Funded account ke rules",
+    funded_hint: "Yeh woh rules hain jo aap ne setup mein confirm kiye. Har import ke baad app inhein check karti hai.",
+    f_daily: "Rozana loss ki had", f_daily_how: "Shuru ke balance ka 5%",
+    f_max: "Kul loss ki had", f_max_how: "10% fixed",
+    f_target: "Profit ka hadaf", f_target_how: "Shuru ke balance ka 8%",
+    f_cons: "Consistency rule", f_cons_how: "Sab se acha din kul profit ka 40% se kam",
+    f_days: "Kam az kam trading din", f_days_how: "Kam az kam 4 din",
+    f_left_today: "Aaj {x} baqi", f_left: "Had tootne se pehle {x} baqi",
+    f_of: "{x} mein se", f_progress: "{y} mein se {x}", f_days_v: "{y} mein se {x} din",
+    f_cons_ok: "Sab se acha din kul profit ka {x} hai",
+    f_cons_need: "Pass hone ke liye {x} aur kul profit chahiye",
+    st_ok: "Had ke andar", st_warn: "Khabardar", st_viol: "Khilaaf warzi", st_done: "Mukammal",
+    unverifiable: "Khuli trades ke dauran floating equity file mein nahi hai, is liye trade ke beech ki girawat confirm nahi ho sakti. Yeh checks sirf band trades par hain.",
+    daily_title: "Rozana P&L", daily_hint: "Blue bars profit wale din hain. Lakeeron wale bars loss wale din hain.",
+    cal_title: "Calendar",
+    dow: ["Pir","Mangal","Budh","Jumerat","Juma"],
+    adh_title: "Rules follow karne ka faida hua?",
+    adh_hint: "Woh trades jin mein aap ne checklist ka har point poora kiya, un trades ke muqable mein jin mein kam az kam ek rule toota.",
+    adh_followed: "Rules follow kiye", adh_broke: "Rules tode", adh_avg: "ausat fi trade, {n} trades",
+    adh_note: "Agar rules todne wali trades na hotin, to aap ka net P&L {y} ke bajaye {x} hota.",
+    sess_title: "Session ke hisaab se", sess_hint: "Har session mein ausat nateeja fi trade (Pakistan ka waqt).",
+    s_asian: "Asian", s_london: "London", s_ny: "New York",
+    s_asian_t: "Subah 5 – dopahar 12", s_london_t: "Dopahar 12 – shaam 5", s_ny_t: "Shaam 5 – raat 12",
+    low_sample: "Kam data",
+    recent_title: "Haaliya trades",
+    c_date: "Tareekh", c_symbol: "Symbol", c_side: "Side", c_strategy: "Strategy", c_rules: "Rules", c_r: "Nateeja (R)", c_net: "Net",
+    buy: "Buy", sell: "Sell", followed: "Follow kiye", broken: "Tode", none: "Koi strategy nahi",
+    disc: "Sirf taleemi aur analysis ka tool. Financial ya investment advice nahi. Pichle nataij mustaqbil ki guarantee nahi."
+  }
+};
+let lang = "en";
+const t = (k, vars) => {
+  let s = (DICT[lang][k] ?? DICT.en[k] ?? k);
+  if (vars) for (const [a, b] of Object.entries(vars)) s = s.replaceAll("{" + a + "}", b);
+  return s;
+};
+
+/* ---------- Sample data (seeded, so numbers stay consistent) ---------- */
+function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let x = Math.imul(a ^ a >>> 15, 1 | a); x = x + Math.imul(x ^ x >>> 7, 61 | x) ^ x; return ((x ^ x >>> 14) >>> 0) / 4294967296; }; }
+const r2 = x => Math.round(x * 100) / 100;
+
+function tradingDays() {
+  const out = []; const d = new Date(Date.UTC(2026, 8, 21));
+  while (out.length < 20) { const w = d.getUTCDay(); if (w >= 1 && w <= 5) out.push(new Date(d)); d.setUTCDate(d.getUTCDate() + 1); }
+  return out;
+}
+const DAYS = tradingDays();
+
+function generate(seed, risk, start) {
+  const rnd = mulberry32(seed);
+  const symbols = ["EURUSD", "GBPUSD", "XAUUSD", "US30"];
+  const strategies = ["London Breakout", "Pullback to MA", null];
+  const sessions = ["asian", "london", "ny"];
+  const trades = [];
+  DAYS.forEach(day => {
+    const n = Math.floor(rnd() * 4.2);
+    for (let i = 0; i < n; i++) {
+      const sr = rnd();
+      const session = sr < 0.2 ? "asian" : sr < 0.65 ? "london" : "ny";
+      const strategy = strategies[Math.floor(rnd() * 2.6)] ?? null;
+      const followed = strategy !== null && rnd() < 0.68;
+      let R;
+      const q = rnd();
+      if (followed) R = q < 0.56 ? 1.1 + rnd() * 1.2 : (q < 0.6 ? 0 : -(0.85 + rnd() * 0.2));
+      else R = q < 0.4 ? 0.4 + rnd() * 1.0 : (q < 0.45 ? 0 : -(0.95 + rnd() * 0.6));
+      if (session === "asian" && !followed) R -= 0.15;
+      const gross = r2(R * risk);
+      const cost = r2(1.5 + rnd() * 4);
+      const net = r2(gross - cost);
+      trades.push({
+        date: day, symbol: symbols[Math.floor(rnd() * symbols.length)],
+        side: rnd() < 0.5 ? "buy" : "sell", session, strategy, followed,
+        gross, cost, net, R: r2(net / risk)
+      });
+    }
+  });
+  return { trades, risk, start };
+}
+
+const ACCOUNTS = {
+  paper: generate(7, 50, 5000),
+  funded: generate(21, 80, 10000)
+};
+
+function compute(acc) {
+  const T = acc.trades;
+  const n = T.length;
+  const BE_TOL = 1; // |net| < $1 counts as breakeven
+  const wins = T.filter(x => x.net >= BE_TOL), losses = T.filter(x => x.net <= -BE_TOL);
+  const be = n - wins.length - losses.length;
+  const net = r2(T.reduce((a, x) => a + x.net, 0));
+  const grossProfit = r2(wins.reduce((a, x) => a + x.net, 0));
+  const grossLoss = r2(-losses.reduce((a, x) => a + x.net, 0));
+  const costs = r2(T.reduce((a, x) => a + x.cost, 0));
+  const grossProfitBeforeCosts = r2(T.filter(x => x.gross > 0).reduce((a, x) => a + x.gross, 0));
+  const expR = n ? T.reduce((a, x) => a + x.R, 0) / n : 0;
+  const expUsd = n ? net / n : 0;
+  const pf = grossLoss > 0 ? grossProfit / grossLoss : null;
+
+  let bal = acc.start, peak = acc.start, maxDD = 0, maxDDpct = 0;
+  const equity = [acc.start], under = [0];
+  T.forEach(x => {
+    bal = r2(bal + x.net); peak = Math.max(peak, bal);
+    const dd = peak - bal; if (dd > maxDD) { maxDD = dd; maxDDpct = dd / peak; }
+    equity.push(bal); under.push(dd);
+  });
+
+  const byDay = DAYS.map(d => {
+    const list = T.filter(x => x.date.getTime() === d.getTime());
+    return { date: d, net: r2(list.reduce((a, x) => a + x.net, 0)), count: list.length };
+  });
+  const activeDays = byDay.filter(d => d.count > 0);
+
+  const sess = ["asian", "london", "ny"].map(s => {
+    const list = T.filter(x => x.session === s);
+    return { s, n: list.length, avgR: list.length ? list.reduce((a, x) => a + x.R, 0) / list.length : 0 };
+  });
+
+  const fol = T.filter(x => x.followed), brk = T.filter(x => !x.followed && x.strategy !== null);
+  const avg = L => L.length ? L.reduce((a, x) => a + x.R, 0) / L.length : 0;
+  const netWithoutBroken = r2(T.filter(x => x.followed || x.strategy === null).reduce((a, x) => a + x.net, 0));
+
+  return { n, wins: wins.length, losses: losses.length, be, net, grossProfit, grossLoss, costs, grossProfitBeforeCosts,
+    expR, expUsd, pf, maxDD: r2(maxDD), maxDDpct, equity, under, bal, byDay, activeDays, sess,
+    fol: { n: fol.length, avg: avg(fol) }, brk: { n: brk.length, avg: avg(brk) }, netWithoutBroken };
+}
+
+/* ---------- Formatting ---------- */
+const MINUS = "−";
+function money(x, sign = true) {
+  const abs = Math.abs(x).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  if (!sign) return "$" + abs;
+  return (x > 0 ? "+" : x < 0 ? MINUS : "") + "$" + abs;
+}
+const pct = (x, d = 1) => (x * 100).toFixed(d) + "%";
+const rfmt = x => (x > 0 ? "+" : x < 0 ? MINUS : "") + Math.abs(x).toFixed(2) + "R";
+const arrow = x => x > 0
+  ? '<svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3l5 6H9.5v4h-3V9H3z" fill="currentColor"/></svg>'
+  : x < 0 ? '<svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13L3 7h3.5V3h3v4H13z" fill="currentColor"/></svg>' : "";
+const cls = x => x > 0 ? "pos" : x < 0 ? "neg" : "";
+function confBadge(n) {
+  const k = n < 30 ? "conf_low" : n < 100 ? "conf_mod" : "conf_high";
+  return `<span class="badge ${n < 30 ? "warn" : "muted"}">${t(k)}</span>`;
+}
+const fmtDate = d => d.toLocaleDateString(lang === "en" ? "en-US" : "en-GB", { month: "short", day: "numeric", timeZone: "UTC" });
+
+/* ---------- Charts ---------- */
+function equityChart(m) {
+  const W = 640, H = 250, top = 10, eqH = 160, gap = 18, uwH = 50;
+  const N = m.equity.length - 1;
+  const min = Math.min(...m.equity), max = Math.max(...m.equity);
+  const pad = (max - min) * 0.12 || 1;
+  const y = v => top + (1 - (v - (min - pad)) / ((max + pad) - (min - pad))) * eqH;
+  const x = i => 8 + (i / N) * (W - 110);
+  const pts = m.equity.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
+  const len = m.equity.reduce((a, v, i) => i ? a + Math.hypot(x(i) - x(i - 1), y(v) - y(m.equity[i - 1])) : 0, 0);
+  const startY = y(m.equity[0]);
+  const uwTop = top + eqH + gap;
+  const maxU = Math.max(...m.under, 1);
+  const uy = v => uwTop + (v / maxU) * uwH;
+  const uwPath = `M${x(0)},${uwTop} ` + m.under.map((v, i) => `L${x(i).toFixed(1)},${uy(v).toFixed(1)}`).join(" ") + ` L${x(N)},${uwTop} Z`;
+  const ex = x(N), ey = y(m.equity[N]);
+  return `
+  <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${t("eq_label")}">
+    <defs>
+      <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="6" stroke="var(--loss)" stroke-width="2"/>
+      </pattern>
+    </defs>
+    <line x1="8" x2="${W - 102}" y1="${startY}" y2="${startY}" stroke="var(--line)" stroke-dasharray="3 4"/>
+    <text class="axis-label" x="8" y="${startY - 5}">${money(m.equity[0], false)}</text>
+    <polyline class="draw" style="--len:${len.toFixed(0)}" points="${pts}" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="${ex}" cy="${ey}" r="4.5" fill="var(--blue)"/>
+    <text x="${ex + 10}" y="${ey + 4}" font-size="14" font-weight="600" fill="var(--fg)">${money(m.bal, false)}</text>
+    <text class="axis-label" x="8" y="${uwTop - 5}">${t("dd_label")}</text>
+    <line x1="8" x2="${W - 102}" y1="${uwTop}" y2="${uwTop}" stroke="var(--line)"/>
+    <path d="${uwPath}" fill="url(#hatch)" stroke="var(--loss)" stroke-width="1"/>
+    <text class="axis-label" x="${ex + 10}" y="${uy(maxU) }">${MINUS}${money(m.maxDD, false)}</text>
+  </svg>`;
+}
+
+function dailyChart(m) {
+  const W = 640, H = 170, mid = 85, h = 70;
+  const maxAbs = Math.max(...m.byDay.map(d => Math.abs(d.net)), 1);
+  const bw = (W - 20) / m.byDay.length;
+  const bars = m.byDay.map((d, i) => {
+    const bh = Math.abs(d.net) / maxAbs * h;
+    const xx = 10 + i * bw + bw * 0.18, w = bw * 0.64;
+    if (d.count === 0) return `<rect x="${xx}" y="${mid - 1}" width="${w}" height="2" fill="var(--line)"/>`;
+    return d.net >= 0
+      ? `<rect x="${xx}" y="${mid - bh}" width="${w}" height="${Math.max(bh, 1)}" rx="2" fill="var(--blue)"><title>${fmtDate(d.date)} ${money(d.net)}</title></rect>`
+      : `<rect x="${xx}" y="${mid}" width="${w}" height="${Math.max(bh, 1)}" rx="2" fill="url(#hatch2)" stroke="var(--loss)"><title>${fmtDate(d.date)} ${money(d.net)}</title></rect>`;
+  }).join("");
+  const labels = m.byDay.map((d, i) => i % 5 === 0
+    ? `<text class="axis-label" x="${10 + i * bw + bw / 2}" y="${H - 2}" text-anchor="middle">${fmtDate(d.date)}</text>` : "").join("");
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${t("daily_title")}">
+    <defs><pattern id="hatch2" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="5" stroke="var(--loss)" stroke-width="2"/></pattern></defs>
+    <line x1="10" x2="${W - 10}" y1="${mid}" y2="${mid}" stroke="var(--line)"/>
+    ${bars}${labels}</svg>`;
+}
+
+function calendar(m) {
+  const maxWin = Math.max(...m.byDay.map(d => d.net), 1);
+  const head = t("dow").map(d => `<div class="dow">${d}</div>`).join("");
+  const cells = m.byDay.map(d => {
+    if (d.count === 0) return `<div class="cell"><span class="d">${d.date.getUTCDate()}</span><span class="amt" style="color:var(--muted)">–</span></div>`;
+    if (d.net >= 0) {
+      const a = 0.25 + 0.75 * (d.net / maxWin);
+      const strong = a > 0.55;
+      return `<div class="cell win" style="background:color-mix(in srgb, var(--blue) ${Math.round(a * 100)}%, var(--bg));${strong ? "color:#fff" : ""}">
+        <span class="d">${d.date.getUTCDate()}</span><span class="amt">${money(d.net)}</span></div>`;
+    }
+    return `<div class="cell loss"><span class="d">${d.date.getUTCDate()}</span><span class="amt">${money(d.net)}</span></div>`;
+  }).join("");
+  return `<div class="cal">${head}${cells}</div>`;
+}
+
+/* ---------- Funded rules ---------- */
+function fundedBlock(acc, m) {
+  const start = acc.start;
+  const dailyLimit = start * 0.05, maxLimit = start * 0.10, target = start * 0.08;
+  const lastDay = m.byDay[m.byDay.length - 1];
+  const todayNet = lastDay.net;
+  const dailyLeft = dailyLimit + Math.min(0, todayNet) + Math.max(0, todayNet);
+  const dailyUsed = Math.max(0, -todayNet);
+  const maxLeft = m.bal - (start - maxLimit);
+  const profit = m.bal - start;
+  const profitDays = m.activeDays.filter(d => d.net > 0);
+  const best = Math.max(0, ...m.byDay.map(d => d.net));
+  const totalProfit = Math.max(profit, 0);
+  const consRatio = totalProfit > 0 ? best / totalProfit : 0;
+  const consNeed = totalProfit > 0 && consRatio > 0.4 ? best / 0.4 - totalProfit : 0;
+  const daysDone = m.activeDays.length;
+
+  const status = (left, limit) => left <= 0 ? ["solid", "st_viol"] : left < limit * 0.3 ? ["warn", "st_warn"] : ["ok", "st_ok"];
+  const b = ([c, k]) => `<span class="badge ${c}">${t(k)}</span>`;
+
+  const rule = (name, how, badge, meterPct, used, foot1, foot2) => `
+    <div>
+      <div class="rule-head"><div><div class="name">${name}</div><div class="how">${how}</div></div>${badge}</div>
+      <div class="meter ${used ? "used" : ""}"><div style="width:${Math.max(0, Math.min(100, meterPct)).toFixed(1)}%"></div></div>
+      <div class="rule-foot"><span>${foot1}</span><span>${foot2}</span></div>
+    </div>`;
+
+  return `
+  <section class="block" aria-labelledby="fundedH">
+    <h2 id="fundedH">${t("funded_title")}</h2>
+    <p class="hint">${t("funded_hint")}</p>
+    <div class="rules">
+      ${rule(t("f_daily"), t("f_daily_how"), b(status(dailyLimit - dailyUsed, dailyLimit)),
+        dailyUsed / dailyLimit * 100, true,
+        `<strong>${t("f_left_today", { x: money(dailyLimit - dailyUsed, false) })}</strong>`, t("f_of", { x: money(dailyLimit, false) }))}
+      ${rule(t("f_max"), t("f_max_how"), b(status(maxLeft, maxLimit)),
+        (maxLimit - Math.min(maxLeft, maxLimit)) / maxLimit * 100, true,
+        `<strong>${t("f_left", { x: money(Math.max(maxLeft, 0), false) })}</strong>`, t("f_of", { x: money(maxLimit, false) }))}
+      ${rule(t("f_target"), t("f_target_how"),
+        profit >= target ? b(["ok", "st_done"]) : `<span class="badge muted">${pct(Math.max(profit, 0) / target, 0)}</span>`,
+        Math.max(profit, 0) / target * 100, false,
+        `<strong>${t("f_progress", { x: money(Math.max(profit, 0), false), y: money(target, false) })}</strong>`, "")}
+      ${rule(t("f_cons"), t("f_cons_how"),
+        consRatio > 0.4 ? b(["warn", "st_warn"]) : b(["ok", "st_ok"]),
+        consRatio * 100 / 0.4 * 0.4, false,
+        `<strong>${t("f_cons_ok", { x: pct(consRatio, 0) })}</strong>`,
+        consNeed > 0 ? t("f_cons_need", { x: money(consNeed, false) }) : "")}
+      ${rule(t("f_days"), t("f_days_how"),
+        daysDone >= 4 ? b(["ok", "st_done"]) : b(["warn", "st_warn"]),
+        Math.min(daysDone / 4, 1) * 100, false,
+        `<strong>${t("f_days_v", { x: daysDone, y: 4 })}</strong>`, "")}
+    </div>
+    <p class="honest">${t("unverifiable")}</p>
+  </section>`;
+}
+
+/* ---------- Navigation ---------- */
+const ICONS = {
+  dashboard: '<path d="M3 13h7V3H3zM14 21h7V11h-7zM3 21h7v-5H3zM14 7h7V3h-7z" fill="none" stroke="currentColor" stroke-width="1.8"/>',
+  trades: '<path d="M4 6h16M4 12h16M4 18h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+  strategies: '<path d="M12 3l8 4-8 4-8-4zM4 12l8 4 8-4M4 17l8 4 8-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
+  funded: '<path d="M12 3l7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
+  rules: '<path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+  journal: '<path d="M6 3h11a2 2 0 012 2v16H8a2 2 0 01-2-2zM6 19a2 2 0 012-2h11" fill="none" stroke="currentColor" stroke-width="1.8"/>',
+  tools: '<rect x="5" y="3" width="14" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+  import: '<path d="M12 3v12M7 10l5 5 5-5M4 21h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  learn: '<path d="M2 8l10-5 10 5-10 5zM6 10v5c3 3 9 3 12 0v-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
+  settings: '<circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+  more: '<circle cx="5" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="19" cy="12" r="1.8" fill="currentColor"/>'
+};
+const icon = k => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[k]}</svg>`;
+
+function renderNav(acctKey) {
+  const funded = acctKey === "funded";
+  const items = ["dashboard", "trades", "strategies", ...(funded ? ["funded"] : []), "rules", "journal", "tools", "import", "learn", "settings"];
+  document.getElementById("sideNav").innerHTML = items.map(k =>
+    `<button class="nav-item" type="button" ${k === "dashboard" ? 'aria-current="page"' : ""}>${icon(k)}<span>${t("nav_" + k)}</span></button>`).join("");
+  const bottom = ["dashboard", "trades", "strategies", funded ? "funded" : "rules", "more"];
+  document.getElementById("bottomNav").innerHTML = bottom.map(k =>
+    `<button class="nav-item" type="button" ${k === "dashboard" ? 'aria-current="page"' : ""}>${icon(k)}<span>${t("nav_" + k)}</span></button>`).join("");
+}
+
+/* ---------- Page ---------- */
+function render() {
+  const acctKey = document.getElementById("acctSel").value;
+  const acc = ACCOUNTS[acctKey];
+  const m = compute(acc);
+  renderNav(acctKey);
+
+  const sel = document.getElementById("acctSel");
+  sel.options[0].text = t("acct_paper"); sel.options[1].text = t("acct_funded");
+  document.getElementById("langBtn").textContent = t("lang_btn");
+  document.documentElement.lang = lang === "en" ? "en" : "ur-Latn";
+
+  const recent = acc.trades.slice(-8).reverse();
+  const maxAbsR = Math.max(...m.sess.map(s => Math.abs(s.avgR)), 0.01);
+
+  document.getElementById("main").innerHTML = `
+    <p class="notice">${t("sample")}</p>
+    <div class="filters">
+      <span class="chip">${t("f_range")}</span><span class="chip">${t("f_strat")}</span><span class="chip">${t("f_sess")}</span>
+    </div>
+
+    <div class="hero">
+      <h1>${t("net_title")}</h1>
+      <div class="big ${cls(m.net)}">${arrow(m.net).replace('class="arrow"', 'class="arrow" style="width:28px;height:28px"')}${money(m.net)}
+        <span class="sub">${t("since")}</span></div>
+      <div class="chart-wrap">${equityChart(m)}</div>
+    </div>
+
+    <section class="block" aria-labelledby="kH">
+      <h2 id="kH">${t("k_title")}</h2>
+      <p class="hint">${t("k_hint")}</p>
+      <div class="kpis">
+        <div class="kpi"><div class="label">${t("k_winrate")}</div>
+          <div class="value">${pct(m.wins / m.n, 0)}</div>
+          <div class="meta">${t("k_wins", { w: m.wins, l: m.losses, b: m.be })}</div></div>
+        <div class="kpi"><div class="label">${t("k_exp")}</div>
+          <div class="value ${cls(m.expR)}">${arrow(m.expR)}${rfmt(m.expR)}</div>
+          <div class="meta">${t("k_expmeta", { d: money(m.expUsd) })}</div></div>
+        <div class="kpi"><div class="label">${t("k_pf")}</div>
+          <div class="value">${m.pf === null ? "–" : m.pf.toFixed(2)}</div>
+          <div class="meta">${t("k_pfmeta")}</div></div>
+        <div class="kpi"><div class="label">${t("k_dd")}</div>
+          <div class="value neg">${arrow(-1)}${MINUS}${money(m.maxDD, false)}</div>
+          <div class="meta">${t("k_ddmeta", { p: pct(m.maxDDpct) })}</div></div>
+        <div class="kpi"><div class="label">${t("k_costs")}</div>
+          <div class="value">${money(m.costs, false)}</div>
+          <div class="meta">${t("k_costmeta", { p: pct(m.costs / m.grossProfitBeforeCosts) })}</div></div>
+        <div class="kpi"><div class="label">${t("k_trades")}</div>
+          <div class="value">${m.n} ${confBadge(m.n)}</div>
+          <div class="meta">${t("k_trmeta", { d: m.activeDays.length })}</div></div>
+      </div>
+    </section>
+
+    ${acctKey === "funded" ? fundedBlock(acc, m) : ""}
+
+    <section class="block">
+      <div class="split">
+        <div>
+          <h2 style="font-size:17px;margin:0 0 4px">${t("daily_title")}</h2>
+          <p class="hint" style="color:var(--muted);font-size:13px;margin:0 0 12px">${t("daily_hint")}</p>
+          <div class="chart-wrap">${dailyChart(m)}</div>
+        </div>
+        <div>
+          <h2 style="font-size:17px;margin:18px 0 12px">${t("cal_title")}</h2>
+          ${calendar(m)}
+        </div>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="aH">
+      <h2 id="aH">${t("adh_title")}</h2>
+      <p class="hint">${t("adh_hint")}</p>
+      <div class="adh">
+        <div><div class="lbl">${t("adh_followed")}</div>
+          <div class="num ${cls(m.fol.avg)}">${arrow(m.fol.avg)}${rfmt(m.fol.avg)}</div>
+          <div class="lbl">${t("adh_avg", { n: m.fol.n })} ${m.fol.n < 30 ? `<span class="badge warn">${t("low_sample")}</span>` : ""}</div></div>
+        <div><div class="lbl">${t("adh_broke")}</div>
+          <div class="num ${cls(m.brk.avg)}">${arrow(m.brk.avg)}${rfmt(m.brk.avg)}</div>
+          <div class="lbl">${t("adh_avg", { n: m.brk.n })} ${m.brk.n < 30 ? `<span class="badge warn">${t("low_sample")}</span>` : ""}</div></div>
+      </div>
+      <p class="adh-note">${t("adh_note", { x: `<strong>${money(m.netWithoutBroken)}</strong>`, y: money(m.net) })}</p>
+    </section>
+
+    <section class="block" aria-labelledby="sH">
+      <h2 id="sH">${t("sess_title")}</h2>
+      <p class="hint">${t("sess_hint")}</p>
+      ${m.sess.map(s => {
+        const w = Math.abs(s.avgR) / maxAbsR * 50;
+        const bar = s.avgR >= 0
+          ? `<div class="bar p" style="left:50%;width:${w}%"></div>`
+          : `<div class="bar n" style="right:50%;width:${w}%"></div>`;
+        return `<div class="sess-row">
+          <div><div>${t("s_" + s.s)}</div><div class="n">${t("s_" + s.s + "_t")}</div></div>
+          <div class="bar-track"><div class="zero"></div>${bar}</div>
+          <div><div class="r ${cls(s.avgR)}">${arrow(s.avgR)}${rfmt(s.avgR)}</div>
+            <div class="n" style="text-align:right">${s.n} trades${s.n < 20 ? ` <span class="badge warn">${t("low_sample")}</span>` : ""}</div></div>
+        </div>`;
+      }).join("")}
+    </section>
+
+    <section class="block" aria-labelledby="rH">
+      <h2 id="rH">${t("recent_title")}</h2>
+      <div class="table-scroll">
+        <table>
+          <thead><tr>
+            <th>${t("c_date")}</th><th>${t("c_symbol")}</th><th>${t("c_side")}</th><th>${t("c_strategy")}</th>
+            <th>${t("c_rules")}</th><th class="num">${t("c_r")}</th><th class="num">${t("c_net")}</th>
+          </tr></thead>
+          <tbody>
+            ${recent.map(x => `<tr>
+              <td>${fmtDate(x.date)}</td><td>${x.symbol}</td><td>${t(x.side)}</td>
+              <td>${x.strategy ?? `<span class="tag">${t("none")}</span>`}</td>
+              <td>${x.strategy === null ? "–" : x.followed ? `<span class="badge ok">${t("followed")}</span>` : `<span class="badge solid">${t("broken")}</span>`}</td>
+              <td class="num ${cls(x.R)}">${rfmt(x.R)}</td>
+              <td class="num ${cls(x.net)}">${money(x.net)}</td>
+            </tr>`).join("")}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="disc">${t("disc")}</footer>
+  `;
+}
+
+/* ---------- Controls ---------- */
+document.getElementById("acctSel").addEventListener("change", render);
+document.getElementById("langBtn").addEventListener("click", e => {
+  lang = lang === "en" ? "ru" : "en";
+  e.currentTarget.setAttribute("aria-pressed", String(lang === "ru"));
+  render();
+});
+const themeBtn = document.getElementById("themeBtn");
+function currentTheme() {
+  const set = document.documentElement.getAttribute("data-theme");
+  if (set) return set;
+  return matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+function syncThemeBtn() { themeBtn.textContent = currentTheme() === "dark" ? t("theme_light") : t("theme_dark"); }
+themeBtn.addEventListener("click", () => {
+  document.documentElement.setAttribute("data-theme", currentTheme() === "dark" ? "light" : "dark");
+  syncThemeBtn();
+});
+render();
+syncThemeBtn();
+</script>
+</body>
+</html>
