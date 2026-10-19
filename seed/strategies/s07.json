@@ -1,0 +1,307 @@
+{
+  "schemaVersion": "strategy-spec/1.1",
+  "generatedBy": "appendix-a-seed",
+  "source": {
+    "videos": [],
+    "documents": [
+      {
+        "title": "Master AI Trading Agent System Prompt & 20-Strategy + 5-Risk Blueprint",
+        "author": "Founder's research document (generated with Google Gemini)",
+        "date": null,
+        "notes": "Appendix A, S7. Source objectivity rating (unverified): 9.5/10."
+      }
+    ]
+  },
+  "strategy": {
+    "name": "Mean Reversion (RSI(2) & Bollinger extremes)",
+    "aliases": [],
+    "summary": "Buy short-term extremes in a long-term uptrend (above SMA 200) and exit on the bounce.",
+    "style": "SWING",
+    "methodology": [
+      "mean reversion"
+    ],
+    "instruments": [
+      "SPX500",
+      "NAS100",
+      "ETFs",
+      "Forex majors"
+    ],
+    "timeframes": {
+      "bias": [],
+      "setup": [
+        "1D",
+        "1H"
+      ],
+      "entry": [
+        "1D"
+      ]
+    },
+    "typicalHoldingTime": null,
+    "typicalTradesPerDay": null
+  },
+  "terms": [],
+  "indicators": [
+    {
+      "name": "SMA 200",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "SMA 5",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "RSI(2)",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "Bollinger Bands (20, 2.0)",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "ATR(14)",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    }
+  ],
+  "sessions": [],
+  "rules": [
+    {
+      "id": "R1",
+      "category": "CONTEXT",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "Long only when the close is above SMA 200. Never long below SMA 200.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the close above SMA 200?"
+    },
+    {
+      "id": "R2",
+      "category": "ENTRY",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "RSI(2) below 10 (or 5) and/or close near/outside the lower band → enter at the close or next open.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was RSI(2) below 10?"
+    },
+    {
+      "id": "R3",
+      "category": "ENTRY",
+      "direction": "SHORT",
+      "setupName": "Setup A",
+      "text": "Short: close below SMA 200 and RSI(2) above 90 (or 95).",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was RSI(2) above 90 below SMA 200?"
+    },
+    {
+      "id": "R4",
+      "category": "TAKE_PROFIT",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "Exit when a candle closes above SMA 5 or RSI(2) crosses above 70.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did you exit at the SMA 5 / RSI 70 signal?"
+    },
+    {
+      "id": "R5",
+      "category": "TAKE_PROFIT",
+      "direction": "SHORT",
+      "setupName": "Setup A",
+      "text": "Short exit: close below SMA 5 or RSI(2) below 30 (assumed mirror).",
+      "parameters": {},
+      "timestamp": "",
+      "source": "INFERRED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did you exit shorts at the mirror signal?"
+    },
+    {
+      "id": "R6",
+      "category": "STOP_LOSS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Emergency stop 2.5 × ATR(14) from entry, or a close below SMA 200.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the 2.5 × ATR emergency stop in place?"
+    }
+  ],
+  "risk": {
+    "riskPerTradePercent": null,
+    "positionSizingMethod": null,
+    "maxTradesPerDay": null,
+    "dailyLossStop": null,
+    "maxConsecutiveLosses": null,
+    "minRiskReward": null,
+    "notes": ""
+  },
+  "management": {
+    "takeProfitTargets": [],
+    "partialCloses": [],
+    "breakevenRule": null,
+    "trailingRule": null,
+    "timeExitRule": null
+  },
+  "executionFlow": [
+    {
+      "step": 1,
+      "description": "Long only when the close is above SMA 200. Never long below SMA 200.",
+      "ruleIds": [
+        "R1"
+      ]
+    },
+    {
+      "step": 2,
+      "description": "RSI(2) below 10 (or 5) and/or close near/outside the lower band → enter at the close or next open.",
+      "ruleIds": [
+        "R2"
+      ]
+    },
+    {
+      "step": 3,
+      "description": "Short: close below SMA 200 and RSI(2) above 90 (or 95).",
+      "ruleIds": [
+        "R3"
+      ]
+    },
+    {
+      "step": 4,
+      "description": "Exit when a candle closes above SMA 5 or RSI(2) crosses above 70.",
+      "ruleIds": [
+        "R4"
+      ]
+    },
+    {
+      "step": 5,
+      "description": "Short exit: close below SMA 5 or RSI(2) below 30 (assumed mirror).",
+      "ruleIds": [
+        "R5"
+      ]
+    },
+    {
+      "step": 6,
+      "description": "Emergency stop 2.5 × ATR(14) from entry, or a close below SMA 200.",
+      "ruleIds": [
+        "R6"
+      ]
+    }
+  ],
+  "examples": [],
+  "checklist": [
+    {
+      "ruleId": "R1",
+      "question": "Was the close above SMA 200?"
+    },
+    {
+      "ruleId": "R2",
+      "question": "Was RSI(2) below 10?"
+    },
+    {
+      "ruleId": "R3",
+      "question": "Was RSI(2) above 90 below SMA 200?"
+    },
+    {
+      "ruleId": "R4",
+      "question": "Did you exit at the SMA 5 / RSI 70 signal?"
+    },
+    {
+      "ruleId": "R5",
+      "question": "Did you exit shorts at the mirror signal?"
+    },
+    {
+      "ruleId": "R6",
+      "question": "Was the 2.5 × ATR emergency stop in place?"
+    }
+  ],
+  "mistakeTags": [],
+  "creatorClaims": [
+    {
+      "claim": "Win rate 65–78%",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "R:R 1:0.8–1:1.5",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "'30+ years backtested' (US index data only)",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "A1",
+      "issue": "Short exit not stated.",
+      "whyItMatters": "",
+      "questionForTrader": "Use the mirror exit for shorts?",
+      "suggestedDefault": "Close below SMA 5 or RSI(2) < 30"
+    },
+    {
+      "id": "A2",
+      "issue": "Holds overnight/over weekends (issue N4).",
+      "whyItMatters": "",
+      "questionForTrader": "Does your prop firm allow weekend holding?",
+      "suggestedDefault": null
+    }
+  ],
+  "analystNotes": []
+}

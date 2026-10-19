@@ -54,7 +54,8 @@ src/store/                Zustand store (appStore.ts) + ALL state changes (actio
 src/config/               thresholds (confidence framework), contrast test
 src/i18n/                 en.ts + ru.ts (Roman Urdu); TypeScript enforces the same keys
 e2e/                      Playwright flows + screenshot gate
-docs/                     specs, prompts, design reference, tracking files, SETUP.md, samples
+docs/                     specs, prompts, design reference, tracking files, SETUP.md, samples, handbook
+seed/strategies/          Appendix A seeds as strategy-spec/1.1 JSON (generated, synced by a test)
 ```
 
 ## 6. Engineering rules (summary of spec 3C)

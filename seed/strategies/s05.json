@@ -1,0 +1,307 @@
+{
+  "schemaVersion": "strategy-spec/1.1",
+  "generatedBy": "appendix-a-seed",
+  "source": {
+    "videos": [],
+    "documents": [
+      {
+        "title": "Master AI Trading Agent System Prompt & 20-Strategy + 5-Risk Blueprint",
+        "author": "Founder's research document (generated with Google Gemini)",
+        "date": null,
+        "notes": "Appendix A, S5. Source objectivity rating (unverified): 6.5/10 (8/10 quantified)."
+      }
+    ]
+  },
+  "strategy": {
+    "name": "Support & Resistance Bounce and Flip",
+    "aliases": [],
+    "summary": "Trade bounces from fresh higher-timeframe zones (2nd/3rd touch) and broken levels that flip roles on the retest.",
+    "style": "INTRADAY",
+    "methodology": [
+      "price action"
+    ],
+    "instruments": [
+      "All liquid markets"
+    ],
+    "timeframes": {
+      "bias": [],
+      "setup": [
+        "15m",
+        "1H",
+        "4H"
+      ],
+      "entry": [
+        "15m"
+      ]
+    },
+    "typicalHoldingTime": null,
+    "typicalTradesPerDay": null
+  },
+  "terms": [],
+  "indicators": [
+    {
+      "name": "ATR(14)",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "RSI(14)",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    }
+  ],
+  "sessions": [],
+  "rules": [
+    {
+      "id": "R1",
+      "category": "SETUP",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Zone from a 4H/Daily swing wick to the body close, width ≤ 0.5 × ATR(14).",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the zone width ≤ 0.5 × ATR?"
+    },
+    {
+      "id": "R2",
+      "category": "SETUP",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Trade the 2nd or 3rd touch only; never the 5th or later.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was this the 2nd or 3rd touch?"
+    },
+    {
+      "id": "R3",
+      "category": "ENTRY",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "Long: price enters support, candles shrink, a bullish engulfing/pin bar closes, RSI(14) turns up from below 35.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did RSI turn up from below 35 with a bullish candle?"
+    },
+    {
+      "id": "R4",
+      "category": "ENTRY",
+      "direction": "SHORT",
+      "setupName": "Setup A",
+      "text": "Short: mirror (RSI turning down from above 65 — assumed).",
+      "parameters": {},
+      "timestamp": "",
+      "source": "INFERRED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did RSI turn down from above 65?"
+    },
+    {
+      "id": "R5",
+      "category": "STOP_LOSS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Stop 1 × ATR(14) beyond the zone's outer edge.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the stop 1 × ATR beyond the zone?"
+    },
+    {
+      "id": "R6",
+      "category": "TAKE_PROFIT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Target the nearest opposing structure, minimum 1:2.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "YES",
+      "requiredData": [
+        "trade history"
+      ],
+      "checklistQuestion": "Was the planned R:R at least 2?"
+    },
+    {
+      "id": "R7",
+      "category": "INVALIDATION",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "If price approaches faster than 2 × ATR per candle, cancel limit orders and wait for confirmation.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did you avoid a 'falling knife' entry?"
+    }
+  ],
+  "risk": {
+    "riskPerTradePercent": null,
+    "positionSizingMethod": null,
+    "maxTradesPerDay": null,
+    "dailyLossStop": null,
+    "maxConsecutiveLosses": null,
+    "minRiskReward": null,
+    "notes": ""
+  },
+  "management": {
+    "takeProfitTargets": [],
+    "partialCloses": [],
+    "breakevenRule": null,
+    "trailingRule": null,
+    "timeExitRule": null
+  },
+  "executionFlow": [
+    {
+      "step": 1,
+      "description": "Zone from a 4H/Daily swing wick to the body close, width ≤ 0.5 × ATR(14).",
+      "ruleIds": [
+        "R1"
+      ]
+    },
+    {
+      "step": 2,
+      "description": "Trade the 2nd or 3rd touch only; never the 5th or later.",
+      "ruleIds": [
+        "R2"
+      ]
+    },
+    {
+      "step": 3,
+      "description": "Long: price enters support, candles shrink, a bullish engulfing/pin bar closes, RSI(14) turns up from below 35.",
+      "ruleIds": [
+        "R3"
+      ]
+    },
+    {
+      "step": 4,
+      "description": "Short: mirror (RSI turning down from above 65 — assumed).",
+      "ruleIds": [
+        "R4"
+      ]
+    },
+    {
+      "step": 5,
+      "description": "Stop 1 × ATR(14) beyond the zone's outer edge.",
+      "ruleIds": [
+        "R5"
+      ]
+    },
+    {
+      "step": 6,
+      "description": "Target the nearest opposing structure, minimum 1:2.",
+      "ruleIds": [
+        "R6"
+      ]
+    },
+    {
+      "step": 7,
+      "description": "If price approaches faster than 2 × ATR per candle, cancel limit orders and wait for confirmation.",
+      "ruleIds": [
+        "R7"
+      ]
+    }
+  ],
+  "examples": [],
+  "checklist": [
+    {
+      "ruleId": "R1",
+      "question": "Was the zone width ≤ 0.5 × ATR?"
+    },
+    {
+      "ruleId": "R2",
+      "question": "Was this the 2nd or 3rd touch?"
+    },
+    {
+      "ruleId": "R3",
+      "question": "Did RSI turn up from below 35 with a bullish candle?"
+    },
+    {
+      "ruleId": "R4",
+      "question": "Did RSI turn down from above 65?"
+    },
+    {
+      "ruleId": "R5",
+      "question": "Was the stop 1 × ATR beyond the zone?"
+    },
+    {
+      "ruleId": "R6",
+      "question": "Was the planned R:R at least 2?"
+    },
+    {
+      "ruleId": "R7",
+      "question": "Did you avoid a 'falling knife' entry?"
+    }
+  ],
+  "mistakeTags": [],
+  "creatorClaims": [
+    {
+      "claim": "Win rate 50–60%",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "R:R 1:2–1:3",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "A1",
+      "issue": "Two tolerances (0.5 × ATR width and 0.3 × ATR touches) — how do they work together?",
+      "whyItMatters": "",
+      "questionForTrader": "Which tolerance decides a valid zone?",
+      "suggestedDefault": null
+    },
+    {
+      "id": "A2",
+      "issue": "Short RSI threshold not stated.",
+      "whyItMatters": "",
+      "questionForTrader": "Use RSI turning down from above 65 for shorts?",
+      "suggestedDefault": "65"
+    }
+  ],
+  "analystNotes": []
+}

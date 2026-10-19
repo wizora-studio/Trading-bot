@@ -1,0 +1,233 @@
+{
+  "schemaVersion": "strategy-spec/1.1",
+  "generatedBy": "appendix-a-seed",
+  "source": {
+    "videos": [],
+    "documents": [
+      {
+        "title": "Master AI Trading Agent System Prompt & 20-Strategy + 5-Risk Blueprint",
+        "author": "Founder's research document (generated with Google Gemini)",
+        "date": null,
+        "notes": "Appendix A, S11. Source objectivity rating (unverified): 9/10."
+      }
+    ]
+  },
+  "strategy": {
+    "name": "VWAP + Standard Deviation Bands",
+    "aliases": [],
+    "summary": "Trend days: buy pullbacks to VWAP. Balanced days: fade ±2 SD back to VWAP. A slope lock decides which.",
+    "style": "INTRADAY",
+    "methodology": [
+      "VWAP",
+      "institutional benchmark"
+    ],
+    "instruments": [
+      "Futures",
+      "Indices",
+      "Stocks",
+      "Crypto"
+    ],
+    "timeframes": {
+      "bias": [],
+      "setup": [
+        "5m",
+        "15m"
+      ],
+      "entry": [
+        "5m"
+      ]
+    },
+    "typicalHoldingTime": null,
+    "typicalTradesPerDay": null
+  },
+  "terms": [],
+  "indicators": [
+    {
+      "name": "Session VWAP",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "VWAP ±1/2/2.5/3 SD bands",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "ATR",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    }
+  ],
+  "sessions": [],
+  "rules": [
+    {
+      "id": "R1",
+      "category": "CONTEXT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "If VWAP slope > 0.25 × ATR per bar, fades are blocked; only pullbacks.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the VWAP slope below the lock threshold for fades?"
+    },
+    {
+      "id": "R2",
+      "category": "ENTRY",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Mode A: price holds beyond ±1 SD; first return to VWAP with a 5m rejection → trade with the trend.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was this the first return to VWAP on a trend day?"
+    },
+    {
+      "id": "R3",
+      "category": "STOP_LOSS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Mode A: stop beyond the opposite ±1 SD band; target ±2 SD.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the stop beyond the opposite 1 SD band?"
+    },
+    {
+      "id": "R4",
+      "category": "ENTRY",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Mode B: flat VWAP; at ±2.0/±2.5 SD with a 5m reversal candle, fade to VWAP; stop ±3 SD.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was VWAP flat and price at ±2 SD?"
+    }
+  ],
+  "risk": {
+    "riskPerTradePercent": null,
+    "positionSizingMethod": null,
+    "maxTradesPerDay": null,
+    "dailyLossStop": null,
+    "maxConsecutiveLosses": null,
+    "minRiskReward": null,
+    "notes": ""
+  },
+  "management": {
+    "takeProfitTargets": [],
+    "partialCloses": [],
+    "breakevenRule": null,
+    "trailingRule": null,
+    "timeExitRule": null
+  },
+  "executionFlow": [
+    {
+      "step": 1,
+      "description": "If VWAP slope > 0.25 × ATR per bar, fades are blocked; only pullbacks.",
+      "ruleIds": [
+        "R1"
+      ]
+    },
+    {
+      "step": 2,
+      "description": "Mode A: price holds beyond ±1 SD; first return to VWAP with a 5m rejection → trade with the trend.",
+      "ruleIds": [
+        "R2"
+      ]
+    },
+    {
+      "step": 3,
+      "description": "Mode A: stop beyond the opposite ±1 SD band; target ±2 SD.",
+      "ruleIds": [
+        "R3"
+      ]
+    },
+    {
+      "step": 4,
+      "description": "Mode B: flat VWAP; at ±2.0/±2.5 SD with a 5m reversal candle, fade to VWAP; stop ±3 SD.",
+      "ruleIds": [
+        "R4"
+      ]
+    }
+  ],
+  "examples": [],
+  "checklist": [
+    {
+      "ruleId": "R1",
+      "question": "Was the VWAP slope below the lock threshold for fades?"
+    },
+    {
+      "ruleId": "R2",
+      "question": "Was this the first return to VWAP on a trend day?"
+    },
+    {
+      "ruleId": "R3",
+      "question": "Was the stop beyond the opposite 1 SD band?"
+    },
+    {
+      "ruleId": "R4",
+      "question": "Was VWAP flat and price at ±2 SD?"
+    }
+  ],
+  "mistakeTags": [],
+  "creatorClaims": [
+    {
+      "claim": "Win rate 52–62%",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "R:R 1:2–1:3",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "A1",
+      "issue": "'Steep' VWAP not defined apart from the lock.",
+      "whyItMatters": "",
+      "questionForTrader": "Use only the 0.25 × ATR rule?",
+      "suggestedDefault": null
+    },
+    {
+      "id": "A2",
+      "issue": "Needs real volume (V4).",
+      "whyItMatters": "",
+      "questionForTrader": "Checklist-only on forex/CFDs?",
+      "suggestedDefault": "Checklist-only"
+    }
+  ],
+  "analystNotes": []
+}

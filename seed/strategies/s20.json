@@ -1,0 +1,238 @@
+{
+  "schemaVersion": "strategy-spec/1.1",
+  "generatedBy": "appendix-a-seed",
+  "source": {
+    "videos": [],
+    "documents": [
+      {
+        "title": "Master AI Trading Agent System Prompt & 20-Strategy + 5-Risk Blueprint",
+        "author": "Founder's research document (generated with Google Gemini)",
+        "date": null,
+        "notes": "Appendix A, S20. Source objectivity rating (unverified): 7.5/10."
+      }
+    ]
+  },
+  "strategy": {
+    "name": "Macro News Events (NFP / CPI / FOMC)",
+    "aliases": [],
+    "summary": "Protect before big US news, then fade a whipsaw on mixed data or join a true surprise after a retrace.",
+    "style": "SCALPING",
+    "methodology": [
+      "event-driven"
+    ],
+    "instruments": [
+      "XAUUSD",
+      "USD pairs",
+      "US indices"
+    ],
+    "timeframes": {
+      "bias": [],
+      "setup": [
+        "1m",
+        "5m",
+        "15m"
+      ],
+      "entry": [
+        "1m"
+      ]
+    },
+    "typicalHoldingTime": null,
+    "typicalTradesPerDay": null
+  },
+  "terms": [],
+  "indicators": [],
+  "sessions": [],
+  "rules": [
+    {
+      "id": "R1",
+      "category": "NEWS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Cancel resting limit orders 10 minutes before CPI/NFP/FOMC; respect your firm's confirmed news window.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "YES",
+      "requiredData": [
+        "trade history"
+      ],
+      "checklistQuestion": "Were resting orders cancelled before the release?"
+    },
+    {
+      "id": "R2",
+      "category": "ENTRY",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Playbook 1 (mixed data): first 1–3 min sweep a 4H level, then a 5m close back beyond the pre-news price → enter the reversal.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was there a sweep and a 5m close back?"
+    },
+    {
+      "id": "R3",
+      "category": "ENTRY",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Playbook 2 (surprise > 2σ): wait 15–30 min for a 50% retrace or the 5m FVG, then enter in the surprise direction.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did you wait 15–30 min for the retrace?"
+    },
+    {
+      "id": "R4",
+      "category": "STOP_LOSS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Stop beyond the spike extreme (P1) or beyond the pre-news price (P2).",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the stop beyond the spike / pre-news price?"
+    },
+    {
+      "id": "R5",
+      "category": "TAKE_PROFIT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Targets 2R–4R.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "YES",
+      "requiredData": [
+        "trade history"
+      ],
+      "checklistQuestion": "Was the planned R:R between 2 and 4?"
+    }
+  ],
+  "risk": {
+    "riskPerTradePercent": null,
+    "positionSizingMethod": null,
+    "maxTradesPerDay": null,
+    "dailyLossStop": null,
+    "maxConsecutiveLosses": null,
+    "minRiskReward": null,
+    "notes": ""
+  },
+  "management": {
+    "takeProfitTargets": [],
+    "partialCloses": [],
+    "breakevenRule": null,
+    "trailingRule": null,
+    "timeExitRule": null
+  },
+  "executionFlow": [
+    {
+      "step": 1,
+      "description": "Cancel resting limit orders 10 minutes before CPI/NFP/FOMC; respect your firm's confirmed news window.",
+      "ruleIds": [
+        "R1"
+      ]
+    },
+    {
+      "step": 2,
+      "description": "Playbook 1 (mixed data): first 1–3 min sweep a 4H level, then a 5m close back beyond the pre-news price → enter the reversal.",
+      "ruleIds": [
+        "R2"
+      ]
+    },
+    {
+      "step": 3,
+      "description": "Playbook 2 (surprise > 2σ): wait 15–30 min for a 50% retrace or the 5m FVG, then enter in the surprise direction.",
+      "ruleIds": [
+        "R3"
+      ]
+    },
+    {
+      "step": 4,
+      "description": "Stop beyond the spike extreme (P1) or beyond the pre-news price (P2).",
+      "ruleIds": [
+        "R4"
+      ]
+    },
+    {
+      "step": 5,
+      "description": "Targets 2R–4R.",
+      "ruleIds": [
+        "R5"
+      ]
+    }
+  ],
+  "examples": [],
+  "checklist": [
+    {
+      "ruleId": "R1",
+      "question": "Were resting orders cancelled before the release?"
+    },
+    {
+      "ruleId": "R2",
+      "question": "Was there a sweep and a 5m close back?"
+    },
+    {
+      "ruleId": "R3",
+      "question": "Did you wait 15–30 min for the retrace?"
+    },
+    {
+      "ruleId": "R4",
+      "question": "Was the stop beyond the spike / pre-news price?"
+    },
+    {
+      "ruleId": "R5",
+      "question": "Was the planned R:R between 2 and 4?"
+    }
+  ],
+  "mistakeTags": [],
+  "creatorClaims": [
+    {
+      "claim": "Win rate 48–58%",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "R:R 1:2.5–1:5",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "A1",
+      "issue": "'2σ surprise' needs a historical surprise distribution.",
+      "whyItMatters": "",
+      "questionForTrader": "How will you decide a surprise?",
+      "suggestedDefault": null
+    },
+    {
+      "id": "A2",
+      "issue": "Needs a licensed economic calendar.",
+      "whyItMatters": "",
+      "questionForTrader": "Which calendar will you use?",
+      "suggestedDefault": null
+    }
+  ],
+  "analystNotes": []
+}

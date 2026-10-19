@@ -1,0 +1,260 @@
+{
+  "schemaVersion": "strategy-spec/1.1",
+  "generatedBy": "appendix-a-seed",
+  "source": {
+    "videos": [],
+    "documents": [
+      {
+        "title": "Master AI Trading Agent System Prompt & 20-Strategy + 5-Risk Blueprint",
+        "author": "Founder's research document (generated with Google Gemini)",
+        "date": null,
+        "notes": "Appendix A, S15. Source objectivity rating (unverified): 9.5/10."
+      }
+    ]
+  },
+  "strategy": {
+    "name": "Bollinger Band Squeeze (TTM)",
+    "aliases": [],
+    "summary": "When Bollinger Bands sit inside the Keltner Channel for 6+ candles, trade the 'fire' in the momentum direction.",
+    "style": "INTRADAY",
+    "methodology": [
+      "volatility breakout"
+    ],
+    "instruments": [
+      "Crypto",
+      "Growth stocks",
+      "Forex"
+    ],
+    "timeframes": {
+      "bias": [],
+      "setup": [
+        "15m",
+        "1H",
+        "4H"
+      ],
+      "entry": [
+        "15m"
+      ]
+    },
+    "typicalHoldingTime": null,
+    "typicalTradesPerDay": null
+  },
+  "terms": [],
+  "indicators": [
+    {
+      "name": "Bollinger Bands (20, 2.0)",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "Keltner Channel (EMA 20, 1.5 × ATR(20))",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "Momentum (MACD histogram or 12-period linear regression)",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    }
+  ],
+  "sessions": [],
+  "rules": [
+    {
+      "id": "R1",
+      "category": "SETUP",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Squeeze on: upper BB < upper KC and lower BB > lower KC for ≥ 6 candles.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the squeeze on for at least 6 candles?"
+    },
+    {
+      "id": "R2",
+      "category": "ENTRY",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Fire = first candle a band moves outside the KC; long if momentum > 0 and rising, short if < 0 and falling.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did you enter on the fire in the momentum direction?"
+    },
+    {
+      "id": "R3",
+      "category": "STOP_LOSS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Stop at EMA 20 or 1.5 × ATR(14).",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the stop at EMA 20 / 1.5 × ATR?"
+    },
+    {
+      "id": "R4",
+      "category": "TAKE_PROFIT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Exit on two shrinking momentum bars or a close back across EMA 20.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did you exit on the momentum/EMA rule?"
+    },
+    {
+      "id": "R5",
+      "category": "INVALIDATION",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Head-fake: a close on the opposite side of EMA 20 right after the fire → exit.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did you exit on a head-fake?"
+    }
+  ],
+  "risk": {
+    "riskPerTradePercent": null,
+    "positionSizingMethod": null,
+    "maxTradesPerDay": null,
+    "dailyLossStop": null,
+    "maxConsecutiveLosses": null,
+    "minRiskReward": null,
+    "notes": ""
+  },
+  "management": {
+    "takeProfitTargets": [],
+    "partialCloses": [],
+    "breakevenRule": null,
+    "trailingRule": null,
+    "timeExitRule": null
+  },
+  "executionFlow": [
+    {
+      "step": 1,
+      "description": "Squeeze on: upper BB < upper KC and lower BB > lower KC for ≥ 6 candles.",
+      "ruleIds": [
+        "R1"
+      ]
+    },
+    {
+      "step": 2,
+      "description": "Fire = first candle a band moves outside the KC; long if momentum > 0 and rising, short if < 0 and falling.",
+      "ruleIds": [
+        "R2"
+      ]
+    },
+    {
+      "step": 3,
+      "description": "Stop at EMA 20 or 1.5 × ATR(14).",
+      "ruleIds": [
+        "R3"
+      ]
+    },
+    {
+      "step": 4,
+      "description": "Exit on two shrinking momentum bars or a close back across EMA 20.",
+      "ruleIds": [
+        "R4"
+      ]
+    },
+    {
+      "step": 5,
+      "description": "Head-fake: a close on the opposite side of EMA 20 right after the fire → exit.",
+      "ruleIds": [
+        "R5"
+      ]
+    }
+  ],
+  "examples": [],
+  "checklist": [
+    {
+      "ruleId": "R1",
+      "question": "Was the squeeze on for at least 6 candles?"
+    },
+    {
+      "ruleId": "R2",
+      "question": "Did you enter on the fire in the momentum direction?"
+    },
+    {
+      "ruleId": "R3",
+      "question": "Was the stop at EMA 20 / 1.5 × ATR?"
+    },
+    {
+      "ruleId": "R4",
+      "question": "Did you exit on the momentum/EMA rule?"
+    },
+    {
+      "ruleId": "R5",
+      "question": "Did you exit on a head-fake?"
+    }
+  ],
+  "mistakeTags": [],
+  "creatorClaims": [
+    {
+      "claim": "Win rate 45–54%",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "R:R 1:2.5–1:5",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "A1",
+      "issue": "Which momentum indicator?",
+      "whyItMatters": "",
+      "questionForTrader": "MACD histogram or linear-regression momentum?",
+      "suggestedDefault": "MACD histogram"
+    },
+    {
+      "id": "A2",
+      "issue": "Head-fake: exit or reverse?",
+      "whyItMatters": "",
+      "questionForTrader": "Only exit, or also reverse?",
+      "suggestedDefault": "Only exit"
+    }
+  ],
+  "analystNotes": []
+}

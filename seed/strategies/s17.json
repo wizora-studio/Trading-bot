@@ -1,0 +1,227 @@
+{
+  "schemaVersion": "strategy-spec/1.1",
+  "generatedBy": "appendix-a-seed",
+  "source": {
+    "videos": [],
+    "documents": [
+      {
+        "title": "Master AI Trading Agent System Prompt & 20-Strategy + 5-Risk Blueprint",
+        "author": "Founder's research document (generated with Google Gemini)",
+        "date": null,
+        "notes": "Appendix A, S17. Source objectivity rating (unverified): 7.5/10."
+      }
+    ]
+  },
+  "strategy": {
+    "name": "RSI + MACD Divergence (Regular & Hidden)",
+    "aliases": [],
+    "summary": "Divergence on BOTH RSI(14) and the MACD histogram, plus a trigger, at a higher-timeframe zone.",
+    "style": "INTRADAY",
+    "methodology": [
+      "divergence",
+      "indicator-based"
+    ],
+    "instruments": [
+      "Forex",
+      "Crypto",
+      "XAUUSD",
+      "Indices"
+    ],
+    "timeframes": {
+      "bias": [],
+      "setup": [
+        "15m",
+        "1H",
+        "4H"
+      ],
+      "entry": [
+        "15m"
+      ]
+    },
+    "typicalHoldingTime": null,
+    "typicalTradesPerDay": null
+  },
+  "terms": [],
+  "indicators": [
+    {
+      "name": "RSI(14)",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "MACD (12, 26, 9)",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "ATR",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    }
+  ],
+  "sessions": [],
+  "rules": [
+    {
+      "id": "R1",
+      "category": "SETUP",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Divergence must appear on both RSI(14) and the MACD histogram. Regular: first RSI pivot > 70 (bear) / < 30 (bull).",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the divergence on both RSI and MACD?"
+    },
+    {
+      "id": "R2",
+      "category": "ENTRY",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Divergence alone is not an entry: wait for a micro-trendline break, LTF structure break, or MACD signal cross at an HTF zone.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did you wait for a trigger?"
+    },
+    {
+      "id": "R3",
+      "category": "STOP_LOSS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Stop 1 × ATR beyond the divergence swing.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the stop 1 × ATR beyond the swing?"
+    },
+    {
+      "id": "R4",
+      "category": "INVALIDATION",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Counter-trend regular divergence only inside a 4H/Daily zone with an LTF structure break.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "NO",
+      "requiredData": [
+        "trader checklist"
+      ],
+      "checklistQuestion": "For counter-trend trades, were you inside an HTF zone?"
+    }
+  ],
+  "risk": {
+    "riskPerTradePercent": null,
+    "positionSizingMethod": null,
+    "maxTradesPerDay": null,
+    "dailyLossStop": null,
+    "maxConsecutiveLosses": null,
+    "minRiskReward": null,
+    "notes": ""
+  },
+  "management": {
+    "takeProfitTargets": [],
+    "partialCloses": [],
+    "breakevenRule": null,
+    "trailingRule": null,
+    "timeExitRule": null
+  },
+  "executionFlow": [
+    {
+      "step": 1,
+      "description": "Divergence must appear on both RSI(14) and the MACD histogram. Regular: first RSI pivot > 70 (bear) / < 30 (bull).",
+      "ruleIds": [
+        "R1"
+      ]
+    },
+    {
+      "step": 2,
+      "description": "Divergence alone is not an entry: wait for a micro-trendline break, LTF structure break, or MACD signal cross at an HTF zone.",
+      "ruleIds": [
+        "R2"
+      ]
+    },
+    {
+      "step": 3,
+      "description": "Stop 1 × ATR beyond the divergence swing.",
+      "ruleIds": [
+        "R3"
+      ]
+    },
+    {
+      "step": 4,
+      "description": "Counter-trend regular divergence only inside a 4H/Daily zone with an LTF structure break.",
+      "ruleIds": [
+        "R4"
+      ]
+    }
+  ],
+  "examples": [],
+  "checklist": [
+    {
+      "ruleId": "R1",
+      "question": "Was the divergence on both RSI and MACD?"
+    },
+    {
+      "ruleId": "R2",
+      "question": "Did you wait for a trigger?"
+    },
+    {
+      "ruleId": "R3",
+      "question": "Was the stop 1 × ATR beyond the swing?"
+    },
+    {
+      "ruleId": "R4",
+      "question": "For counter-trend trades, were you inside an HTF zone?"
+    }
+  ],
+  "mistakeTags": [],
+  "creatorClaims": [
+    {
+      "claim": "Win rate 50–58%",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "R:R 1:2–1:3",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "A1",
+      "issue": "Several triggers are allowed.",
+      "whyItMatters": "",
+      "questionForTrader": "Which trigger do you use by default?",
+      "suggestedDefault": "LTF structure break"
+    }
+  ],
+  "analystNotes": []
+}

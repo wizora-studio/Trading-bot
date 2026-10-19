@@ -1,0 +1,204 @@
+{
+  "schemaVersion": "strategy-spec/1.1",
+  "generatedBy": "appendix-a-seed",
+  "source": {
+    "videos": [],
+    "documents": [
+      {
+        "title": "Master AI Trading Agent System Prompt & 20-Strategy + 5-Risk Blueprint",
+        "author": "Founder's research document (generated with Google Gemini)",
+        "date": null,
+        "notes": "Appendix A, S13. Source objectivity rating (unverified): 8/10."
+      }
+    ]
+  },
+  "strategy": {
+    "name": "Order Flow Footprint & CVD",
+    "aliases": [],
+    "summary": "Look for absorption (price vs CVD divergence) and stacked imbalances; no delta signal means no trade.",
+    "style": "SCALPING",
+    "methodology": [
+      "order flow"
+    ],
+    "instruments": [
+      "Futures",
+      "BTC",
+      "XAUUSD",
+      "EURUSD"
+    ],
+    "timeframes": {
+      "bias": [],
+      "setup": [
+        "1m",
+        "5m",
+        "15m"
+      ],
+      "entry": [
+        "1m"
+      ]
+    },
+    "typicalHoldingTime": null,
+    "typicalTradesPerDay": null
+  },
+  "terms": [],
+  "indicators": [],
+  "sessions": [],
+  "rules": [
+    {
+      "id": "R1",
+      "category": "SETUP",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "Bullish absorption: price lower low while CVD higher low (or equal low with sharp CVD drop), then a positive-delta candle closes above the footprint POC.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "NO",
+      "requiredData": [
+        "trader checklist"
+      ],
+      "checklistQuestion": "Was there absorption and a positive-delta close above the POC?"
+    },
+    {
+      "id": "R2",
+      "category": "ENTRY",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Stacked imbalance: 3+ consecutive levels with ≥ 300% diagonal imbalance.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "NO",
+      "requiredData": [
+        "trader checklist"
+      ],
+      "checklistQuestion": "Were there 3+ stacked imbalances?"
+    },
+    {
+      "id": "R3",
+      "category": "STOP_LOSS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Stop 3–5 ticks beyond the absorption level.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "NO",
+      "requiredData": [
+        "trader checklist"
+      ],
+      "checklistQuestion": "Was the stop 3–5 ticks beyond absorption?"
+    },
+    {
+      "id": "R4",
+      "category": "INVALIDATION",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "No delta spike or CVD divergence → no trade.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "NO",
+      "requiredData": [
+        "trader checklist"
+      ],
+      "checklistQuestion": "Was there a delta spike or CVD divergence?"
+    }
+  ],
+  "risk": {
+    "riskPerTradePercent": null,
+    "positionSizingMethod": null,
+    "maxTradesPerDay": null,
+    "dailyLossStop": null,
+    "maxConsecutiveLosses": null,
+    "minRiskReward": null,
+    "notes": ""
+  },
+  "management": {
+    "takeProfitTargets": [],
+    "partialCloses": [],
+    "breakevenRule": null,
+    "trailingRule": null,
+    "timeExitRule": null
+  },
+  "executionFlow": [
+    {
+      "step": 1,
+      "description": "Bullish absorption: price lower low while CVD higher low (or equal low with sharp CVD drop), then a positive-delta candle closes above the footprint POC.",
+      "ruleIds": [
+        "R1"
+      ]
+    },
+    {
+      "step": 2,
+      "description": "Stacked imbalance: 3+ consecutive levels with ≥ 300% diagonal imbalance.",
+      "ruleIds": [
+        "R2"
+      ]
+    },
+    {
+      "step": 3,
+      "description": "Stop 3–5 ticks beyond the absorption level.",
+      "ruleIds": [
+        "R3"
+      ]
+    },
+    {
+      "step": 4,
+      "description": "No delta spike or CVD divergence → no trade.",
+      "ruleIds": [
+        "R4"
+      ]
+    }
+  ],
+  "examples": [],
+  "checklist": [
+    {
+      "ruleId": "R1",
+      "question": "Was there absorption and a positive-delta close above the POC?"
+    },
+    {
+      "ruleId": "R2",
+      "question": "Were there 3+ stacked imbalances?"
+    },
+    {
+      "ruleId": "R3",
+      "question": "Was the stop 3–5 ticks beyond absorption?"
+    },
+    {
+      "ruleId": "R4",
+      "question": "Was there a delta spike or CVD divergence?"
+    }
+  ],
+  "mistakeTags": [],
+  "creatorClaims": [
+    {
+      "claim": "Win rate 58–68%",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "R:R 1:2–1:4",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "A1",
+      "issue": "Needs exchange order-flow data, not available on spot forex/CFD accounts (V4).",
+      "whyItMatters": "",
+      "questionForTrader": "Which data feed will you use?",
+      "suggestedDefault": null
+    }
+  ],
+  "analystNotes": []
+}

@@ -4,7 +4,8 @@
  * Profit/loss meaning comes from signs, arrows, labels and patterns, never from color alone.
  * Contrast pairs are checked by src/config/contrast.test.ts (WCAG 2.2 AA).
  */
-:root {
+:root,
+[data-theme-scope="light"] {
   color-scheme: light;
   --bg: #ffffff;
   --fg: #000000;
@@ -68,7 +69,8 @@
   }
 }
 
-:root[data-theme="dark"] {
+:root[data-theme="dark"],
+[data-theme-scope="dark"] {
   color-scheme: dark;
   --bg: #000000;
   --fg: #ffffff;

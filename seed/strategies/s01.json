@@ -1,0 +1,341 @@
+{
+  "schemaVersion": "strategy-spec/1.1",
+  "generatedBy": "appendix-a-seed",
+  "source": {
+    "videos": [],
+    "documents": [
+      {
+        "title": "Master AI Trading Agent System Prompt & 20-Strategy + 5-Risk Blueprint",
+        "author": "Founder's research document (generated with Google Gemini)",
+        "date": null,
+        "notes": "Appendix A, S1. Source objectivity rating (unverified): 9/10."
+      }
+    ]
+  },
+  "strategy": {
+    "name": "Moving Average Trend Following (Crossover & Pullback)",
+    "aliases": [],
+    "summary": "Trade in the trend's direction: enter on a fresh EMA 20/50 crossover above EMA 200, or on a pullback into the EMA 20–50 'value zone'.",
+    "style": "SWING",
+    "methodology": [
+      "trend-following",
+      "indicator-based"
+    ],
+    "instruments": [
+      "Forex",
+      "XAUUSD",
+      "Crypto",
+      "Stocks"
+    ],
+    "timeframes": {
+      "bias": [],
+      "setup": [
+        "1H",
+        "4H",
+        "1D"
+      ],
+      "entry": [
+        "1H"
+      ]
+    },
+    "typicalHoldingTime": null,
+    "typicalTradesPerDay": null
+  },
+  "terms": [],
+  "indicators": [
+    {
+      "name": "EMA 20",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "EMA 50",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "EMA 200",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "ADX(14)",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "ATR(14)",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    }
+  ],
+  "sessions": [],
+  "rules": [
+    {
+      "id": "R1",
+      "category": "CONTEXT",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "Price is above EMA 200 and ADX(14) > 20.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was price above EMA 200 with ADX above 20?"
+    },
+    {
+      "id": "R2",
+      "category": "ENTRY",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "Variant A: EMA 20 crosses above EMA 50 → buy at candle close.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did EMA 20 cross above EMA 50 on the entry candle?"
+    },
+    {
+      "id": "R3",
+      "category": "ENTRY",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "Variant B: EMA 20 > 50 > 200; pullback between EMA 20 and 50, no close below EMA 50; buy when a bullish engulfing or pin bar closes above EMA 20.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the pullback inside the 20–50 zone with a bullish close above EMA 20?"
+    },
+    {
+      "id": "R4",
+      "category": "ENTRY",
+      "direction": "SHORT",
+      "setupName": "Setup A",
+      "text": "Short: mirror image (EMA 20 < 50 < 200, ADX > 20, bearish close below EMA 20).",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "For shorts, were the EMAs stacked bearish?"
+    },
+    {
+      "id": "R5",
+      "category": "STOP_LOSS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Stop 1 × ATR(14) beyond the swing, or beyond EMA 50.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the stop placed beyond the swing / EMA 50 as planned?"
+    },
+    {
+      "id": "R6",
+      "category": "MANAGEMENT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "At +1.5R close 50% and move the stop to breakeven; trail the rest.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "YES",
+      "requiredData": [
+        "trade history"
+      ],
+      "checklistQuestion": "Did you close 50% at +1.5R and move the stop to breakeven?"
+    },
+    {
+      "id": "R7",
+      "category": "INVALIDATION",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "No trade when ADX < 20 or EMA 200 is flat (< 0.15% change over 20 candles).",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was ADX above 20 and EMA 200 sloping?"
+    }
+  ],
+  "risk": {
+    "riskPerTradePercent": null,
+    "positionSizingMethod": null,
+    "maxTradesPerDay": null,
+    "dailyLossStop": null,
+    "maxConsecutiveLosses": null,
+    "minRiskReward": null,
+    "notes": ""
+  },
+  "management": {
+    "takeProfitTargets": [],
+    "partialCloses": [],
+    "breakevenRule": null,
+    "trailingRule": null,
+    "timeExitRule": null
+  },
+  "executionFlow": [
+    {
+      "step": 1,
+      "description": "Price is above EMA 200 and ADX(14) > 20.",
+      "ruleIds": [
+        "R1"
+      ]
+    },
+    {
+      "step": 2,
+      "description": "Variant A: EMA 20 crosses above EMA 50 → buy at candle close.",
+      "ruleIds": [
+        "R2"
+      ]
+    },
+    {
+      "step": 3,
+      "description": "Variant B: EMA 20 > 50 > 200; pullback between EMA 20 and 50, no close below EMA 50; buy when a bullish engulfing or pin bar closes above EMA 20.",
+      "ruleIds": [
+        "R3"
+      ]
+    },
+    {
+      "step": 4,
+      "description": "Short: mirror image (EMA 20 < 50 < 200, ADX > 20, bearish close below EMA 20).",
+      "ruleIds": [
+        "R4"
+      ]
+    },
+    {
+      "step": 5,
+      "description": "Stop 1 × ATR(14) beyond the swing, or beyond EMA 50.",
+      "ruleIds": [
+        "R5"
+      ]
+    },
+    {
+      "step": 6,
+      "description": "At +1.5R close 50% and move the stop to breakeven; trail the rest.",
+      "ruleIds": [
+        "R6"
+      ]
+    },
+    {
+      "step": 7,
+      "description": "No trade when ADX < 20 or EMA 200 is flat (< 0.15% change over 20 candles).",
+      "ruleIds": [
+        "R7"
+      ]
+    }
+  ],
+  "examples": [],
+  "checklist": [
+    {
+      "ruleId": "R1",
+      "question": "Was price above EMA 200 with ADX above 20?"
+    },
+    {
+      "ruleId": "R2",
+      "question": "Did EMA 20 cross above EMA 50 on the entry candle?"
+    },
+    {
+      "ruleId": "R3",
+      "question": "Was the pullback inside the 20–50 zone with a bullish close above EMA 20?"
+    },
+    {
+      "ruleId": "R4",
+      "question": "For shorts, were the EMAs stacked bearish?"
+    },
+    {
+      "ruleId": "R5",
+      "question": "Was the stop placed beyond the swing / EMA 50 as planned?"
+    },
+    {
+      "ruleId": "R6",
+      "question": "Did you close 50% at +1.5R and move the stop to breakeven?"
+    },
+    {
+      "ruleId": "R7",
+      "question": "Was ADX above 20 and EMA 200 sloping?"
+    }
+  ],
+  "mistakeTags": [
+    {
+      "tag": "Counter-trend entry",
+      "meaning": "Entered against the EMA 200 direction"
+    },
+    {
+      "tag": "No partial at 1.5R",
+      "meaning": "Skipped the 50% partial"
+    }
+  ],
+  "creatorClaims": [
+    {
+      "claim": "Win rate 40–48%",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "R:R 1:2.5–1:5",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "A1",
+      "issue": "Stop: ATR beyond the swing or beyond EMA 50?",
+      "whyItMatters": "",
+      "questionForTrader": "Which stop do you want to use, and when?",
+      "suggestedDefault": "1 × ATR(14) beyond the swing low/high"
+    },
+    {
+      "id": "A2",
+      "issue": "Trail exit: close beyond EMA 20 or EMA 50?",
+      "whyItMatters": "",
+      "questionForTrader": "Which EMA ends the trailing stop?",
+      "suggestedDefault": "EMA 20"
+    }
+  ],
+  "analystNotes": []
+}

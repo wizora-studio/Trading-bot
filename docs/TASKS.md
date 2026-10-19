@@ -21,13 +21,17 @@ Status: TODO · DOING · BLOCKED (reason) · DONE (date).
 ### T-02 Verified preset for the founder's chosen prop firm — BLOCKED (Q2)
 - Files: `src/features/funded/presets.ts`. Acceptance: source URL + verified date; Read-Back reviewed by the founder.
 
-### T-03 Full Phase 1 handbook, Module 1 "What is a trade?" — TODO
-- Output: `docs/handbook/01-what-is-a-trade.md` (EN + Roman Urdu) and a longer Learn lesson.
+### T-03 Phase 1 handbook, Module 1 "What is a trade?" — DONE (2026-10-19)
+- `docs/handbook/01-what-is-a-trade.md` (EN + Roman Urdu).
+
+### T-07 Phase 1 handbook, Module 2 "Instruments and trading costs" — TODO
+- Output: `docs/handbook/02-instruments-and-costs.md`. Spec: `docs/specs/phase-01/module-02.md`.
 
 ### T-04 Online database + login (before the wider beta) — TODO (Q4, costs to be approved)
 - Replace the persistence in `src/store/appStore.ts`/`actions.ts` with server actions (Prisma + PostgreSQL + Better Auth or Supabase Auth). Keep the same action names.
 
-### T-05 Seed specs as JSON files in `seed/strategies/` — TODO
-- Export `SEED_STRATEGIES` to one JSON per strategy (script + test that they stay in sync).
+### T-05 Seed specs as JSON files in `seed/strategies/` — DONE (2026-10-19)
+- `seed/strategies/s01.json … s20.json`, kept in sync by `src/features/strategies/seedFiles.test.ts`.
 
-### T-06 `/dev/components` gallery page (development only) — TODO
+### T-06 `/dev/components` gallery page (development only) — DONE (2026-10-19)
+- `npm run dev` → http://localhost:3000/dev/components/ (light and dark side by side). Found and fixed a CSS layer bug that hid button text colors.

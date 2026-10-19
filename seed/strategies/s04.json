@@ -1,0 +1,352 @@
+{
+  "schemaVersion": "strategy-spec/1.1",
+  "generatedBy": "appendix-a-seed",
+  "source": {
+    "videos": [],
+    "documents": [
+      {
+        "title": "Master AI Trading Agent System Prompt & 20-Strategy + 5-Risk Blueprint",
+        "author": "Founder's research document (generated with Google Gemini)",
+        "date": null,
+        "notes": "Appendix A, S4. Source objectivity rating (unverified): 9/10."
+      }
+    ]
+  },
+  "strategy": {
+    "name": "London Breakout & Asian Range Breakout",
+    "aliases": [],
+    "summary": "Mark the Asian box (00:00–06:00 UTC), then trade a confirmed break-and-retest or a 'Judas swing' after the London open.",
+    "style": "INTRADAY",
+    "methodology": [
+      "breakout",
+      "session"
+    ],
+    "instruments": [
+      "GBPUSD",
+      "EURUSD",
+      "XAUUSD",
+      "JPY pairs"
+    ],
+    "timeframes": {
+      "bias": [],
+      "setup": [
+        "15m",
+        "30m"
+      ],
+      "entry": [
+        "15m"
+      ]
+    },
+    "typicalHoldingTime": null,
+    "typicalTradesPerDay": null
+  },
+  "terms": [],
+  "indicators": [
+    {
+      "name": "EMA 50 (4H)",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    }
+  ],
+  "sessions": [
+    {
+      "name": "Asian box",
+      "startTime": "00:00",
+      "endTime": "06:00",
+      "timezoneAsStated": "UTC",
+      "utcStart": null,
+      "utcEnd": null,
+      "dstNote": "05:00–11:00 Pakistan time all year (UTC has no DST)",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "London open (assumed)",
+      "startTime": "08:00",
+      "endTime": "10:00",
+      "timezoneAsStated": "Europe/London",
+      "utcStart": null,
+      "utcEnd": null,
+      "dstNote": "12:00–14:00 PKT in summer, 13:00–15:00 PKT in winter",
+      "timestamp": "",
+      "source": "STATED"
+    }
+  ],
+  "rules": [
+    {
+      "id": "R1",
+      "category": "CONTEXT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Asian box 00:00–06:00 UTC. EURUSD/GBPUSD box 15–45 pips; Gold $8–$22. Skip if Asia already moved ~80 pips.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the Asian box inside the allowed size?"
+    },
+    {
+      "id": "R2",
+      "category": "TIME",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Enter only in the London window after the open.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "YES",
+      "requiredData": [
+        "trade history"
+      ],
+      "checklistQuestion": "Did you enter inside the London window?"
+    },
+    {
+      "id": "R3",
+      "category": "ENTRY",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "Method 1: a 15m candle closes above the Asian high, then price retests the high → buy on the retest. Short: mirror.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did you wait for a 15m close and a retest?"
+    },
+    {
+      "id": "R4",
+      "category": "ENTRY",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "Method 2 (Judas): with a bullish 4H trend, price wicks below the Asian low in the first 30 min, then a strong 15m bullish candle closes back inside → buy.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was there a sweep of the Asian low and a strong close back inside?"
+    },
+    {
+      "id": "R5",
+      "category": "CONTEXT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Trade only in line with the 4H EMA 50. No blind pending stop orders.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the trade in the direction of the 4H EMA 50?"
+    },
+    {
+      "id": "R6",
+      "category": "STOP_LOSS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Method 1: stop below the box midpoint. Method 2: 5 pips beyond the sweep wick.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the stop at the box midpoint / beyond the sweep?"
+    },
+    {
+      "id": "R7",
+      "category": "TAKE_PROFIT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Targets 1.5 × and 2.5 × box height, or exit before the New York open.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "YES",
+      "requiredData": [
+        "trade history"
+      ],
+      "checklistQuestion": "Did you exit before the New York open?"
+    }
+  ],
+  "risk": {
+    "riskPerTradePercent": null,
+    "positionSizingMethod": null,
+    "maxTradesPerDay": null,
+    "dailyLossStop": null,
+    "maxConsecutiveLosses": null,
+    "minRiskReward": null,
+    "notes": ""
+  },
+  "management": {
+    "takeProfitTargets": [],
+    "partialCloses": [],
+    "breakevenRule": null,
+    "trailingRule": null,
+    "timeExitRule": null
+  },
+  "executionFlow": [
+    {
+      "step": 1,
+      "description": "Asian box 00:00–06:00 UTC. EURUSD/GBPUSD box 15–45 pips; Gold $8–$22. Skip if Asia already moved ~80 pips.",
+      "ruleIds": [
+        "R1"
+      ]
+    },
+    {
+      "step": 2,
+      "description": "Enter only in the London window after the open.",
+      "ruleIds": [
+        "R2"
+      ]
+    },
+    {
+      "step": 3,
+      "description": "Method 1: a 15m candle closes above the Asian high, then price retests the high → buy on the retest. Short: mirror.",
+      "ruleIds": [
+        "R3"
+      ]
+    },
+    {
+      "step": 4,
+      "description": "Method 2 (Judas): with a bullish 4H trend, price wicks below the Asian low in the first 30 min, then a strong 15m bullish candle closes back inside → buy.",
+      "ruleIds": [
+        "R4"
+      ]
+    },
+    {
+      "step": 5,
+      "description": "Trade only in line with the 4H EMA 50. No blind pending stop orders.",
+      "ruleIds": [
+        "R5"
+      ]
+    },
+    {
+      "step": 6,
+      "description": "Method 1: stop below the box midpoint. Method 2: 5 pips beyond the sweep wick.",
+      "ruleIds": [
+        "R6"
+      ]
+    },
+    {
+      "step": 7,
+      "description": "Targets 1.5 × and 2.5 × box height, or exit before the New York open.",
+      "ruleIds": [
+        "R7"
+      ]
+    }
+  ],
+  "examples": [],
+  "checklist": [
+    {
+      "ruleId": "R1",
+      "question": "Was the Asian box inside the allowed size?"
+    },
+    {
+      "ruleId": "R2",
+      "question": "Did you enter inside the London window?"
+    },
+    {
+      "ruleId": "R3",
+      "question": "Did you wait for a 15m close and a retest?"
+    },
+    {
+      "ruleId": "R4",
+      "question": "Was there a sweep of the Asian low and a strong close back inside?"
+    },
+    {
+      "ruleId": "R5",
+      "question": "Was the trade in the direction of the 4H EMA 50?"
+    },
+    {
+      "ruleId": "R6",
+      "question": "Was the stop at the box midpoint / beyond the sweep?"
+    },
+    {
+      "ruleId": "R7",
+      "question": "Did you exit before the New York open?"
+    }
+  ],
+  "mistakeTags": [
+    {
+      "tag": "Entered inside the box",
+      "meaning": "Entered before a confirmed close outside the Asian box"
+    }
+  ],
+  "creatorClaims": [
+    {
+      "claim": "Win rate 48–56%",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "R:R 1:2–1:3.5",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "A1",
+      "issue": "The document gives the London open as 12:00–14:00 Pakistan time, correct only in US winter (V1).",
+      "whyItMatters": "",
+      "questionForTrader": "Define the London open in London time?",
+      "suggestedDefault": "08:00–10:00 Europe/London"
+    },
+    {
+      "id": "A2",
+      "issue": "'80 pips' is not defined for Gold.",
+      "whyItMatters": "",
+      "questionForTrader": "What is the 'too much movement' limit for Gold?",
+      "suggestedDefault": null
+    },
+    {
+      "id": "A3",
+      "issue": "'Strong candle' is not defined.",
+      "whyItMatters": "",
+      "questionForTrader": "What makes a candle 'strong' (e.g., body ≥ 60% of range)?",
+      "suggestedDefault": "Body ≥ 60% of the candle range"
+    },
+    {
+      "id": "A4",
+      "issue": "'New York open' time is not stated (issue N2).",
+      "whyItMatters": "",
+      "questionForTrader": "Exit before 08:00 or 09:30 New York?",
+      "suggestedDefault": "08:00 New York"
+    },
+    {
+      "id": "A5",
+      "issue": "Pip/point buffers are not defined for Gold and indices (issue N1).",
+      "whyItMatters": "",
+      "questionForTrader": "For this instrument, how much price is one 'pip' in this strategy's buffers?",
+      "suggestedDefault": "Use the Instrument Registry pip size (Gold: 0.10)."
+    }
+  ],
+  "analystNotes": []
+}

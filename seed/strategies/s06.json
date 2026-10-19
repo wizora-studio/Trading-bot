@@ -1,0 +1,261 @@
+{
+  "schemaVersion": "strategy-spec/1.1",
+  "generatedBy": "appendix-a-seed",
+  "source": {
+    "videos": [],
+    "documents": [
+      {
+        "title": "Master AI Trading Agent System Prompt & 20-Strategy + 5-Risk Blueprint",
+        "author": "Founder's research document (generated with Google Gemini)",
+        "date": null,
+        "notes": "Appendix A, S6. Source objectivity rating (unverified): 7/10 (8.5/10 with fractal swings)."
+      }
+    ]
+  },
+  "strategy": {
+    "name": "Fibonacci Golden Pocket Pullback",
+    "aliases": [],
+    "summary": "After a break of structure, enter the 50–61.8% (or 62–79% OTE) pullback zone when it lines up with at least two confluences.",
+    "style": "INTRADAY",
+    "methodology": [
+      "trend pullback",
+      "fibonacci"
+    ],
+    "instruments": [
+      "Forex",
+      "XAUUSD",
+      "Indices",
+      "Crypto"
+    ],
+    "timeframes": {
+      "bias": [],
+      "setup": [
+        "15m",
+        "1H",
+        "4H"
+      ],
+      "entry": [
+        "15m"
+      ]
+    },
+    "typicalHoldingTime": null,
+    "typicalTradesPerDay": null
+  },
+  "terms": [],
+  "indicators": [],
+  "sessions": [],
+  "rules": [
+    {
+      "id": "R1",
+      "category": "SETUP",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Anchor the Fibonacci on the swing that made the last break of structure (5-bar fractals).",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Is the Fib anchored on the BOS swing?"
+    },
+    {
+      "id": "R2",
+      "category": "SETUP",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "At least 2 of 3 confluences near 50–61.8%: S/R flip or demand zone; EMA 50/200; unmitigated FVG.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "NO",
+      "requiredData": [
+        "trader checklist"
+      ],
+      "checklistQuestion": "Were at least 2 confluences present?"
+    },
+    {
+      "id": "R3",
+      "category": "ENTRY",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Enter when price reaches 0.50–0.618 (or 0.62–0.79) and a rejection candle closes on 15m/1H.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did a rejection candle close inside the pocket?"
+    },
+    {
+      "id": "R4",
+      "category": "STOP_LOSS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Stop beyond the 1.0 level (or tighter beyond 0.886).",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the stop beyond 1.0 (or 0.886)?"
+    },
+    {
+      "id": "R5",
+      "category": "TAKE_PROFIT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "TP1 at 0.0; TP2 at −0.272 and −0.618 extensions.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Were targets at 0.0 and the extensions?"
+    },
+    {
+      "id": "R6",
+      "category": "INVALIDATION",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "A candle close beyond 1.0 cancels the setup.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did any candle close beyond 1.0 before entry?"
+    }
+  ],
+  "risk": {
+    "riskPerTradePercent": null,
+    "positionSizingMethod": null,
+    "maxTradesPerDay": null,
+    "dailyLossStop": null,
+    "maxConsecutiveLosses": null,
+    "minRiskReward": null,
+    "notes": ""
+  },
+  "management": {
+    "takeProfitTargets": [],
+    "partialCloses": [],
+    "breakevenRule": null,
+    "trailingRule": null,
+    "timeExitRule": null
+  },
+  "executionFlow": [
+    {
+      "step": 1,
+      "description": "Anchor the Fibonacci on the swing that made the last break of structure (5-bar fractals).",
+      "ruleIds": [
+        "R1"
+      ]
+    },
+    {
+      "step": 2,
+      "description": "At least 2 of 3 confluences near 50–61.8%: S/R flip or demand zone; EMA 50/200; unmitigated FVG.",
+      "ruleIds": [
+        "R2"
+      ]
+    },
+    {
+      "step": 3,
+      "description": "Enter when price reaches 0.50–0.618 (or 0.62–0.79) and a rejection candle closes on 15m/1H.",
+      "ruleIds": [
+        "R3"
+      ]
+    },
+    {
+      "step": 4,
+      "description": "Stop beyond the 1.0 level (or tighter beyond 0.886).",
+      "ruleIds": [
+        "R4"
+      ]
+    },
+    {
+      "step": 5,
+      "description": "TP1 at 0.0; TP2 at −0.272 and −0.618 extensions.",
+      "ruleIds": [
+        "R5"
+      ]
+    },
+    {
+      "step": 6,
+      "description": "A candle close beyond 1.0 cancels the setup.",
+      "ruleIds": [
+        "R6"
+      ]
+    }
+  ],
+  "examples": [],
+  "checklist": [
+    {
+      "ruleId": "R1",
+      "question": "Is the Fib anchored on the BOS swing?"
+    },
+    {
+      "ruleId": "R2",
+      "question": "Were at least 2 confluences present?"
+    },
+    {
+      "ruleId": "R3",
+      "question": "Did a rejection candle close inside the pocket?"
+    },
+    {
+      "ruleId": "R4",
+      "question": "Was the stop beyond 1.0 (or 0.886)?"
+    },
+    {
+      "ruleId": "R5",
+      "question": "Were targets at 0.0 and the extensions?"
+    },
+    {
+      "ruleId": "R6",
+      "question": "Did any candle close beyond 1.0 before entry?"
+    }
+  ],
+  "mistakeTags": [],
+  "creatorClaims": [
+    {
+      "claim": "Win rate 48–55%",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "R:R 1:2.5–1:4",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "A1",
+      "issue": "When should the tighter 0.886 stop be used?",
+      "whyItMatters": "",
+      "questionForTrader": "Tight stop or full stop by default?",
+      "suggestedDefault": "Full stop beyond 1.0"
+    }
+  ],
+  "analystNotes": []
+}

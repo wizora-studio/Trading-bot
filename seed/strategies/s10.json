@@ -1,0 +1,274 @@
+{
+  "schemaVersion": "strategy-spec/1.1",
+  "generatedBy": "appendix-a-seed",
+  "source": {
+    "videos": [],
+    "documents": [
+      {
+        "title": "Master AI Trading Agent System Prompt & 20-Strategy + 5-Risk Blueprint",
+        "author": "Founder's research document (generated with Google Gemini)",
+        "date": null,
+        "notes": "Appendix A, S10. Source objectivity rating (unverified): 8/10."
+      }
+    ]
+  },
+  "strategy": {
+    "name": "Inside Bar & Pin Bar",
+    "aliases": [],
+    "summary": "Trade clearly defined pin bars and inside-bar breaks (or fakeys) at key levels.",
+    "style": "SWING",
+    "methodology": [
+      "price action"
+    ],
+    "instruments": [
+      "Forex",
+      "XAUUSD",
+      "Equities"
+    ],
+    "timeframes": {
+      "bias": [],
+      "setup": [
+        "1H",
+        "4H",
+        "1D"
+      ],
+      "entry": [
+        "1H"
+      ]
+    },
+    "typicalHoldingTime": null,
+    "typicalTradesPerDay": null
+  },
+  "terms": [],
+  "indicators": [
+    {
+      "name": "ATR(14)",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    }
+  ],
+  "sessions": [],
+  "rules": [
+    {
+      "id": "R1",
+      "category": "SETUP",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Pin bar: wick ≥ 2/3 of the range, body ≤ 1/3 in the top (bull) / bottom (bear) third, at a key level.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did the pin bar meet the 2/3 wick rule at a key level?"
+    },
+    {
+      "id": "R2",
+      "category": "SETUP",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Inside bar: high < previous high AND low > previous low.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was it a true inside bar?"
+    },
+    {
+      "id": "R3",
+      "category": "ENTRY",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Buy stop 2 pips above the pin/mother bar high (sell stop below for shorts).",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the entry 2 pips beyond the bar?"
+    },
+    {
+      "id": "R4",
+      "category": "STOP_LOSS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Stop 2–5 pips beyond the pin tail or mother bar low/high.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the stop beyond the tail?"
+    },
+    {
+      "id": "R5",
+      "category": "TAKE_PROFIT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Target 2R–3.5R at the next structure level.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "YES",
+      "requiredData": [
+        "trade history"
+      ],
+      "checklistQuestion": "Was the planned R:R between 2 and 3.5?"
+    },
+    {
+      "id": "R6",
+      "category": "INVALIDATION",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Ignore pin bars shorter than 0.8 × ATR(14) or not at a key level.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the pin bar at least 0.8 × ATR?"
+    }
+  ],
+  "risk": {
+    "riskPerTradePercent": null,
+    "positionSizingMethod": null,
+    "maxTradesPerDay": null,
+    "dailyLossStop": null,
+    "maxConsecutiveLosses": null,
+    "minRiskReward": null,
+    "notes": ""
+  },
+  "management": {
+    "takeProfitTargets": [],
+    "partialCloses": [],
+    "breakevenRule": null,
+    "trailingRule": null,
+    "timeExitRule": null
+  },
+  "executionFlow": [
+    {
+      "step": 1,
+      "description": "Pin bar: wick ≥ 2/3 of the range, body ≤ 1/3 in the top (bull) / bottom (bear) third, at a key level.",
+      "ruleIds": [
+        "R1"
+      ]
+    },
+    {
+      "step": 2,
+      "description": "Inside bar: high < previous high AND low > previous low.",
+      "ruleIds": [
+        "R2"
+      ]
+    },
+    {
+      "step": 3,
+      "description": "Buy stop 2 pips above the pin/mother bar high (sell stop below for shorts).",
+      "ruleIds": [
+        "R3"
+      ]
+    },
+    {
+      "step": 4,
+      "description": "Stop 2–5 pips beyond the pin tail or mother bar low/high.",
+      "ruleIds": [
+        "R4"
+      ]
+    },
+    {
+      "step": 5,
+      "description": "Target 2R–3.5R at the next structure level.",
+      "ruleIds": [
+        "R5"
+      ]
+    },
+    {
+      "step": 6,
+      "description": "Ignore pin bars shorter than 0.8 × ATR(14) or not at a key level.",
+      "ruleIds": [
+        "R6"
+      ]
+    }
+  ],
+  "examples": [],
+  "checklist": [
+    {
+      "ruleId": "R1",
+      "question": "Did the pin bar meet the 2/3 wick rule at a key level?"
+    },
+    {
+      "ruleId": "R2",
+      "question": "Was it a true inside bar?"
+    },
+    {
+      "ruleId": "R3",
+      "question": "Was the entry 2 pips beyond the bar?"
+    },
+    {
+      "ruleId": "R4",
+      "question": "Was the stop beyond the tail?"
+    },
+    {
+      "ruleId": "R5",
+      "question": "Was the planned R:R between 2 and 3.5?"
+    },
+    {
+      "ruleId": "R6",
+      "question": "Was the pin bar at least 0.8 × ATR?"
+    }
+  ],
+  "mistakeTags": [],
+  "creatorClaims": [
+    {
+      "claim": "Win rate 50–58%",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "R:R 1:2–1:3.5",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "A1",
+      "issue": "Pip/point buffers are not defined for Gold and indices (issue N1).",
+      "whyItMatters": "",
+      "questionForTrader": "For this instrument, how much price is one 'pip' in this strategy's buffers?",
+      "suggestedDefault": "Use the Instrument Registry pip size (Gold: 0.10)."
+    },
+    {
+      "id": "A2",
+      "issue": "Daily candle start time differs by broker (issue N3).",
+      "whyItMatters": "",
+      "questionForTrader": "Which daily candle (TradingView or your broker)?",
+      "suggestedDefault": null
+    }
+  ],
+  "analystNotes": []
+}

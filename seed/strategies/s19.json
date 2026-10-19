@@ -1,0 +1,204 @@
+{
+  "schemaVersion": "strategy-spec/1.1",
+  "generatedBy": "appendix-a-seed",
+  "source": {
+    "videos": [],
+    "documents": [
+      {
+        "title": "Master AI Trading Agent System Prompt & 20-Strategy + 5-Risk Blueprint",
+        "author": "Founder's research document (generated with Google Gemini)",
+        "date": null,
+        "notes": "Appendix A, S19. Source objectivity rating (unverified): 10/10."
+      }
+    ]
+  },
+  "strategy": {
+    "name": "Pairs Trading / Statistical Arbitrage",
+    "aliases": [],
+    "summary": "Trade the Z-score of a cointegrated spread between two instruments; both legs are ONE logical trade.",
+    "style": "SWING",
+    "methodology": [
+      "statistical arbitrage",
+      "market-neutral"
+    ],
+    "instruments": [
+      "Equities",
+      "Crypto pairs",
+      "XAUUSD/XAGUSD"
+    ],
+    "timeframes": {
+      "bias": [],
+      "setup": [
+        "1H",
+        "4H",
+        "1D"
+      ],
+      "entry": [
+        "1H"
+      ]
+    },
+    "typicalHoldingTime": null,
+    "typicalTradesPerDay": null
+  },
+  "terms": [],
+  "indicators": [],
+  "sessions": [],
+  "rules": [
+    {
+      "id": "R1",
+      "category": "CONTEXT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Cointegration: ADF p-value < 0.05 over 60–120 bars; hedge ratio β from regression.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the pair cointegrated (ADF p < 0.05)?"
+    },
+    {
+      "id": "R2",
+      "category": "ENTRY",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Z > +2: short A, buy β of B. Z < −2: buy A, short β of B.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was |Z| above 2 at entry?"
+    },
+    {
+      "id": "R3",
+      "category": "TAKE_PROFIT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Exit when Z returns to 0.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did you exit at Z = 0?"
+    },
+    {
+      "id": "R4",
+      "category": "STOP_LOSS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Stop when |Z| ≥ 3.5 (relationship breakdown).",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the |Z| ≥ 3.5 stop respected?"
+    }
+  ],
+  "risk": {
+    "riskPerTradePercent": null,
+    "positionSizingMethod": null,
+    "maxTradesPerDay": null,
+    "dailyLossStop": null,
+    "maxConsecutiveLosses": null,
+    "minRiskReward": null,
+    "notes": ""
+  },
+  "management": {
+    "takeProfitTargets": [],
+    "partialCloses": [],
+    "breakevenRule": null,
+    "trailingRule": null,
+    "timeExitRule": null
+  },
+  "executionFlow": [
+    {
+      "step": 1,
+      "description": "Cointegration: ADF p-value < 0.05 over 60–120 bars; hedge ratio β from regression.",
+      "ruleIds": [
+        "R1"
+      ]
+    },
+    {
+      "step": 2,
+      "description": "Z > +2: short A, buy β of B. Z < −2: buy A, short β of B.",
+      "ruleIds": [
+        "R2"
+      ]
+    },
+    {
+      "step": 3,
+      "description": "Exit when Z returns to 0.",
+      "ruleIds": [
+        "R3"
+      ]
+    },
+    {
+      "step": 4,
+      "description": "Stop when |Z| ≥ 3.5 (relationship breakdown).",
+      "ruleIds": [
+        "R4"
+      ]
+    }
+  ],
+  "examples": [],
+  "checklist": [
+    {
+      "ruleId": "R1",
+      "question": "Was the pair cointegrated (ADF p < 0.05)?"
+    },
+    {
+      "ruleId": "R2",
+      "question": "Was |Z| above 2 at entry?"
+    },
+    {
+      "ruleId": "R3",
+      "question": "Did you exit at Z = 0?"
+    },
+    {
+      "ruleId": "R4",
+      "question": "Was the |Z| ≥ 3.5 stop respected?"
+    }
+  ],
+  "mistakeTags": [],
+  "creatorClaims": [
+    {
+      "claim": "Win rate 62–72%",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "R:R 1:1.2–1:2",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "A1",
+      "issue": "Prop firms often restrict hedging and correlated positions.",
+      "whyItMatters": "",
+      "questionForTrader": "Does your firm allow two-leg trades?",
+      "suggestedDefault": null
+    }
+  ],
+  "analystNotes": []
+}

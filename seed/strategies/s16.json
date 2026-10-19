@@ -1,0 +1,260 @@
+{
+  "schemaVersion": "strategy-spec/1.1",
+  "generatedBy": "appendix-a-seed",
+  "source": {
+    "videos": [],
+    "documents": [
+      {
+        "title": "Master AI Trading Agent System Prompt & 20-Strategy + 5-Risk Blueprint",
+        "author": "Founder's research document (generated with Google Gemini)",
+        "date": null,
+        "notes": "Appendix A, S16. Source objectivity rating (unverified): 6/10 (8/10 limited to Phase C/D)."
+      }
+    ]
+  },
+  "strategy": {
+    "name": "Wyckoff Spring & Upthrust (UTAD)",
+    "aliases": [],
+    "summary": "After a long range following a trend, buy the failed breakdown (spring) or its low-volume test; mirror for upthrusts.",
+    "style": "SWING",
+    "methodology": [
+      "Wyckoff"
+    ],
+    "instruments": [
+      "Crypto",
+      "Indices",
+      "Forex",
+      "Stocks"
+    ],
+    "timeframes": {
+      "bias": [],
+      "setup": [
+        "1H",
+        "4H",
+        "1D"
+      ],
+      "entry": [
+        "1H"
+      ]
+    },
+    "typicalHoldingTime": null,
+    "typicalTradesPerDay": null
+  },
+  "terms": [],
+  "indicators": [],
+  "sessions": [],
+  "rules": [
+    {
+      "id": "R1",
+      "category": "CONTEXT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "A horizontal range of at least 30 candles after an extended trend.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the range at least 30 candles?"
+    },
+    {
+      "id": "R2",
+      "category": "ENTRY",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "Spring: break below support, then a close back inside on a high-volume bullish reversal bar.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did price close back inside after the break?"
+    },
+    {
+      "id": "R3",
+      "category": "ENTRY",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "Safer: low-volume pullback to the spring level after a sign of strength → long on the first bullish turn.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the test on declining volume?"
+    },
+    {
+      "id": "R4",
+      "category": "STOP_LOSS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Stop 0.5 × ATR below the spring low (above the UTAD high).",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the stop 0.5 × ATR beyond the spring?"
+    },
+    {
+      "id": "R5",
+      "category": "TAKE_PROFIT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "TP1 range top; TP2 the range height projected from the breakout.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Were the targets the range top and projection?"
+    },
+    {
+      "id": "R6",
+      "category": "INVALIDATION",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "If candles keep closing below support it is a breakdown, not a spring — no buying.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did you avoid buying a true breakdown?"
+    }
+  ],
+  "risk": {
+    "riskPerTradePercent": null,
+    "positionSizingMethod": null,
+    "maxTradesPerDay": null,
+    "dailyLossStop": null,
+    "maxConsecutiveLosses": null,
+    "minRiskReward": null,
+    "notes": ""
+  },
+  "management": {
+    "takeProfitTargets": [],
+    "partialCloses": [],
+    "breakevenRule": null,
+    "trailingRule": null,
+    "timeExitRule": null
+  },
+  "executionFlow": [
+    {
+      "step": 1,
+      "description": "A horizontal range of at least 30 candles after an extended trend.",
+      "ruleIds": [
+        "R1"
+      ]
+    },
+    {
+      "step": 2,
+      "description": "Spring: break below support, then a close back inside on a high-volume bullish reversal bar.",
+      "ruleIds": [
+        "R2"
+      ]
+    },
+    {
+      "step": 3,
+      "description": "Safer: low-volume pullback to the spring level after a sign of strength → long on the first bullish turn.",
+      "ruleIds": [
+        "R3"
+      ]
+    },
+    {
+      "step": 4,
+      "description": "Stop 0.5 × ATR below the spring low (above the UTAD high).",
+      "ruleIds": [
+        "R4"
+      ]
+    },
+    {
+      "step": 5,
+      "description": "TP1 range top; TP2 the range height projected from the breakout.",
+      "ruleIds": [
+        "R5"
+      ]
+    },
+    {
+      "step": 6,
+      "description": "If candles keep closing below support it is a breakdown, not a spring — no buying.",
+      "ruleIds": [
+        "R6"
+      ]
+    }
+  ],
+  "examples": [],
+  "checklist": [
+    {
+      "ruleId": "R1",
+      "question": "Was the range at least 30 candles?"
+    },
+    {
+      "ruleId": "R2",
+      "question": "Did price close back inside after the break?"
+    },
+    {
+      "ruleId": "R3",
+      "question": "Was the test on declining volume?"
+    },
+    {
+      "ruleId": "R4",
+      "question": "Was the stop 0.5 × ATR beyond the spring?"
+    },
+    {
+      "ruleId": "R5",
+      "question": "Were the targets the range top and projection?"
+    },
+    {
+      "ruleId": "R6",
+      "question": "Did you avoid buying a true breakdown?"
+    }
+  ],
+  "mistakeTags": [],
+  "creatorClaims": [
+    {
+      "claim": "Win rate 50–60%",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "R:R 1:3–1:6",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "A1",
+      "issue": "Phase labelling is discretionary.",
+      "whyItMatters": "",
+      "questionForTrader": "How will you decide Phase C/D?",
+      "suggestedDefault": null
+    }
+  ],
+  "analystNotes": []
+}

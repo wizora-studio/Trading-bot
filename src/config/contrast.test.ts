@@ -19,7 +19,7 @@ const ratio = (a: string, b: string) => {
   return (x! + 0.05) / (y! + 0.05);
 };
 
-const light = block(":root {");
+const light = block('[data-theme-scope="light"]');
 const dark = { ...light, ...block(':root[data-theme="dark"]') };
 
 describe.each([

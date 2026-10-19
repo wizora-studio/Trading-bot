@@ -1,0 +1,322 @@
+{
+  "schemaVersion": "strategy-spec/1.1",
+  "generatedBy": "appendix-a-seed",
+  "source": {
+    "videos": [],
+    "documents": [
+      {
+        "title": "Master AI Trading Agent System Prompt & 20-Strategy + 5-Risk Blueprint",
+        "author": "Founder's research document (generated with Google Gemini)",
+        "date": null,
+        "notes": "Appendix A, S9. Source objectivity rating (unverified): 5.5/10 discretionary, 8.5/10 with the 5-point filter."
+      }
+    ]
+  },
+  "strategy": {
+    "name": "SMC / ICT Liquidity Sweep + MSS + Order Block / FVG",
+    "aliases": [],
+    "summary": "Only trade after a higher-timeframe liquidity sweep, displacement, a market structure shift, and an FVG in discount/premium.",
+    "style": "SCALPING",
+    "methodology": [
+      "SMC/ICT"
+    ],
+    "instruments": [
+      "Indices",
+      "XAUUSD",
+      "EURUSD"
+    ],
+    "timeframes": {
+      "bias": [],
+      "setup": [
+        "1m",
+        "5m",
+        "15m"
+      ],
+      "entry": [
+        "1m"
+      ]
+    },
+    "typicalHoldingTime": null,
+    "typicalTradesPerDay": null
+  },
+  "terms": [],
+  "indicators": [],
+  "sessions": [],
+  "rules": [
+    {
+      "id": "R1",
+      "category": "SETUP",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "A higher-timeframe liquidity level was swept (PDH/PDL, Asian high/low, 1H/4H swing).",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was a higher-timeframe liquidity level swept?"
+    },
+    {
+      "id": "R2",
+      "category": "SETUP",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Displacement: a candle with body ≥ 1.5 × ATR(14) and ≥ 70% of its range.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was there a displacement candle (≥ 1.5 × ATR)?"
+    },
+    {
+      "id": "R3",
+      "category": "SETUP",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Market structure shift: full body close beyond the last lower-timeframe swing.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did a body close break the last swing?"
+    },
+    {
+      "id": "R4",
+      "category": "SETUP",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "A 3-candle FVG attached to the order block.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was there an FVG at the order block?"
+    },
+    {
+      "id": "R5",
+      "category": "CONTEXT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Bullish entries below 50% of the dealing range; bearish above.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the entry in discount (longs) / premium (shorts)?"
+    },
+    {
+      "id": "R6",
+      "category": "ENTRY",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Limit at the FVG's near edge or 50% of the FVG/OB.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did you enter at the FVG edge or 50%?"
+    },
+    {
+      "id": "R7",
+      "category": "STOP_LOSS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Stop 2–5 pips/ticks beyond the sweep wick.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the stop just beyond the sweep wick?"
+    },
+    {
+      "id": "R8",
+      "category": "INVALIDATION",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "If the sweep (R1) or MSS (R3) is missing, reject the trade ('inducement trap').",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "NO",
+      "requiredData": [
+        "trader checklist"
+      ],
+      "checklistQuestion": "Were both the sweep and the MSS present?"
+    }
+  ],
+  "risk": {
+    "riskPerTradePercent": null,
+    "positionSizingMethod": null,
+    "maxTradesPerDay": null,
+    "dailyLossStop": null,
+    "maxConsecutiveLosses": null,
+    "minRiskReward": null,
+    "notes": ""
+  },
+  "management": {
+    "takeProfitTargets": [],
+    "partialCloses": [],
+    "breakevenRule": null,
+    "trailingRule": null,
+    "timeExitRule": null
+  },
+  "executionFlow": [
+    {
+      "step": 1,
+      "description": "A higher-timeframe liquidity level was swept (PDH/PDL, Asian high/low, 1H/4H swing).",
+      "ruleIds": [
+        "R1"
+      ]
+    },
+    {
+      "step": 2,
+      "description": "Displacement: a candle with body ≥ 1.5 × ATR(14) and ≥ 70% of its range.",
+      "ruleIds": [
+        "R2"
+      ]
+    },
+    {
+      "step": 3,
+      "description": "Market structure shift: full body close beyond the last lower-timeframe swing.",
+      "ruleIds": [
+        "R3"
+      ]
+    },
+    {
+      "step": 4,
+      "description": "A 3-candle FVG attached to the order block.",
+      "ruleIds": [
+        "R4"
+      ]
+    },
+    {
+      "step": 5,
+      "description": "Bullish entries below 50% of the dealing range; bearish above.",
+      "ruleIds": [
+        "R5"
+      ]
+    },
+    {
+      "step": 6,
+      "description": "Limit at the FVG's near edge or 50% of the FVG/OB.",
+      "ruleIds": [
+        "R6"
+      ]
+    },
+    {
+      "step": 7,
+      "description": "Stop 2–5 pips/ticks beyond the sweep wick.",
+      "ruleIds": [
+        "R7"
+      ]
+    },
+    {
+      "step": 8,
+      "description": "If the sweep (R1) or MSS (R3) is missing, reject the trade ('inducement trap').",
+      "ruleIds": [
+        "R8"
+      ]
+    }
+  ],
+  "examples": [],
+  "checklist": [
+    {
+      "ruleId": "R1",
+      "question": "Was a higher-timeframe liquidity level swept?"
+    },
+    {
+      "ruleId": "R2",
+      "question": "Was there a displacement candle (≥ 1.5 × ATR)?"
+    },
+    {
+      "ruleId": "R3",
+      "question": "Did a body close break the last swing?"
+    },
+    {
+      "ruleId": "R4",
+      "question": "Was there an FVG at the order block?"
+    },
+    {
+      "ruleId": "R5",
+      "question": "Was the entry in discount (longs) / premium (shorts)?"
+    },
+    {
+      "ruleId": "R6",
+      "question": "Did you enter at the FVG edge or 50%?"
+    },
+    {
+      "ruleId": "R7",
+      "question": "Was the stop just beyond the sweep wick?"
+    },
+    {
+      "ruleId": "R8",
+      "question": "Were both the sweep and the MSS present?"
+    }
+  ],
+  "mistakeTags": [],
+  "creatorClaims": [
+    {
+      "claim": "Win rate 45–58%",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "R:R 1:3–1:5",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "A1",
+      "issue": "Order-block selection is discretionary.",
+      "whyItMatters": "",
+      "questionForTrader": "How will you choose the order block?",
+      "suggestedDefault": null
+    },
+    {
+      "id": "A2",
+      "issue": "Pip/point buffers are not defined for Gold and indices (issue N1).",
+      "whyItMatters": "",
+      "questionForTrader": "For this instrument, how much price is one 'pip' in this strategy's buffers?",
+      "suggestedDefault": "Use the Instrument Registry pip size (Gold: 0.10)."
+    }
+  ],
+  "analystNotes": []
+}

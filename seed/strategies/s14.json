@@ -1,0 +1,295 @@
+{
+  "schemaVersion": "strategy-spec/1.1",
+  "generatedBy": "appendix-a-seed",
+  "source": {
+    "videos": [],
+    "documents": [
+      {
+        "title": "Master AI Trading Agent System Prompt & 20-Strategy + 5-Risk Blueprint",
+        "author": "Founder's research document (generated with Google Gemini)",
+        "date": null,
+        "notes": "Appendix A, S14. Source objectivity rating (unverified): 8/10."
+      }
+    ]
+  },
+  "strategy": {
+    "name": "ICT Silver Bullet & Power of 3",
+    "aliases": [],
+    "summary": "Trade only inside three one-hour New York windows: after a sweep, a structure shift and FVG toward the nearest liquidity target.",
+    "style": "INTRADAY",
+    "methodology": [
+      "SMC/ICT",
+      "time-based"
+    ],
+    "instruments": [
+      "NAS100",
+      "SPX500",
+      "EURUSD",
+      "XAUUSD"
+    ],
+    "timeframes": {
+      "bias": [],
+      "setup": [
+        "1m",
+        "5m",
+        "15m"
+      ],
+      "entry": [
+        "1m"
+      ]
+    },
+    "typicalHoldingTime": null,
+    "typicalTradesPerDay": null
+  },
+  "terms": [],
+  "indicators": [],
+  "sessions": [
+    {
+      "name": "London Silver Bullet",
+      "startTime": "03:00",
+      "endTime": "04:00",
+      "timezoneAsStated": "America/New_York",
+      "utcStart": null,
+      "utcEnd": null,
+      "dstNote": "PKT 13:00–14:00 (US winter) / 12:00–13:00 (US summer)",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "AM Silver Bullet",
+      "startTime": "10:00",
+      "endTime": "11:00",
+      "timezoneAsStated": "America/New_York",
+      "utcStart": null,
+      "utcEnd": null,
+      "dstNote": "PKT 20:00–21:00 (US winter) / 19:00–20:00 (US summer)",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "PM Silver Bullet",
+      "startTime": "14:00",
+      "endTime": "15:00",
+      "timezoneAsStated": "America/New_York",
+      "utcStart": null,
+      "utcEnd": null,
+      "dstNote": "PKT 00:00–01:00 (US winter) / 23:00–00:00 (US summer)",
+      "timestamp": "",
+      "source": "STATED"
+    }
+  ],
+  "rules": [
+    {
+      "id": "R1",
+      "category": "TIME",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Enter only inside 03:00–04:00, 10:00–11:00 or 14:00–15:00 New York time — never before the window opens.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "YES",
+      "requiredData": [
+        "trade history"
+      ],
+      "checklistQuestion": "Was the entry inside a Silver Bullet window?"
+    },
+    {
+      "id": "R2",
+      "category": "CONTEXT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Identify the nearest unswept 15m/1H liquidity pool as the target.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "NO",
+      "requiredData": [
+        "trader checklist"
+      ],
+      "checklistQuestion": "Did you mark the draw on liquidity first?"
+    },
+    {
+      "id": "R3",
+      "category": "ENTRY",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Inside the window: sweep of a short-term high/low, then a 1m/5m MSS + FVG toward the target → limit at the start of the FVG.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was there a sweep, MSS, and FVG inside the window?"
+    },
+    {
+      "id": "R4",
+      "category": "STOP_LOSS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Stop at the displacement swing high/low + 2 ticks.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the stop beyond the displacement swing?"
+    },
+    {
+      "id": "R5",
+      "category": "TAKE_PROFIT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Minimum target: 15–20 handles NQ, 50 points US30, 15–20 pips EURUSD/GBPUSD, or 1:2–1:3.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "YES",
+      "requiredData": [
+        "trade history"
+      ],
+      "checklistQuestion": "Did the target meet the minimum?"
+    },
+    {
+      "id": "R6",
+      "category": "NEWS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "If high-impact news is at 10:00, wait until 10:15 and trade only 10:15–11:00.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "YES",
+      "requiredData": [
+        "trade history"
+      ],
+      "checklistQuestion": "On a 10:00 news day, did you wait until 10:15?"
+    }
+  ],
+  "risk": {
+    "riskPerTradePercent": null,
+    "positionSizingMethod": null,
+    "maxTradesPerDay": null,
+    "dailyLossStop": null,
+    "maxConsecutiveLosses": null,
+    "minRiskReward": null,
+    "notes": ""
+  },
+  "management": {
+    "takeProfitTargets": [],
+    "partialCloses": [],
+    "breakevenRule": null,
+    "trailingRule": null,
+    "timeExitRule": null
+  },
+  "executionFlow": [
+    {
+      "step": 1,
+      "description": "Enter only inside 03:00–04:00, 10:00–11:00 or 14:00–15:00 New York time — never before the window opens.",
+      "ruleIds": [
+        "R1"
+      ]
+    },
+    {
+      "step": 2,
+      "description": "Identify the nearest unswept 15m/1H liquidity pool as the target.",
+      "ruleIds": [
+        "R2"
+      ]
+    },
+    {
+      "step": 3,
+      "description": "Inside the window: sweep of a short-term high/low, then a 1m/5m MSS + FVG toward the target → limit at the start of the FVG.",
+      "ruleIds": [
+        "R3"
+      ]
+    },
+    {
+      "step": 4,
+      "description": "Stop at the displacement swing high/low + 2 ticks.",
+      "ruleIds": [
+        "R4"
+      ]
+    },
+    {
+      "step": 5,
+      "description": "Minimum target: 15–20 handles NQ, 50 points US30, 15–20 pips EURUSD/GBPUSD, or 1:2–1:3.",
+      "ruleIds": [
+        "R5"
+      ]
+    },
+    {
+      "step": 6,
+      "description": "If high-impact news is at 10:00, wait until 10:15 and trade only 10:15–11:00.",
+      "ruleIds": [
+        "R6"
+      ]
+    }
+  ],
+  "examples": [],
+  "checklist": [
+    {
+      "ruleId": "R1",
+      "question": "Was the entry inside a Silver Bullet window?"
+    },
+    {
+      "ruleId": "R2",
+      "question": "Did you mark the draw on liquidity first?"
+    },
+    {
+      "ruleId": "R3",
+      "question": "Was there a sweep, MSS, and FVG inside the window?"
+    },
+    {
+      "ruleId": "R4",
+      "question": "Was the stop beyond the displacement swing?"
+    },
+    {
+      "ruleId": "R5",
+      "question": "Did the target meet the minimum?"
+    },
+    {
+      "ruleId": "R6",
+      "question": "On a 10:00 news day, did you wait until 10:15?"
+    }
+  ],
+  "mistakeTags": [],
+  "creatorClaims": [
+    {
+      "claim": "Win rate 52–62%",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "R:R 1:2–1:3.5",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "A1",
+      "issue": "Pip/point buffers are not defined for Gold and indices (issue N1).",
+      "whyItMatters": "",
+      "questionForTrader": "For this instrument, how much price is one 'pip' in this strategy's buffers?",
+      "suggestedDefault": "Use the Instrument Registry pip size (Gold: 0.10)."
+    }
+  ],
+  "analystNotes": []
+}

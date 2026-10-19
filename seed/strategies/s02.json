@@ -1,0 +1,295 @@
+{
+  "schemaVersion": "strategy-spec/1.1",
+  "generatedBy": "appendix-a-seed",
+  "source": {
+    "videos": [],
+    "documents": [
+      {
+        "title": "Master AI Trading Agent System Prompt & 20-Strategy + 5-Risk Blueprint",
+        "author": "Founder's research document (generated with Google Gemini)",
+        "date": null,
+        "notes": "Appendix A, S2. Source objectivity rating (unverified): 10/10."
+      }
+    ]
+  },
+  "strategy": {
+    "name": "Donchian / Turtle Breakout",
+    "aliases": [],
+    "summary": "Breaks of the 20- or 55-period high/low start big trends; a few large winners pay for many small losses.",
+    "style": "SWING",
+    "methodology": [
+      "breakout",
+      "trend-following"
+    ],
+    "instruments": [
+      "Commodities",
+      "Crypto",
+      "Futures"
+    ],
+    "timeframes": {
+      "bias": [],
+      "setup": [
+        "4H",
+        "1D"
+      ],
+      "entry": [
+        "4H"
+      ]
+    },
+    "typicalHoldingTime": null,
+    "typicalTradesPerDay": null
+  },
+  "terms": [],
+  "indicators": [
+    {
+      "name": "Donchian 20",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "Donchian 55",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "Donchian 10",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "ATR(20) = N",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    }
+  ],
+  "sessions": [],
+  "rules": [
+    {
+      "id": "R1",
+      "category": "ENTRY",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "System 1: buy a break of the 20-period high by 1 tick, only if the previous 20-period breakout was a loser.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the previous 20-period breakout a losing trade?"
+    },
+    {
+      "id": "R2",
+      "category": "ENTRY",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "System 2: if System 1 was skipped, buy the 55-period high break.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "If System 1 was skipped, did you use the 55-period break?"
+    },
+    {
+      "id": "R3",
+      "category": "MANAGEMENT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Add 1 unit every 0.5N in your favour, up to 4 units; move all stops to 2N from the latest entry.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "YES",
+      "requiredData": [
+        "trade history"
+      ],
+      "checklistQuestion": "Did you add units only at +0.5N steps (max 4)?"
+    },
+    {
+      "id": "R4",
+      "category": "STOP_LOSS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Stop-loss 2N from entry.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the stop 2N from entry?"
+    },
+    {
+      "id": "R5",
+      "category": "TAKE_PROFIT",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "Exit at the 10-period low (System 1) or 20-period low (System 2). Short: mirror.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did you exit at the Donchian exit level?"
+    },
+    {
+      "id": "R6",
+      "category": "INVALIDATION",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Turtle Soup filter: if price closes back inside within 2 candles, cut the trade.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did price close back inside the channel within 2 candles?"
+    }
+  ],
+  "risk": {
+    "riskPerTradePercent": null,
+    "positionSizingMethod": null,
+    "maxTradesPerDay": null,
+    "dailyLossStop": null,
+    "maxConsecutiveLosses": null,
+    "minRiskReward": null,
+    "notes": ""
+  },
+  "management": {
+    "takeProfitTargets": [],
+    "partialCloses": [],
+    "breakevenRule": null,
+    "trailingRule": null,
+    "timeExitRule": null
+  },
+  "executionFlow": [
+    {
+      "step": 1,
+      "description": "System 1: buy a break of the 20-period high by 1 tick, only if the previous 20-period breakout was a loser.",
+      "ruleIds": [
+        "R1"
+      ]
+    },
+    {
+      "step": 2,
+      "description": "System 2: if System 1 was skipped, buy the 55-period high break.",
+      "ruleIds": [
+        "R2"
+      ]
+    },
+    {
+      "step": 3,
+      "description": "Add 1 unit every 0.5N in your favour, up to 4 units; move all stops to 2N from the latest entry.",
+      "ruleIds": [
+        "R3"
+      ]
+    },
+    {
+      "step": 4,
+      "description": "Stop-loss 2N from entry.",
+      "ruleIds": [
+        "R4"
+      ]
+    },
+    {
+      "step": 5,
+      "description": "Exit at the 10-period low (System 1) or 20-period low (System 2). Short: mirror.",
+      "ruleIds": [
+        "R5"
+      ]
+    },
+    {
+      "step": 6,
+      "description": "Turtle Soup filter: if price closes back inside within 2 candles, cut the trade.",
+      "ruleIds": [
+        "R6"
+      ]
+    }
+  ],
+  "examples": [],
+  "checklist": [
+    {
+      "ruleId": "R1",
+      "question": "Was the previous 20-period breakout a losing trade?"
+    },
+    {
+      "ruleId": "R2",
+      "question": "If System 1 was skipped, did you use the 55-period break?"
+    },
+    {
+      "ruleId": "R3",
+      "question": "Did you add units only at +0.5N steps (max 4)?"
+    },
+    {
+      "ruleId": "R4",
+      "question": "Was the stop 2N from entry?"
+    },
+    {
+      "ruleId": "R5",
+      "question": "Did you exit at the Donchian exit level?"
+    },
+    {
+      "ruleId": "R6",
+      "question": "Did price close back inside the channel within 2 candles?"
+    }
+  ],
+  "mistakeTags": [],
+  "creatorClaims": [
+    {
+      "claim": "Win rate 32–40%",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "R:R 1:4–1:10",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "A1",
+      "issue": "The 1.5 × volume filter needs real traded volume (V4).",
+      "whyItMatters": "",
+      "questionForTrader": "Do you trade a market with real volume (futures/crypto)?",
+      "suggestedDefault": "Checklist-only on forex/CFD"
+    },
+    {
+      "id": "A2",
+      "issue": "Pyramiding increases exposure.",
+      "whyItMatters": "",
+      "questionForTrader": "Does your prop firm allow 4 units at once?",
+      "suggestedDefault": null
+    }
+  ],
+  "analystNotes": []
+}

@@ -1,0 +1,288 @@
+{
+  "schemaVersion": "strategy-spec/1.1",
+  "generatedBy": "appendix-a-seed",
+  "source": {
+    "videos": [],
+    "documents": [
+      {
+        "title": "Master AI Trading Agent System Prompt & 20-Strategy + 5-Risk Blueprint",
+        "author": "Founder's research document (generated with Google Gemini)",
+        "date": null,
+        "notes": "Appendix A, S3. Source objectivity rating (unverified): 9.5/10."
+      }
+    ]
+  },
+  "strategy": {
+    "name": "Opening Range Breakout (ORB 15/30 min)",
+    "aliases": [],
+    "summary": "Trade a 5-minute close outside the first 15 or 30 minutes' range of the New York stock open, with VWAP and ATR filters.",
+    "style": "INTRADAY",
+    "methodology": [
+      "breakout",
+      "session"
+    ],
+    "instruments": [
+      "NAS100",
+      "US30",
+      "SPX500",
+      "Stocks"
+    ],
+    "timeframes": {
+      "bias": [],
+      "setup": [
+        "5m",
+        "15m",
+        "30m"
+      ],
+      "entry": [
+        "5m"
+      ]
+    },
+    "typicalHoldingTime": null,
+    "typicalTradesPerDay": null
+  },
+  "terms": [],
+  "indicators": [
+    {
+      "name": "VWAP (session)",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    },
+    {
+      "name": "Daily ATR(14)",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    }
+  ],
+  "sessions": [
+    {
+      "name": "Opening range",
+      "startTime": "09:30",
+      "endTime": "10:00",
+      "timezoneAsStated": "America/New_York",
+      "utcStart": null,
+      "utcEnd": null,
+      "dstNote": "18:30 Pakistan time in US summer, 19:30 in US winter",
+      "timestamp": "",
+      "source": "STATED"
+    }
+  ],
+  "rules": [
+    {
+      "id": "R1",
+      "category": "TIME",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Opening range = high/low of 09:30–09:45 (15m) or 09:30–10:00 (30m) New York time.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "YES",
+      "requiredData": [
+        "trade history"
+      ],
+      "checklistQuestion": "Did you enter after the opening range was complete?"
+    },
+    {
+      "id": "R2",
+      "category": "CONTEXT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Range width between 25% and 60% of Daily ATR(14); no trade if the first 15 min moved ≥ 80% of Daily ATR.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the range 25–60% of Daily ATR?"
+    },
+    {
+      "id": "R3",
+      "category": "ENTRY",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "Long: a 5m candle body closes above the range high AND price is above VWAP.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did a 5m body close above the range high, above VWAP?"
+    },
+    {
+      "id": "R4",
+      "category": "ENTRY",
+      "direction": "SHORT",
+      "setupName": "Setup A",
+      "text": "Short: mirror below the range low and below VWAP.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did a 5m body close below the range low, below VWAP?"
+    },
+    {
+      "id": "R5",
+      "category": "STOP_LOSS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Stop at the range midpoint (or the opposite side if the range is tight).",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the stop at the range midpoint?"
+    },
+    {
+      "id": "R6",
+      "category": "TAKE_PROFIT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "TP1 = 1 × range height; TP2 = 2 × range height, or exit by 11:30 New York time.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "YES",
+      "requiredData": [
+        "trade history"
+      ],
+      "checklistQuestion": "Did you exit by 11:30 New York time?"
+    }
+  ],
+  "risk": {
+    "riskPerTradePercent": null,
+    "positionSizingMethod": null,
+    "maxTradesPerDay": null,
+    "dailyLossStop": null,
+    "maxConsecutiveLosses": null,
+    "minRiskReward": null,
+    "notes": ""
+  },
+  "management": {
+    "takeProfitTargets": [],
+    "partialCloses": [],
+    "breakevenRule": null,
+    "trailingRule": null,
+    "timeExitRule": null
+  },
+  "executionFlow": [
+    {
+      "step": 1,
+      "description": "Opening range = high/low of 09:30–09:45 (15m) or 09:30–10:00 (30m) New York time.",
+      "ruleIds": [
+        "R1"
+      ]
+    },
+    {
+      "step": 2,
+      "description": "Range width between 25% and 60% of Daily ATR(14); no trade if the first 15 min moved ≥ 80% of Daily ATR.",
+      "ruleIds": [
+        "R2"
+      ]
+    },
+    {
+      "step": 3,
+      "description": "Long: a 5m candle body closes above the range high AND price is above VWAP.",
+      "ruleIds": [
+        "R3"
+      ]
+    },
+    {
+      "step": 4,
+      "description": "Short: mirror below the range low and below VWAP.",
+      "ruleIds": [
+        "R4"
+      ]
+    },
+    {
+      "step": 5,
+      "description": "Stop at the range midpoint (or the opposite side if the range is tight).",
+      "ruleIds": [
+        "R5"
+      ]
+    },
+    {
+      "step": 6,
+      "description": "TP1 = 1 × range height; TP2 = 2 × range height, or exit by 11:30 New York time.",
+      "ruleIds": [
+        "R6"
+      ]
+    }
+  ],
+  "examples": [],
+  "checklist": [
+    {
+      "ruleId": "R1",
+      "question": "Did you enter after the opening range was complete?"
+    },
+    {
+      "ruleId": "R2",
+      "question": "Was the range 25–60% of Daily ATR?"
+    },
+    {
+      "ruleId": "R3",
+      "question": "Did a 5m body close above the range high, above VWAP?"
+    },
+    {
+      "ruleId": "R4",
+      "question": "Did a 5m body close below the range low, below VWAP?"
+    },
+    {
+      "ruleId": "R5",
+      "question": "Was the stop at the range midpoint?"
+    },
+    {
+      "ruleId": "R6",
+      "question": "Did you exit by 11:30 New York time?"
+    }
+  ],
+  "mistakeTags": [],
+  "creatorClaims": [
+    {
+      "claim": "Win rate 45–55%",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "R:R 1:2–1:3",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "A1",
+      "issue": "VWAP on CFDs depends on broker tick volume (V4).",
+      "whyItMatters": "",
+      "questionForTrader": "Which VWAP source will you use?",
+      "suggestedDefault": "TradingView session VWAP"
+    }
+  ],
+  "analystNotes": []
+}

@@ -1,0 +1,248 @@
+{
+  "schemaVersion": "strategy-spec/1.1",
+  "generatedBy": "appendix-a-seed",
+  "source": {
+    "videos": [],
+    "documents": [
+      {
+        "title": "Master AI Trading Agent System Prompt & 20-Strategy + 5-Risk Blueprint",
+        "author": "Founder's research document (generated with Google Gemini)",
+        "date": null,
+        "notes": "Appendix A, S18. Source objectivity rating (unverified): 9/10."
+      }
+    ]
+  },
+  "strategy": {
+    "name": "Ichimoku Kinko Hyo Cloud",
+    "aliases": [],
+    "summary": "Only A+ setups where price, the future cloud, Tenkan/Kijun and Chikou all agree; trail on the Kijun.",
+    "style": "SWING",
+    "methodology": [
+      "trend-following",
+      "indicator-based"
+    ],
+    "instruments": [
+      "JPY pairs",
+      "XAUUSD",
+      "Crypto",
+      "Stocks"
+    ],
+    "timeframes": {
+      "bias": [],
+      "setup": [
+        "1H",
+        "4H",
+        "1D"
+      ],
+      "entry": [
+        "1H"
+      ]
+    },
+    "typicalHoldingTime": null,
+    "typicalTradesPerDay": null
+  },
+  "terms": [],
+  "indicators": [
+    {
+      "name": "Ichimoku (9, 26, 52)",
+      "settings": {},
+      "purpose": "",
+      "timestamp": "",
+      "source": "STATED"
+    }
+  ],
+  "sessions": [],
+  "rules": [
+    {
+      "id": "R1",
+      "category": "SETUP",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "Price above the cloud; future cloud bullish; Tenkan above Kijun; Chikou in open space.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Were all four Ichimoku conditions bullish?"
+    },
+    {
+      "id": "R2",
+      "category": "ENTRY",
+      "direction": "LONG",
+      "setupName": "Setup A",
+      "text": "Pullback option: buy a touch-and-bounce of a flat Kijun in an established trend.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "PARTLY_SUBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was it a bounce from a flat Kijun?"
+    },
+    {
+      "id": "R3",
+      "category": "STOP_LOSS",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Stop 5 pips beyond a flat Kijun, or the other side of the cloud.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was the stop beyond the Kijun or cloud?"
+    },
+    {
+      "id": "R4",
+      "category": "TAKE_PROFIT",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "Trail along the Kijun until a candle closes beyond it.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Did you exit on a close beyond the Kijun?"
+    },
+    {
+      "id": "R5",
+      "category": "INVALIDATION",
+      "direction": "BOTH",
+      "setupName": "Setup A",
+      "text": "No trade when price is inside the cloud or Chikou is congested.",
+      "parameters": {},
+      "timestamp": "",
+      "source": "STATED",
+      "objectivity": "OBJECTIVE",
+      "measurableVersionSuggestion": null,
+      "measurability": "PARTIAL",
+      "requiredData": [
+        "OHLC market data"
+      ],
+      "checklistQuestion": "Was price outside the cloud?"
+    }
+  ],
+  "risk": {
+    "riskPerTradePercent": null,
+    "positionSizingMethod": null,
+    "maxTradesPerDay": null,
+    "dailyLossStop": null,
+    "maxConsecutiveLosses": null,
+    "minRiskReward": null,
+    "notes": ""
+  },
+  "management": {
+    "takeProfitTargets": [],
+    "partialCloses": [],
+    "breakevenRule": null,
+    "trailingRule": null,
+    "timeExitRule": null
+  },
+  "executionFlow": [
+    {
+      "step": 1,
+      "description": "Price above the cloud; future cloud bullish; Tenkan above Kijun; Chikou in open space.",
+      "ruleIds": [
+        "R1"
+      ]
+    },
+    {
+      "step": 2,
+      "description": "Pullback option: buy a touch-and-bounce of a flat Kijun in an established trend.",
+      "ruleIds": [
+        "R2"
+      ]
+    },
+    {
+      "step": 3,
+      "description": "Stop 5 pips beyond a flat Kijun, or the other side of the cloud.",
+      "ruleIds": [
+        "R3"
+      ]
+    },
+    {
+      "step": 4,
+      "description": "Trail along the Kijun until a candle closes beyond it.",
+      "ruleIds": [
+        "R4"
+      ]
+    },
+    {
+      "step": 5,
+      "description": "No trade when price is inside the cloud or Chikou is congested.",
+      "ruleIds": [
+        "R5"
+      ]
+    }
+  ],
+  "examples": [],
+  "checklist": [
+    {
+      "ruleId": "R1",
+      "question": "Were all four Ichimoku conditions bullish?"
+    },
+    {
+      "ruleId": "R2",
+      "question": "Was it a bounce from a flat Kijun?"
+    },
+    {
+      "ruleId": "R3",
+      "question": "Was the stop beyond the Kijun or cloud?"
+    },
+    {
+      "ruleId": "R4",
+      "question": "Did you exit on a close beyond the Kijun?"
+    },
+    {
+      "ruleId": "R5",
+      "question": "Was price outside the cloud?"
+    }
+  ],
+  "mistakeTags": [],
+  "creatorClaims": [
+    {
+      "claim": "Win rate 45–52%",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    },
+    {
+      "claim": "R:R 1:2.5–1:4",
+      "timestamp": "",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "A1",
+      "issue": "Pip/point buffers are not defined for Gold and indices (issue N1).",
+      "whyItMatters": "",
+      "questionForTrader": "For this instrument, how much price is one 'pip' in this strategy's buffers?",
+      "suggestedDefault": "Use the Instrument Registry pip size (Gold: 0.10)."
+    },
+    {
+      "id": "A2",
+      "issue": "'Flat Kijun' is not defined.",
+      "whyItMatters": "",
+      "questionForTrader": "How many candles flat?",
+      "suggestedDefault": "Unchanged for 5+ candles"
+    }
+  ],
+  "analystNotes": []
+}
