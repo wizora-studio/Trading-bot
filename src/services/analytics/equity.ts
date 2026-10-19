@@ -114,3 +114,49 @@ export function bestDayShare(days: DayBucket[]): { best: Dec; total: Dec; share:
   const best = days.reduce((a, b) => (b.net.gt(a) ? b.net : a), ZERO);
   return { best, total, share: total.gt(0) ? best.div(total) : null };
 }
+
+export interface UnderwaterPeriod {
+  /** Close time of the peak the balance fell from (null = the starting balance). */
+  peakTime: string | null;
+  /** Close time of the trade that reached a new high again, or null if still underwater. */
+  recoveredTime: string | null;
+  /** Deepest money drop below that peak. */
+  depth: Dec;
+  /** Closed trades taken while below the peak. */
+  trades: number;
+}
+
+/**
+ * Every stretch where the closed-trade balance stayed below a previous peak ("underwater").
+ * A trade that only equals the old peak counts as recovery. Closed-trade data only.
+ */
+export function underwaterPeriods(points: EquityPoint[]): UnderwaterPeriod[] {
+  const out: UnderwaterPeriod[] = [];
+  let peak = points[0]?.balance ?? ZERO;
+  let peakTime: string | null = null;
+  let current: UnderwaterPeriod | null = null;
+  for (const p of points.slice(1)) {
+    if (p.balance.gte(peak)) {
+      if (current) {
+        current.recoveredTime = p.time;
+        out.push(current);
+        current = null;
+      }
+      peak = p.balance;
+      peakTime = p.time;
+    } else {
+      current ??= { peakTime, recoveredTime: null, depth: ZERO, trades: 0 };
+      current.trades += 1;
+      if (p.drawdown.gt(current.depth)) current.depth = p.drawdown;
+    }
+  }
+  if (current) out.push(current);
+  return out;
+}
+
+/** Share of the peak you must gain to get back after losing `lossShare` (0.5 → 1, i.e. +100%). Null when the loss is 100% or more. */
+export function gainToRecover(lossShare: string): Dec | null {
+  const l = d(lossShare);
+  if (l.gte(1) || l.lt(0)) return null;
+  return d(1).div(d(1).minus(l)).minus(1);
+}
