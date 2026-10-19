@@ -34,8 +34,11 @@ Status: TODO · DOING · BLOCKED (reason) · DONE (date).
 - `docs/handbook/04-performance-metrics.md` (27 metrics on one golden dataset, each linked to its test).
 - New engine module `advanced.ts` (SQN, skewness, kurtosis, Ulcer, daily returns, Sharpe, Sortino, Calmar, time in market) + "Advanced numbers" on the dashboard.
 
-### T-10 Phase 1 handbook, Module 5 "Expectancy and probability" — TODO
-- Output: `docs/handbook/05-expectancy-and-probability.md`. Spec: `docs/specs/phase-01/module-05.md`.
+### T-10 Phase 1 handbook, Module 5 "Expectancy and probability" — DONE (2026-10-19)
+- `docs/handbook/05-expectancy-and-probability.md` (4 worked examples). New teaching functions in `riskMath.ts`: `breakevenWinRate`, `expectancyFromRates`, `standardError`, `challengeOdds` (exact DP), all tested.
+
+### T-11 Phase 1 handbook, Module 6 "Equity curves and drawdowns" — TODO
+- Output: `docs/handbook/06-equity-curves-and-drawdowns.md`. Spec: `docs/specs/phase-01/module-06.md`.
 
 ### T-04 Online database + login (before the wider beta) — TODO (Q4, costs to be approved)
 - Replace the persistence in `src/store/appStore.ts`/`actions.ts` with server actions (Prisma + PostgreSQL + Better Auth or Supabase Auth). Keep the same action names.

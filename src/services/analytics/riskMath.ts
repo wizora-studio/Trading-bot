@@ -49,3 +49,70 @@ export function kelly(winRate: string, payoff: string): KellyResult {
   const f = w.minus(new Dec(1).minus(w).div(r));
   return { fullKelly: f, quarterKelly: f.div(4), expectancyR, hasEdge: true };
 }
+
+/** Breakeven win rate for a reward-to-risk ratio: 1 ÷ (1 + RRR). Costs are ignored, so the real breakeven is a little higher. */
+export function breakevenWinRate(rrr: string): Dec {
+  const r = d(rrr);
+  if (r.lte(0)) throw new Error("RRR must be above zero");
+  return new Dec(1).div(r.plus(1));
+}
+
+/** Expectancy per trade = win share × average win − loss share × average loss (average loss as a positive number). */
+export function expectancyFromRates(winRate: string, avgWin: string, avgLoss: string): Dec {
+  const w = d(winRate);
+  return w.times(avgWin).minus(new Dec(1).minus(w).times(avgLoss));
+}
+
+/** Standard error of an average: std ÷ √n. It shrinks slowly: 4× more trades only halves it. Null for n < 1. */
+export function standardError(std: string, n: number): Dec | null {
+  if (n < 1) return null;
+  return d(std).div(new Dec(n).sqrt());
+}
+
+export interface ChallengeOdds {
+  /** Chance the target is reached before the loss limit. */
+  pass: number;
+  /** Chance the loss limit is reached first. */
+  fail: number;
+  /** Chance still undecided after `maxTrades` (≈ 0 for realistic inputs). */
+  undecided: number;
+}
+
+/**
+ * Exact odds for a repeated bet with integer outcomes in "units" (e.g. 1 unit = 1% of the account):
+ * win `winUnits` with probability `p`, otherwise lose `lossUnits`, until balance ≥ +target or ≤ −limit.
+ * Dynamic programming over the balance, no simulation. Ignores costs, daily limits and time limits.
+ * Teaching tool for Module 5: the true win rate is never known exactly in real life.
+ */
+export function challengeOdds(
+  p: number,
+  winUnits: number,
+  lossUnits: number,
+  targetUnits: number,
+  limitUnits: number,
+  maxTrades = 100000,
+): ChallengeOdds {
+  let dist = new Map<number, number>([[0, 1]]);
+  let pass = 0;
+  let fail = 0;
+  let left = 1;
+  for (let i = 0; i < maxTrades && left > 1e-12; i++) {
+    const next = new Map<number, number>();
+    for (const [s, pr] of dist) {
+      for (const [delta, q] of [
+        [winUnits, p],
+        [-lossUnits, 1 - p],
+      ] as const) {
+        const t = s + delta;
+        const mass = pr * q;
+        if (t >= targetUnits) pass += mass;
+        else if (t <= -limitUnits) fail += mass;
+        else next.set(t, (next.get(t) ?? 0) + mass);
+      }
+    }
+    dist = next;
+    left = 0;
+    for (const v of dist.values()) left += v;
+  }
+  return { pass, fail, undecided: left };
+}
