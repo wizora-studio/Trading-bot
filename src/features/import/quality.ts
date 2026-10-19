@@ -35,3 +35,12 @@ export function scoreQuality(trades: DraftTrade[], errors: RowError[], extra: { 
   }
   return { score: Math.max(0, Math.round(score)), issues };
 }
+
+/**
+ * Data Quality Score for everything stored in an account (same weights as one import).
+ * Costs are treated as missing when EVERY trade has zero commission, swap and fees (a single zero is normal).
+ */
+export function scoreAccountQuality(trades: DraftTrade[]): DataQuality {
+  const allCostsZero = trades.length >= 5 && trades.every((t) => Number(t.commission) === 0 && Number(t.swap) === 0 && Number(t.fees) === 0);
+  return scoreQuality(trades, [], { missingCommissionColumn: allCostsZero });
+}

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { computeMetrics } from "./metrics";
-import { breakevenWinRate, challengeOdds, expectancyFromRates, fairWalkTargetFirst, kelly, probabilityOfLossRun, standardError } from "./riskMath";
+import { breakevenWinRate, challengeOdds, expectancyFromRates, fairWalkTargetFirst, kelly, probabilityOfLossRun, standardError, expectedFeesToPass, profitSplitShare } from "./riskMath";
 import { mkTrade } from "./testUtils";
 
 /** The numbers printed in docs/handbook/03-risk-management.md. */
@@ -103,5 +103,13 @@ describe("handbook module 5 numbers", () => {
     };
     expect(worst([2, 2, 2, 2, 2, -1, -1, -1, -1, -1])).toEqual({ total: 5, lo: 0 });
     expect(worst([-1, -1, -1, -1, -1, 2, 2, 2, 2, 2])).toEqual({ total: 5, lo: -5 });
+  });
+  it("module 9 arithmetic: fees until a pass, profit split", () => {
+    expect(expectedFeesToPass("100", 0.4)?.toFixed(0)).toBe("250");
+    expect(expectedFeesToPass("100", 0.1)?.toFixed(0)).toBe("1000");
+    expect(expectedFeesToPass("100", 0)).toBeNull();
+    expect(profitSplitShare("1000", "80").toFixed(0)).toBe("800");
+    // a 4% profit with 80% split on a $10,000 account
+    expect(profitSplitShare("400", "80").toFixed(0)).toBe("320");
   });
 });

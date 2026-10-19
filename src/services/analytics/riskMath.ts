@@ -116,3 +116,14 @@ export function challengeOdds(
   }
   return { pass, fail, undecided: left };
 }
+
+/** Average money spent on challenge fees before one pass, if each attempt passes with probability `passProb` (geometric: fee ÷ p). Null when p is not above zero. */
+export function expectedFeesToPass(fee: string, passProb: number): Dec | null {
+  if (!(passProb > 0) || passProb > 1) return null;
+  return d(fee).div(passProb);
+}
+
+/** Trader's share of a profit under a profit split given as a percentage (80 → 80%). */
+export function profitSplitShare(profit: string, splitPct: string): Dec {
+  return d(profit).times(d(splitPct)).div(100);
+}

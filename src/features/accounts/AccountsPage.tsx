@@ -10,6 +10,7 @@ import { type DictKey, useT } from "@/i18n";
 import { deleteAccount, removeSampleData, selectAccount, updateAccount } from "@/store/actions";
 import { useApp } from "@/store/appStore";
 import { AccountForm } from "./AccountForm";
+import { AccountQuality } from "./AccountQuality";
 
 /** Accounts Page: list with type badges (Normal / Funded / Backtest), create, rename, archive, delete. */
 export function AccountsPage() {
@@ -60,6 +61,7 @@ export function AccountsPage() {
                 {a.archived && <Badge tone="dashed">{t("archived")}</Badge>}
               </div>
             </div>
+            <AccountQuality trades={trades.filter((x) => x.accountId === a.id)} currency={a.baseCurrency} />
             <div className="mt-3 flex flex-wrap gap-2">
               <Button size="sm" variant={a.id === selected ? "primary" : "secondary"} onClick={() => selectAccount(a.id)}>
                 {a.id === selected ? t("selected") : t("select")}

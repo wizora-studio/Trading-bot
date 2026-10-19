@@ -16,8 +16,8 @@
 | Pages: Dashboard, Trades (explorer + drawer), Strategies (cards, Read-Back, Gemini import, compare, activation), Funded (preset / free-text intake → Read-Back → confirm → rule board), My rules, Trading room, Trade planner (Trade Ticket), Daily journal, Charts (TradingView widget), Tools (position size + free prop firm calculator), Import, Accounts, Learn, Settings (profile, backup, delete) | Done | `src/features/*`, `src/app/*` |
 | English UI (all copy in one dictionary; Roman Urdu removed at the founder's request, D-024) | Done | `src/i18n/` |
 | 20 Appendix A strategies as Draft seed specs (strategy-spec/1.1) | Done | `src/features/strategies/seeds.ts` |
-| Seed specs as JSON (`seed/strategies/`), component gallery (`/dev/components`, dev only), Handbook Modules 1–5 (`docs/handbook/`) | Done | |
-| Tests: 143 unit tests, 4 E2E flows, screenshot gate at 375/768/1280 light+dark | Passing | `npm test`, `npm run e2e`, `npm run screens` |
+| Seed specs as JSON (`seed/strategies/`), component gallery (`/dev/components`, dev only), Handbook Modules 1–10 + data dependency matrix + concept checklist (`docs/handbook/`) | Done | |
+| Tests: 187 unit tests, 4 E2E flows, screenshot gate at 375/768/1280 light+dark | Passing | `npm test`, `npm run e2e`, `npm run screens` |
 
 ## Not built (Backlog, by design)
 AI reports and AI chat, Monte Carlo / challenge simulator, broker sync, cTrader/Match-Trader/TradeLocker/DXtrade parsers, billing, mentor sharing, PDF reports, OHLC backtesting, Chrome extension, online database + login. See `docs/BACKLOG.md`.
@@ -27,7 +27,7 @@ AI reports and AI chat, Monte Carlo / challenge simulator, broker sync, cTrader/
 - Data lives in one browser; use Settings → Export backup to move or keep it.
 - Drawdown and funded checks use closed trades only; floating equity is not in trade files.
 - Live prices are not used anywhere; ATR and news are typed by the user.
-- Phase 1 handbook: Modules 1–5 written; Modules 6–10 still to do (Learn page has 8 short lessons).
+- Phase 1 handbook complete (Modules 1–10). Learn page still has 8 short lessons. Statistical tests (`statistics.ts`) and news-window holding have engine code and tests but no screen yet.
 
 ## Next
 1. Founder: follow `docs/SETUP.md`, open the app, load sample data, then import a real TradingView paper file.

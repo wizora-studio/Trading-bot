@@ -37,8 +37,13 @@ Status: TODO · DOING · BLOCKED (reason) · DONE (date).
 ### T-10 Phase 1 handbook, Module 5 "Expectancy and probability" — DONE (2026-10-19)
 - `docs/handbook/05-expectancy-and-probability.md` (4 worked examples). New teaching functions in `riskMath.ts`: `breakevenWinRate`, `expectancyFromRates`, `standardError`, `challengeOdds` (exact DP), all tested.
 
-### T-11 Phase 1 handbook, Module 6 "Equity curves and drawdowns" — TODO
-- Output: `docs/handbook/06-equity-curves-and-drawdowns.md`. Spec: `docs/specs/phase-01/module-06.md`.
+### T-11 … T-15 Phase 1 handbook, Modules 6–10 — DONE (2026-10-19)
+- Module 6 `06-equity-curves-and-drawdowns.md` + `underwaterPeriods`, `gainToRecover` (`equity.ts`).
+- Module 7 `07-statistical-reliability.md` + `statistics.ts` (t-test, runs test, seeded shuffle/bootstrap drawdown, Bonferroni, Benjamini–Hochberg).
+- Module 8 `08-trading-psychology-and-rule-compliance.md` + `behavior.ts` + "Observed patterns" section on My rules.
+- Module 9 `09-how-prop-firms-work.md` (neutral; platform-migration sources cited) + fee/profit-split helpers.
+- Module 10 `10-data-quality.md` + per-account Data Quality Score and metric coverage on the Accounts page.
+- Phase 1 deliverables: `docs/handbook/README.md`, `DATA_DEPENDENCY_MATRIX.md`, `CONCEPT_TO_REQUIREMENT_CHECKLIST.md`.
 
 ### T-04 Online database + login (before the wider beta) — TODO (Q4, costs to be approved)
 - Replace the persistence in `src/store/appStore.ts`/`actions.ts` with server actions (Prisma + PostgreSQL + Better Auth or Supabase Auth). Keep the same action names.
